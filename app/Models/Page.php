@@ -16,8 +16,8 @@ class Page extends Model
         'meta_description',
         'meta_keywords',
         'hero_title',
-        'hero_subtitle', // Add this
-        'hero_subtitle_icon', // Add this
+        'hero_subtitle',
+        'hero_subtitle_icon',
         'hero_description',
         'hero_button_text',
         'hero_button_url',
@@ -25,10 +25,12 @@ class Page extends Model
         'hero_background_image',
         'hero_foreground_image',
         'features',
+        'about_us_sections',
         'content',
     ];
 
     protected $casts = [
-        'features' => 'array', // Keep this or add if not already defined.  Important for the repeater.
+        'features' => 'array',
+        'about_us_sections' => 'array',
     ];
 }

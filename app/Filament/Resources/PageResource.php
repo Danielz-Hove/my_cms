@@ -16,7 +16,9 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
-use Filament\Tables\Columns\ImageColumn; // Import ImageColumn
+use Filament\Forms\Components\Group;
+use Filament\Forms\Get;
+use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Support\Str;
 
 class PageResource extends Resource
@@ -118,6 +120,89 @@ class PageResource extends Resource
                             ->collapsed()
                             ->reorderable()
                             ->itemLabel(fn (array $state): ?string => $state['title'] ?? null),
+                    ]),
+                Section::make('About Us Sections')
+                    ->schema([
+                        Repeater::make('about_us_sections')
+                            ->label('About Us Sections')
+                            ->schema([
+                                Forms\Components\Select::make('type')
+                                    ->options([
+                                        'about_us_main' => 'Main About Us Section',
+                                    ])
+                                    ->default('about_us_main')
+                                    ->required()
+                                    ->live(),
+
+                                Forms\Components\Group::make()
+                                    ->schema([
+                                        TextInput::make('about_us_subheading')
+                                            ->label('Subheading')
+                                            ->maxLength(255),
+                                        TextInput::make('about_us_title')
+                                            ->label('Title')
+                                            ->maxLength(255),
+                                        Textarea::make('about_us_description')
+                                            ->label('Description')
+                                            ->rows(3),
+
+                                        Repeater::make('ceo_founder_sections')
+                                            ->label('Features-About Us')
+                                            ->schema([
+                                                FileUpload::make('ceo_founder_image')
+                                                    ->label('image')
+                                                    ->image()
+                                                    ->directory('page-images'),
+                                                TextInput::make('ceo_founder_heading')
+                                                    ->label('Heading'),
+                                                TextInput::make('ceo_founder_paragraph')
+                                                    ->label('Paragraph'),
+                                            ])
+                                            ->columns(1)
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn (array $state): ?string => $state['ceo_founder_heading'] ?? null),
+
+                                          Repeater::make('additional_about_us_icons')
+                                            ->label('Icon List')
+                                            ->schema([
+                                                FileUpload::make('icon')
+                                                    ->label('Icon/Image')
+                                                    ->image()
+                                                    ->directory('page-images'),
+                                                TextInput::make('text')
+                                                    ->label('Text'),
+                                            ])
+                                            ->columns(2)
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn (array $state): ?string => $state['text'] ?? null),
+
+                                        FileUpload::make('about_us_meeting_image')
+                                            ->label('Section Image')
+                                            ->image()
+                                            ->directory('page-images'),
+                                        Group::make()
+                                            ->schema([
+                                                TextInput::make('experience_years')
+                                                    ->label('Counter')
+                                                    ->numeric(),
+                                                TextInput::make('experience_text')
+                                                    ->label('Text')
+                                                    ->maxLength(255),
+                                                Textarea::make('experience_description')
+                                                    ->label('Additional Text')
+                                                    ->rows(2),
+                                            ])
+                                    ])
+                                    ->visible(fn (Get $get): bool => $get('type') === 'about_us_main'), // Show only when type is main
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->reorderable()
+                            ->itemLabel(fn (array $state): ?string => $state['about_us_title'] ?? null),
                     ]),
                 Section::make('Content')
                     ->schema([
