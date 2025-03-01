@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
@@ -24,13 +25,13 @@ class Page extends Model
         'hero_video_url',
         'hero_background_image',
         'hero_foreground_image',
-        'features',
-        'about_us_sections',
         'content',
+        'features_headline',
+        'features_subheading',
     ];
 
-    protected $casts = [
-        'features' => 'array',
-        'about_us_sections' => 'array',
-    ];
+    public function tabbedFeatures(): HasMany
+    {
+        return $this->hasMany(TabbedFeature::class);
+    }
 }
