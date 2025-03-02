@@ -560,6 +560,51 @@ class PageResource extends Resource
                                             ->nullable(),
                                     ]),
                             ]),
+                        Tab::make('Contact Section')
+                            ->schema([
+                                Section::make('Contact Information')
+                                    ->schema([
+                                        TextInput::make('contact_title')
+                                            ->label('Title')
+                                            ->maxLength(255)
+                                            ->default('Contact') // Set default title
+                                            ->nullable(),
+                                        Textarea::make('contact_subtitle')
+                                            ->label('Sub title')
+                                            ->rows(2)
+                                            ->nullable(),
+                                        TextInput::make('contact_sidebar_title')
+                                            ->label('Side bar title')
+                                            ->maxLength(255)
+                                            ->nullable(),
+                                        Textarea::make('contact_paragraph')
+                                            ->label('Paragraph')
+                                            ->rows(3)
+                                            ->nullable(),
+                                        Repeater::make('contact_features')
+                                            ->label('Features')
+                                            ->schema([
+                                                FileUpload::make('icon')
+                                                    ->label('Icon')
+                                                    ->image()
+                                                    ->directory('page-images')
+                                                    ->nullable(),
+                                                TextInput::make('heading')
+                                                    ->label('Heading')
+                                                    ->maxLength(255)
+                                                    ->nullable(),
+                                                Textarea::make('description')
+                                                    ->label('Description')
+                                                    ->rows(2)
+                                                    ->nullable(),
+                                            ])
+                                            ->columns(3)
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn(array $state): ?string => $state['heading'] ?? null),
+                                    ]),
+                            ]),
                     ])
                     ->columnSpanFull(),
             ]);
