@@ -22,9 +22,20 @@ class Page extends Model
 
     protected $casts = [
         'client_logos' => 'array', //or 'json' depending on your requirements
+        'testimonials' => 'array',
+        'statistics' => 'array',
     ];
     public function tabbedFeatures(): HasMany  // This is the crucial part!
     {
         return $this->hasMany(TabbedFeature::class);
+    }
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class);
+    }
+
+    public function statistics(): HasMany
+    {
+        return $this->hasMany(Statistic::class);
     }
 }
