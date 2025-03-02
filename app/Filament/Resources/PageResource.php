@@ -284,6 +284,41 @@ class PageResource extends Resource
                                         ->columnSpan('full'),
                                 ]),
                         ]),
+                    Tab::make('Call To Action & Clients')  // New Tab
+                        ->schema([
+                            Section::make('Call to Action Section (Blue Background)')
+                                ->schema([
+                                    TextInput::make('cta_headline')
+                                        ->label('Headline')
+                                        ->maxLength(255),
+                                    Textarea::make('cta_description')
+                                        ->label('Description')
+                                        ->rows(3),
+                                    TextInput::make('cta_button_text')
+                                        ->label('Call To Action Button Text')
+                                        ->maxLength(255),
+                                    TextInput::make('cta_button_url')
+                                        ->label('Call To Action Button URL')
+                                        ->url()
+                                        ->nullable(),
+                                ]),
+
+                            Section::make('Client Logos Section')
+                                ->schema([
+                                    Repeater::make('client_logos')
+                                        ->label('Client Logos')
+                                        ->schema([
+                                            FileUpload::make('logo')
+                                                ->label('Client Logo')
+                                                ->image()
+                                                ->directory('page-images'),
+                                        ])
+                                        ->columns(2)
+                                        ->collapsible()
+                                        ->collapsed()
+                                        ->reorderable(),
+                                ]),
+                        ]),
                 ])
                 ->columnSpanFull(),
         ]);
