@@ -21,4 +21,7 @@ class CallToActionClientsSection extends Model
         'cta_button_url',
         'client_logos', // Store Client Logos as JSON, you may want to create individual models for that
     ];
+    protected $casts = [
+        'client_logos' => 'array',  // <--- THIS IS CRITICAL!
+    ];
 }

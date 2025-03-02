@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('call_to_action_clients_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index();
+            $table->string('page_slug')->index()->nullable(); // Add ->nullable() here
             $table->string('page_title')->nullable();
             $table->enum('page_status', ['draft', 'published'])->default('draft');
             $table->text('page_meta_description')->nullable();

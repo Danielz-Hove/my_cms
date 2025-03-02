@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FeaturesSectionResource\Pages;
-use App\Models\FeaturesSection;
+use App\Models\FeaturesSection; // Ensure this class exists in the specified namespace
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +14,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater; // Import Repeater Component
+
 
 class FeaturesSectionResource extends Resource
 {
@@ -51,20 +53,33 @@ class FeaturesSectionResource extends Resource
                             ->label('Meta Keywords')
                             ->maxLength(255),
                     ]),
+
                 Section::make('Features Section Content')
                     ->schema([
-                        TextInput::make('feature_title')
-                            ->label('Feature Title')
-                            ->maxLength(255),
-                        Textarea::make('description')
-                            ->label('Description')
-                            ->rows(2)
-                            ->nullable(),
-                        FileUpload::make('icon')
-                            ->label('Icon/Image')
-                            ->image()
-                            ->directory('page-images')
-                            ->nullable(),
+                        Repeater::make('features') // Changed name to 'features' (plural)
+                            ->label('Features') // Label for the Repeater
+                            ->schema([
+                                FileUpload::make('icon')
+                                    ->label('Icon')
+                                    ->image()
+                                    ->directory('feature-icons')
+                                    ->nullable(),
+                                TextInput::make('heading')
+                                    ->label('Heading')
+                                    ->maxLength(255)
+                                    ->required(), // Add validation as needed
+                                Textarea::make('text')
+                                    ->label('Text')
+                                    ->rows(2)
+                                    ->nullable(),
+                            ])
+                            ->columns(3) // Adjust the number of columns as desired
+                            ->collapsible() // Optional: Make each repeater item collapsible
+                            ->collapsed(true) // Optional: Make the repeater items collapsed by default
+                            ->reorderable()    // Optional: Allow reordering of items
+                            ->defaultItems(1),  // Optional:  Start with one item
+                            //->minItems(1)    // Optional: Minimum number of items allowed
+
                     ]),
             ]);
     }
@@ -74,7 +89,7 @@ class FeaturesSectionResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('page_slug')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('feature_title')->sortable()->searchable(),
+               // Tables\Columns\TextColumn::make('feature_title')->sortable()->searchable(), // Removed this - no longer directly on the FeaturesSection model
                 // Add other relevant columns
             ])
             ->filters([

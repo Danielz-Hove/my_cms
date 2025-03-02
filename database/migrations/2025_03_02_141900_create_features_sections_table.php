@@ -4,32 +4,24 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateFeaturesSectionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
         Schema::create('features_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index();
-            $table->string('page_title')->nullable();
-            $table->enum('page_status', ['draft', 'published'])->default('draft');
+            $table->string('page_slug');
+            $table->string('page_title');
+            $table->string('page_status')->default('draft');
             $table->text('page_meta_description')->nullable();
             $table->string('page_meta_keywords')->nullable();
-            $table->string('feature_title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable();
+            $table->json('features')->nullable(); // Use json data type!
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('features_sections');
     }
-};
+}

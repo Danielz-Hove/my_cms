@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TestimonialsStatisticsSectionResource\Pages;
 use App\Models\TestimonialsStatisticsSection;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -14,12 +15,18 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class TestimonialsStatisticsSectionResource extends Resource
 {
     protected static ?string $model = TestimonialsStatisticsSection::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right'; // Choose an appropriate icon
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+
+    //protected static ?string $navigationGroup = 'Content'; // Optional: Group in the navigation
+
+    protected static ?string $navigationLabel = 'Testimonials & Stats'; // Optional: Custom label
 
     public static function form(Form $form): Form
     {
@@ -30,7 +37,8 @@ class TestimonialsStatisticsSectionResource extends Resource
                         TextInput::make('page_slug')
                             ->label('Page Slug')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true), // Ensure unique slug
                         TextInput::make('page_title')
                             ->label('Page Title')
                             ->required()
@@ -51,32 +59,80 @@ class TestimonialsStatisticsSectionResource extends Resource
                             ->label('Meta Keywords')
                             ->maxLength(255),
                     ]),
+
                 Section::make('Testimonials & Statistics Section Content')
                     ->schema([
-                        // Add all the form fields for the Testimonials & Statistics Section
-                        // Example for Testimonials:
-                        TextInput::make('testimonial_title')
-                            ->label('Testimonial Title')
+                        TextInput::make('title')
+                            ->label('Section Title')
                             ->maxLength(255)
+                            ->required(),
+
+                        Textarea::make('subtext')
+                            ->label('Section Subtext')
+                            ->rows(2)
                             ->nullable(),
-                        Textarea::make('testimonial_paragraph')
-                            ->label('Testimonial Paragraph')
-                            ->rows(3)
-                            ->nullable(),
-                        FileUpload::make('testimonial_icon')
-                            ->label('Testimonial Icon')
-                            ->image()
-                            ->directory('page-images')
-                            ->nullable(),
-                        // Example for Statistics:
-                        TextInput::make('statistic_number')
-                            ->label('Statistic Number')
-                            ->numeric()
-                            ->nullable(),
-                        TextInput::make('statistic_text')
-                            ->label('Statistic Text')
-                            ->maxLength(255)
-                            ->nullable(),
+
+                        Repeater::make('testimonials')
+                            ->label('Testimonials')
+                            ->schema([
+                                FileUpload::make('image')
+                                    ->label('Testimonial Image')
+                                    ->image()
+                                    ->directory('testimonial-images')
+                                    ->imageEditor()
+                                    ->nullable(),
+
+                                TextInput::make('testimonial_title')
+                                    ->label('Testimonial Title')
+                                    ->maxLength(255)
+                                    ->required(),
+
+                                Select::make('star_rating')  // Use the imported Rating Component
+                                    ->label('Star Rating')
+                                    ->options([
+                                        '1' => '1 Star',
+                                        '2' => '2 Stars',
+                                        '3' => '3 Stars',
+                                        '4' => '4 Stars',
+                                        '5' => '5 Stars',
+                                    ])
+                                    ->default('5')
+                                    ->required(),
+
+                                Textarea::make('paragraph')
+                                    ->label('Testimonial Paragraph')
+                                    ->rows(3)
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->collapsible()
+                            ->itemLabel(fn (array $state): ?string => $state['testimonial_title'] ?? null)
+                            ->reorderable()
+                            ->cloneable()
+                            ->deletable()
+                            ->addable(),
+                    ]),
+
+
+                Section::make('Statistics')
+                    ->schema([
+                        Repeater::make('statistics')
+                            ->schema([
+                                TextInput::make('statistic_number')
+                                    ->label('Statistic Number')
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(0)
+                                    ->maxValue(999999),  // Example range
+                                TextInput::make('statistic_text')
+                                    ->label('Statistic Text')
+                                    ->maxLength(255)
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->collapsible()
+                            ->itemLabel(fn (array $state): ?string => $state['statistic_text'] ?? null),
+
                     ]),
             ]);
     }
@@ -85,10 +141,20 @@ class TestimonialsStatisticsSectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('page_slug')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('testimonial_title')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('statistic_number')->sortable(),
-                // Add other relevant columns
+                TextColumn::make('page_slug')->sortable()->searchable(),
+                TextColumn::make('page_title')->sortable()->searchable(),
+
+                // Example displaying first testimonial's author
+                TextColumn::make('testimonials.0.testimonial_title')
+                    ->label('First Testimonial Title')
+                    ->sortable()
+                    ->searchable(),
+                 ImageColumn::make('testimonials.0.image')->label('First Testimonial Image'),
+                // Example displaying first statistic's number
+                TextColumn::make('statistics.0.statistic_number')
+                    ->label('First Statistic')
+                    ->sortable(),
+
             ])
             ->filters([
                 //

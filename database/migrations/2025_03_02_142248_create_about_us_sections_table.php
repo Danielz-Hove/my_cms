@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('about_us_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index();
-            $table->string('page_title')->nullable();
-            $table->enum('page_status', ['draft', 'published'])->default('draft');
+            $table->string('page_slug')->unique();
+            $table->string('page_title');
+            $table->string('page_status')->default('draft');
             $table->text('page_meta_description')->nullable();
             $table->string('page_meta_keywords')->nullable();
             $table->string('about_us_subheading')->nullable();
@@ -25,6 +25,8 @@ return new class extends Migration
             $table->integer('experience_years')->nullable();
             $table->string('experience_text')->nullable();
             $table->text('experience_description')->nullable();
+            $table->json('about_us_features')->nullable();
+            $table->json('about_us_iconlist')->nullable(); // Add this line
             $table->timestamps();
         });
     }

@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class TestimonialsStatisticsSection extends Model
 {
-    use HasFactory;
+    protected $table = 'testimonials_statistics_sections'; // Explicitly define the table name (optional, but good practice)
 
     protected $fillable = [
         'page_slug',
@@ -15,10 +14,14 @@ class TestimonialsStatisticsSection extends Model
         'page_status',
         'page_meta_description',
         'page_meta_keywords',
-        'testimonial_title',
-        'testimonial_paragraph',
-        'testimonial_icon',
-        'statistic_number',
-        'statistic_text',
+        'title', // added
+        'subtext',  // added
+        'testimonials',
+        'statistics',
+    ];
+
+    protected $casts = [
+        'testimonials' => 'array', // Cast the 'testimonials' column to an array
+        'statistics'  => 'array', // Cast the 'statistics' column to an array
     ];
 }

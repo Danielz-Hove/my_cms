@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('testimonials_statistics_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index();
-            $table->string('page_title')->nullable();
-            $table->enum('page_status', ['draft', 'published'])->default('draft');
+            $table->string('page_slug')->unique(); // Unique slug for the page
+            $table->string('page_title');
+            $table->string('page_status')->default('draft');
             $table->text('page_meta_description')->nullable();
             $table->string('page_meta_keywords')->nullable();
-            $table->string('testimonial_title')->nullable();
-            $table->text('testimonial_paragraph')->nullable();
-            $table->string('testimonial_icon')->nullable();
-            $table->integer('statistic_number')->nullable();
-            $table->string('statistic_text')->nullable();
+            $table->string('title'); // Add this line
+            $table->text('subtext')->nullable(); // Add this line
+            $table->json('testimonials')->nullable(); // Store testimonials as JSON array
+            $table->json('statistics')->nullable(); // Store statistics as JSON array
             $table->timestamps();
         });
     }

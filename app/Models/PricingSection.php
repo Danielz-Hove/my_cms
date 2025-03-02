@@ -19,4 +19,7 @@ class PricingSection extends Model
         'pricing_subtext',
         'pricing_plans'
     ];
+    protected $casts = [
+        'pricing_plans' => 'array',
+    ];
 }

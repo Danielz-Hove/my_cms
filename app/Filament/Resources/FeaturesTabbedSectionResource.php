@@ -13,12 +13,18 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\FileUpload; // Import FileUpload
+use Illuminate\Support\Str; // Import the Str class for slug generation
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select as FormSelect; //Prevent naming conflict with Tables\Columns\Select
 
 class FeaturesTabbedSectionResource extends Resource
 {
     protected static ?string $model = FeaturesTabbedSection::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-table-cells'; // Choose an appropriate icon
+    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     public static function form(Form $form): Form
     {
@@ -29,11 +35,16 @@ class FeaturesTabbedSectionResource extends Resource
                         TextInput::make('page_slug')
                             ->label('Page Slug')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true)
+                            ->afterStateUpdated(fn (callable $set, $state) => $set('page_slug', Str::slug($state)))
+                            ->reactive(),
                         TextInput::make('page_title')
                             ->label('Page Title')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->afterStateUpdated(fn (callable $set, $state) => $set('page_slug', Str::slug($state)))
+                            ->reactive(),
                         Select::make('page_status')
                             ->label('Page Status')
                             ->options([
@@ -60,24 +71,48 @@ class FeaturesTabbedSectionResource extends Resource
                             ->label('Subheading')
                             ->rows(2)
                             ->nullable(),
-                        // Add all the form fields for the Tabbed Features Section
-                        // For Example:
-                        TextInput::make('tab_1_title')
-                            ->label('Tab 1 Title')
-                            ->maxLength(255)
-                            ->nullable(),
-                        Textarea::make('tab_1_content')
-                            ->label('Tab 1 Content')
-                            ->rows(3)
-                            ->nullable(),
-                        TextInput::make('tab_2_title')
-                            ->label('Tab 2 Title')
-                            ->maxLength(255)
-                            ->nullable(),
-                        Textarea::make('tab_2_content')
-                            ->label('Tab 2 Content')
-                            ->rows(3)
-                            ->nullable(),
+
+                        Repeater::make('tabs')
+                            ->schema([
+                                TextInput::make('title')
+                                    ->label('Tab Title')
+                                    ->required()
+                                    ->maxLength(255),
+                                TextInput::make('subtitle') // Added Subtitle
+                                    ->label('Tab Subtitle')
+                                    ->maxLength(255)
+                                    ->nullable(),
+                                MarkdownEditor::make('content')
+                                    ->label('Tab Content')
+                                    ->columnSpanFull(),
+                                FileUpload::make('image')
+                                    ->label('Tab Image')
+                                    ->image() // Optional: only allow images
+                                    ->directory('tab-images') // Optional: directory for uploads
+                                    ->columnSpanFull(),
+
+                                Repeater::make('icon_list') // Nested Repeater for Icon List
+                                    ->label('Icon List')
+                                    ->schema([
+                                        FormSelect::make('icon')  //Added FormSelect here to prevent the naming conflict
+                                            ->label('Icon')
+                                            ->options([
+                                                'heroicon-o-check-circle' => 'Check Circle',
+                                                'heroicon-o-star'         => 'Star',
+                                                'heroicon-o-heart'        => 'Heart',
+                                                // Add more icon options here
+                                            ])
+                                            ->searchable(),
+                                        TextInput::make('text')
+                                            ->label('Text')
+                                            ->required()
+                                            ->maxLength(255),
+                                    ])
+                                    ->columns(2) // Adjust columns as needed for icon/text layout
+                                    ->addActionLabel('Add Icon'),
+                            ])
+                            ->columns(1)  // Display fields in a single column within each repeater item
+                            ->addActionLabel('Add Tab'),
                     ]),
             ]);
     }
@@ -86,9 +121,11 @@ class FeaturesTabbedSectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('page_slug')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('features_headline')->sortable()->searchable(),
-                // Add other relevant columns
+                TextColumn::make('page_slug')->sortable()->searchable(),
+                TextColumn::make('page_title')->sortable()->searchable(),
+                TextColumn::make('features_headline')->sortable()->searchable(),
+                TextColumn::make('page_status')->sortable(),
+                TextColumn::make('page_meta_description')->limit(50),
             ])
             ->filters([
                 //

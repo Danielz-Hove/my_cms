@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('page_meta_keywords')->nullable();
             $table->string('features_headline')->nullable();
             $table->text('features_subheading')->nullable();
+            $table->json('tabs')->nullable(); // Added JSON column for tabs
+
             $table->timestamps();
         });
     }
