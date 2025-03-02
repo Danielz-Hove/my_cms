@@ -304,7 +304,7 @@ class PageResource extends Resource
                                             ->columnSpan('full'),
                                     ]),
                             ]),
-                        Tab::make('Call To Action & Clients')  // New Tab
+                        Tab::make('Call To Action & Clients')
                             ->schema([
                                 Section::make('Call to Action Section (Blue Background)')
                                     ->schema([
@@ -512,6 +512,52 @@ class PageResource extends Resource
                                             ->collapsed()
                                             ->reorderable()
                                             ->itemLabel(fn(array $state): ?string => $state['plan_heading'] ?? null),
+                                    ]),
+                            ]),
+                        Tab::make('FAQ')
+                            ->schema([
+                                Section::make('FAQ Section')
+                                    ->schema([
+                                        TextInput::make('faq_section_heading')
+                                            ->label('Section Heading')
+                                            ->maxLength(255)
+                                            ->nullable(),
+                                        Textarea::make('faq_short_description')
+                                            ->label('Short Description')
+                                            ->rows(2)
+                                            ->nullable(),
+                                        Repeater::make('faq_accordion')
+                                            ->label('FAQ Accordion')
+                                            ->schema([
+                                                TextInput::make('question_title')
+                                                    ->label('Question Title')
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                Textarea::make('answer_text')
+                                                    ->label('Answer Text')
+                                                    ->rows(3)
+                                                    ->required(),
+                                            ])
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn(array $state): ?string => $state['question_title'] ?? null),
+                                    ]),
+
+                                Section::make('Call To Action Section - FAQ')
+                                    ->schema([
+                                        Textarea::make('faq_cta_short_description')
+                                            ->label('Short Description')
+                                            ->rows(2)
+                                            ->nullable(),
+                                        TextInput::make('faq_cta_button_text')
+                                            ->label('Call To Action Button Text')
+                                            ->maxLength(255)
+                                            ->nullable(),
+                                        TextInput::make('faq_cta_button_url')
+                                            ->label('Call To Action Button URL')
+                                            ->url()
+                                            ->nullable(),
                                     ]),
                             ]),
                     ])

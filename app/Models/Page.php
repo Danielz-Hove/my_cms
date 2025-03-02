@@ -42,6 +42,12 @@ class Page extends Model
         'pricing_subtext',
         'pricing_plans',
         'about_us_sections',
+        'faq_section_heading',
+        'faq_short_description',
+        'faq_accordion',
+        'faq_cta_short_description',
+        'faq_cta_button_text',
+        'faq_cta_button_url',
     ];
 
     protected $casts = [
@@ -50,6 +56,7 @@ class Page extends Model
         'service_cards' => 'array',
         'pricing_plans' => 'array',
         'about_us_sections' => 'array',
+        'faq_accordion' => 'array', // Add this line
     ];
 
     public function tabbedFeatures(): HasMany
