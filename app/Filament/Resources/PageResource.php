@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
 use App\Models\Page;
-use App\Models\TabbedFeature;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -18,18 +17,12 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Get;
-use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Set;
-use Illuminate\Support\Facades\Storage;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Select as FormsSelect; // Added alias to avoid naming conflicts.
-
-use App\Models\Testimonial;
-use App\Models\Statistic;
+use Filament\Forms\Get;
+use Filament\Tables\Columns\ImageColumn;
 
 class PageResource extends Resource
 {
@@ -90,10 +83,12 @@ class PageResource extends Resource
                                             ->nullable(), // Optional icon
                                         Textarea::make('hero_description')
                                             ->label('Brief Description')
-                                            ->rows(3),
+                                            ->rows(3)
+                                            ->nullable(),
                                         TextInput::make('hero_button_text')
                                             ->label('Button Text')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->nullable(),
                                         TextInput::make('hero_button_url')
                                             ->label('Button URL')
                                             ->url()
@@ -105,11 +100,13 @@ class PageResource extends Resource
                                         FileUpload::make('hero_background_image')
                                             ->label('Background Image')
                                             ->image()
-                                            ->directory('page-images'),
+                                            ->directory('page-images')
+                                            ->nullable(),
                                         FileUpload::make('hero_foreground_image')
                                             ->label('Foreground Image')
                                             ->image()
-                                            ->directory('page-images'),
+                                            ->directory('page-images')
+                                            ->nullable(),
                                     ]),
                             ]),
                         Tab::make('Features Hero Section')
@@ -121,15 +118,16 @@ class PageResource extends Resource
                                             ->schema([
                                                 TextInput::make('title')
                                                     ->label('Feature Title')
-                                                    ->required()
                                                     ->maxLength(255),
                                                 Textarea::make('description')
                                                     ->label('Description')
-                                                    ->rows(2),
+                                                    ->rows(2)
+                                                    ->nullable(),
                                                 FileUpload::make('icon')
                                                     ->label('Icon/Image')
                                                     ->image()
-                                                    ->directory('page-images'),
+                                                    ->directory('page-images')
+                                                    ->nullable(),
                                             ])
                                             ->columns(2)
                                             ->collapsible()
@@ -157,13 +155,16 @@ class PageResource extends Resource
                                                     ->schema([
                                                         TextInput::make('about_us_subheading')
                                                             ->label('Subheading')
-                                                            ->maxLength(255),
+                                                            ->maxLength(255)
+                                                            ->nullable(),
                                                         TextInput::make('about_us_title')
                                                             ->label('Title')
-                                                            ->maxLength(255),
+                                                            ->maxLength(255)
+                                                            ->nullable(),
                                                         Textarea::make('about_us_description')
                                                             ->label('Description')
-                                                            ->rows(3),
+                                                            ->rows(3)
+                                                            ->nullable(),
 
                                                         Repeater::make('ceo_founder_sections')
                                                             ->label('Features-About Us')
@@ -171,11 +172,14 @@ class PageResource extends Resource
                                                                 FileUpload::make('ceo_founder_image')
                                                                     ->label('image')
                                                                     ->image()
-                                                                    ->directory('page-images'),
+                                                                    ->directory('page-images')
+                                                                    ->nullable(),
                                                                 TextInput::make('ceo_founder_heading')
-                                                                    ->label('Heading'),
+                                                                    ->label('Heading')
+                                                                    ->nullable(),
                                                                 TextInput::make('ceo_founder_paragraph')
-                                                                    ->label('Paragraph'),
+                                                                    ->label('Paragraph')
+                                                                    ->nullable(),
                                                             ])
                                                             ->columns(1)
                                                             ->collapsible()
@@ -189,9 +193,11 @@ class PageResource extends Resource
                                                                 FileUpload::make('icon')
                                                                     ->label('Icon/Image')
                                                                     ->image()
-                                                                    ->directory('page-images'),
+                                                                    ->directory('page-images')
+                                                                    ->nullable(),
                                                                 TextInput::make('text')
-                                                                    ->label('Text'),
+                                                                    ->label('Text')
+                                                                    ->nullable(),
                                                             ])
                                                             ->columns(2)
                                                             ->collapsible()
@@ -202,18 +208,22 @@ class PageResource extends Resource
                                                         FileUpload::make('about_us_meeting_image')
                                                             ->label('Section Image')
                                                             ->image()
-                                                            ->directory('page-images'),
+                                                            ->directory('page-images')
+                                                            ->nullable(),
                                                         Group::make()
                                                             ->schema([
                                                                 TextInput::make('experience_years')
                                                                     ->label('Counter')
-                                                                    ->numeric(),
+                                                                    ->numeric()
+                                                                    ->nullable(),
                                                                 TextInput::make('experience_text')
                                                                     ->label('Text')
-                                                                    ->maxLength(255),
+                                                                    ->maxLength(255)
+                                                                    ->nullable(),
                                                                 Textarea::make('experience_description')
                                                                     ->label('Additional Text')
-                                                                    ->rows(2),
+                                                                    ->rows(2)
+                                                                    ->nullable(),
                                                             ])
                                                     ])
                                                     ->visible(fn(Get $get): bool => $get('type') === 'about_us_main'), // Show only when type is main
@@ -230,10 +240,12 @@ class PageResource extends Resource
                                     ->schema([
                                         TextInput::make('features_headline')
                                             ->label('Headline')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->nullable(),
                                         Textarea::make('features_subheading')
                                             ->label('Subheading')
-                                            ->rows(2),
+                                            ->rows(2)
+                                            ->nullable(),
                                         Repeater::make('tabbedFeatures')
                                             ->label('Tabbed Items')
                                             ->relationship() // Automatically uses the tabbedFeatures relationship on Page
@@ -249,14 +261,17 @@ class PageResource extends Resource
                                                         FileUpload::make('tab_list_icon')
                                                             ->label('Features Tab List Icon')
                                                             ->image()
-                                                            ->directory('page-images'),
+                                                            ->directory('page-images')
+                                                            ->nullable(),
                                                         TextInput::make('tab_list_text')
                                                             ->label('Features Tab List Text')
-                                                            ->maxLength(255),
+                                                            ->maxLength(255)
+                                                            ->nullable(),
                                                         FileUpload::make('tab_image')
                                                             ->label('Image')
                                                             ->image()
-                                                            ->directory('page-images'),
+                                                            ->directory('page-images')
+                                                            ->nullable(),
                                                     ]),
                                                 Repeater::make('featureColumns')
                                                     ->label('Feature Columns')
@@ -265,13 +280,16 @@ class PageResource extends Resource
                                                         FileUpload::make('column_icon')
                                                             ->label('Icon')
                                                             ->image()
-                                                            ->directory('page-images'),
+                                                            ->directory('page-images')
+                                                            ->nullable(),
                                                         TextInput::make('column_heading')
                                                             ->label('Heading')
-                                                            ->maxLength(255),
+                                                            ->maxLength(255)
+                                                            ->nullable(),
                                                         Textarea::make('column_paragraph')
                                                             ->label('Paragraph')
-                                                            ->rows(2),
+                                                            ->rows(2)
+                                                            ->nullable(),
                                                     ]),
                                             ]),
                                     ]),
@@ -292,13 +310,16 @@ class PageResource extends Resource
                                     ->schema([
                                         TextInput::make('cta_headline')
                                             ->label('Headline')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->nullable(),
                                         Textarea::make('cta_description')
                                             ->label('Description')
-                                            ->rows(3),
+                                            ->rows(3)
+                                            ->nullable(),
                                         TextInput::make('cta_button_text')
                                             ->label('Call To Action Button Text')
-                                            ->maxLength(255),
+                                            ->maxLength(255)
+                                            ->nullable(),
                                         TextInput::make('cta_button_url')
                                             ->label('Call To Action Button URL')
                                             ->url()
@@ -313,7 +334,8 @@ class PageResource extends Resource
                                                 FileUpload::make('logo')
                                                     ->label('Client Logo')
                                                     ->image()
-                                                    ->directory('page-images'),
+                                                    ->directory('page-images')
+                                                    ->nullable(),
                                             ])
                                             ->columns(2)
                                             ->collapsible()
@@ -332,13 +354,16 @@ class PageResource extends Resource
                                                 FileUpload::make('testimonial_icon')
                                                     ->label('Icon')
                                                     ->image()
-                                                    ->directory('page-images'),
+                                                    ->directory('page-images')
+                                                    ->nullable(),
                                                 TextInput::make('testimonial_title')
                                                     ->label('Title')
-                                                    ->maxLength(255),
+                                                    ->maxLength(255)
+                                                    ->nullable(),
                                                 TextInput::make('testimonial_subtitle')
                                                     ->label('Subtitle')
-                                                    ->maxLength(255),
+                                                    ->maxLength(255)
+                                                    ->nullable(),
                                                 Forms\Components\Select::make('testimonial_stars') // Use Select component
                                                     ->label('Stars (1-5)')
                                                     ->options([
@@ -349,10 +374,11 @@ class PageResource extends Resource
                                                         5 => '5 Stars',
                                                     ])
                                                     ->default(5)
-                                                    ->required(),
+                                                    ->nullable(),
                                                 Textarea::make('testimonial_paragraph')
                                                     ->label('Paragraph')
-                                                    ->rows(3),
+                                                    ->rows(3)
+                                                    ->nullable(),
                                             ])
                                             ->columns(2)
                                             ->collapsible()
@@ -368,16 +394,124 @@ class PageResource extends Resource
                                             ->schema([
                                                 TextInput::make('statistic_number')
                                                     ->label('Number')
-                                                    ->numeric(),
+                                                    ->numeric()
+                                                    ->nullable(),
                                                 TextInput::make('statistic_text')
                                                     ->label('Text')
-                                                    ->maxLength(255),
+                                                    ->maxLength(255)
+                                                    ->nullable(),
                                             ])
                                             ->columns(2)
                                             ->collapsible()
                                             ->collapsed()
                                             ->reorderable()
                                             ->itemLabel(fn(array $state): ?string => $state['statistic_text'] ?? null),
+                                    ]),
+                            ]),
+                        Tab::make('Services')
+                            ->schema([
+                                Section::make('Services Section')
+                                    ->schema([
+                                        TextInput::make('services_title')
+                                            ->label('Title')
+                                            ->maxLength(255)
+                                            ->nullable(),
+                                        Textarea::make('services_subtext')
+                                            ->label('Subtext')
+                                            ->rows(2)
+                                            ->nullable(),
+                                        Repeater::make('service_cards')
+                                            ->label('Service Cards')
+                                            ->schema([
+                                                TextInput::make('card_title')
+                                                    ->label('Card Title')
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                Textarea::make('card_description')
+                                                    ->label('Card Description')
+                                                    ->rows(3)
+                                                    ->nullable(),
+                                                TextInput::make('card_button_text')
+                                                    ->label('Read More Button Text')
+                                                    ->maxLength(255)
+                                                    ->default('Read More')
+                                                    ->nullable(),
+                                                TextInput::make('card_button_url')
+                                                    ->label('Read More Button URL')
+                                                    ->url()
+                                                    ->nullable(),
+                                                FileUpload::make('card_image')
+                                                    ->label('Card Image')
+                                                    ->image()
+                                                    ->directory('page-images')
+                                                    ->nullable(),
+                                            ])
+                                            ->columns(2)
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn(array $state): ?string => $state['card_title'] ?? null),
+                                    ]),
+                            ]),
+                        Tab::make('Pricing')
+                            ->schema([
+                                Section::make('Pricing Section')
+                                    ->schema([
+                                        TextInput::make('pricing_title')
+                                            ->label('Title')
+                                            ->maxLength(255)
+                                            ->nullable(),
+                                        Textarea::make('pricing_subtext')
+                                            ->label('Subtext')
+                                            ->rows(2)
+                                            ->nullable(),
+                                        Repeater::make('pricing_plans')
+                                            ->label('Pricing Plans')
+                                            ->schema([
+                                                TextInput::make('plan_heading')
+                                                    ->label('Plan Heading')
+                                                    ->required()
+                                                    ->maxLength(255),
+                                                TextInput::make('plan_amount')
+                                                    ->label('Amount')
+                                                    ->numeric()
+                                                    ->required(),
+                                                Textarea::make('plan_paragraph')
+                                                    ->label('Paragraph')
+                                                    ->rows(2)
+                                                    ->nullable(),
+                                                Repeater::make('plan_features')
+                                                    ->label('Feature List')
+                                                    ->schema([
+                                                        FileUpload::make('feature_icon')
+                                                            ->label('Feature Icon')
+                                                            ->image()
+                                                            ->directory('page-images')
+                                                            ->nullable(),
+                                                        TextInput::make('feature_text')
+                                                            ->label('Feature Text')
+                                                            ->maxLength(255)
+                                                            ->nullable(),
+                                                    ])
+                                                    ->columns(2)
+                                                    ->collapsible()
+                                                    ->collapsed()
+                                                    ->reorderable()
+                                                    ->itemLabel(fn(array $state): ?string => $state['feature_text'] ?? null),
+                                                TextInput::make('plan_button_text')
+                                                    ->label('Buy Now Button Text')
+                                                    ->maxLength(255)
+                                                    ->default('Buy Now')
+                                                    ->nullable(),
+                                                TextInput::make('plan_button_url')
+                                                    ->label('Buy Now Button URL')
+                                                    ->url()
+                                                    ->nullable(),
+                                            ])
+                                            ->collapsible()
+                                            ->collapsed()
+                                            ->reorderable()
+                                            ->itemLabel(fn(array $state): ?string => $state['plan_heading'] ?? null),
                                     ]),
                             ]),
                     ])
@@ -422,9 +556,9 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-                'index' => Pages\ListPages::route('/'),
-                'create' => Pages\CreatePage::route('/create'),
-                'edit' => Pages\EditPage::route('/{record}/edit'),
-            ];
+            'index' => Pages\ListPages::route('/'),
+            'create' => Pages\CreatePage::route('/create'),
+            'edit' => Pages\EditPage::route('/{record}/edit'),
+        ];
     }
 }
