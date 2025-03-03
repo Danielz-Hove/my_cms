@@ -27,33 +27,6 @@ class FeaturesSectionResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Page Metadata')
-                    ->schema([
-                        TextInput::make('page_slug')
-                            ->label('Page Slug')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('page_title')
-                            ->label('Page Title')
-                            ->required()
-                            ->maxLength(255),
-                        Select::make('page_status')
-                            ->label('Page Status')
-                            ->options([
-                                'draft' => 'Draft',
-                                'published' => 'Published',
-                            ])
-                            ->default('draft')
-                            ->required(),
-                        Textarea::make('page_meta_description')
-                            ->label('Meta Description')
-                            ->rows(2)
-                            ->maxLength(160),
-                        TextInput::make('page_meta_keywords')
-                            ->label('Meta Keywords')
-                            ->maxLength(255),
-                    ]),
-
                 Section::make('Features Section Content')
                     ->schema([
                         Repeater::make('features') // Changed name to 'features' (plural)

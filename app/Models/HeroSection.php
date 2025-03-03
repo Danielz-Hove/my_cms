@@ -10,11 +10,11 @@ class HeroSection extends Model
     use HasFactory;
 
     protected $fillable = [
-        'page_slug', // Add page_slug to connect sections to pages
-        'page_title', // Add a page title
-        'page_status', // Add a page status
-        'page_meta_description', //Add meta information
-        'page_meta_keywords', //Add meta information
+        'page_slug',
+        'page_title',
+        'page_status',
+        'page_meta_description',
+        'page_meta_keywords',
         'hero_title',
         'hero_subtitle',
         'hero_subtitle_icon',
@@ -24,5 +24,10 @@ class HeroSection extends Model
         'hero_video_url',
         'hero_background_image',
         'hero_foreground_image',
+        'hero_features', // Add this
+    ];
+
+    protected $casts = [
+        'hero_features' => 'array', // Cast hero_features to array
     ];
 }

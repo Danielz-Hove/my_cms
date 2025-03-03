@@ -32,49 +32,6 @@ class AboutUsSectionResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Page Metadata')
-                    ->schema([
-                        TextInput::make('page_slug')
-                            ->label('Page Slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->unique(AboutUsSection::class, 'page_slug', ignoreRecord: true)
-                            ->afterStateUpdated(function (string $operation, $state, callable $set) {
-                                if ($operation !== 'create') {
-                                    return;
-                                }
-
-                                $set('page_slug', Str::slug($state));
-                            })
-                            ->reactive()
-                            ->afterStateHydrated(function (TextInput $component, $state) {
-                                $component->state(Str::slug($state));
-                            })
-                            ->live(onBlur: true),
-                        TextInput::make('page_title')
-                            ->label('Page Title')
-                            ->required()
-                            ->maxLength(255)
-                            ->reactive()
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $set('page_slug', Str::slug($state));
-                            }),
-                        Select::make('page_status')
-                            ->label('Page Status')
-                            ->options([
-                                'draft' => 'Draft',
-                                'published' => 'Published',
-                            ])
-                            ->default('draft')
-                            ->required(),
-                        Textarea::make('page_meta_description')
-                            ->label('Meta Description')
-                            ->rows(2)
-                            ->maxLength(160),
-                        TextInput::make('page_meta_keywords')
-                            ->label('Meta Keywords')
-                            ->maxLength(255),
-                    ]),
                 Section::make('About Us Section Content')
                     ->schema([
                         TextInput::make('about_us_subheading')
@@ -125,7 +82,7 @@ class AboutUsSectionResource extends Resource
                         Repeater::make('about_us_iconlist')  // Icon List Repeater
                             ->label('Icon List')
                             ->schema([
-                                FormsSelect::make('icon')
+                                 FormsSelect::make('icon')
                                     ->label('Icon')
                                     ->options([
                                         'heroicon-o-check-circle' => 'Check Circle',

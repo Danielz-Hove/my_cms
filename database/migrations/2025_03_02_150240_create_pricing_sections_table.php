@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pricing_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index();
+            $table->string('page_slug')->nullable()->index();
             $table->string('page_title')->nullable();
             $table->enum('page_status', ['draft', 'published'])->default('draft');
             $table->text('page_meta_description')->nullable();

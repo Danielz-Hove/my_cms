@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('about_us_sections', function (Blueprint $table) {
-            $table->id();
-            $table->string('page_slug')->unique();
-            $table->string('page_title');
+            $table->id()->nullable();
+            $table->string('page_slug')->unique()->nullable();
+            $table->string('page_title')->nullable();
             $table->string('page_status')->default('draft');
             $table->text('page_meta_description')->nullable();
             $table->string('page_meta_keywords')->nullable();

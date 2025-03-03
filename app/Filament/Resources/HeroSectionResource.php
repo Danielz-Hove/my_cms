@@ -13,7 +13,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Repeater;
 
 class HeroSectionResource extends Resource
 {
@@ -25,32 +25,6 @@ class HeroSectionResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Page Metadata')
-                    ->schema([
-                        TextInput::make('page_slug')
-                            ->label('Page Slug')
-                            ->required()
-                            ->maxLength(255),
-                        TextInput::make('page_title')
-                            ->label('Page Title')
-                            ->required()
-                            ->maxLength(255),
-                        Select::make('page_status')
-                            ->label('Page Status')
-                            ->options([
-                                'draft' => 'Draft',
-                                'published' => 'Published',
-                            ])
-                            ->default('draft')
-                            ->required(),
-                        Textarea::make('page_meta_description')
-                            ->label('Meta Description')
-                            ->rows(2)
-                            ->maxLength(160),
-                        TextInput::make('page_meta_keywords')
-                            ->label('Meta Keywords')
-                            ->maxLength(255),
-                    ]),
                 Section::make('Hero Section Content')
                     ->schema([
                         TextInput::make('hero_title')
@@ -90,6 +64,30 @@ class HeroSectionResource extends Resource
                             ->image()
                             ->directory('page-images')
                             ->nullable(),
+                    ]),
+                Section::make('Hero Section Features')
+                    ->schema([
+                        Repeater::make('hero_features')
+                            ->label('Features')
+                            ->schema([
+                                FileUpload::make('icon')
+                                    ->label('Icon')
+                                    ->image()
+                                    ->directory('feature-icons')
+                                    ->nullable(),
+                                TextInput::make('heading')
+                                    ->label('Heading')
+                                    ->maxLength(255),
+                                Textarea::make('paragraph')
+                                    ->label('Paragraph')
+                                    ->rows(2),
+                            ])
+                            ->collapsible()
+                            ->collapsed()
+                            ->defaultItems(0) //Set the default number of items
+                            //->addButtonLabel('Add Feature')
+                            ->itemLabel(fn (array $state): ?string => $state['heading'] ?? null), //Display heading as the item label
+
                     ]),
             ]);
     }

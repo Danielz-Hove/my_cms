@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('features_tabbed_sections', function (Blueprint $table) {
-            $table->id();
-            $table->string('page_slug')->index();
+            $table->id()->nullable();
+            $table->string('page_slug')->index()->nullable();
             $table->string('page_title')->nullable();
             $table->enum('page_status', ['draft', 'published'])->default('draft');
             $table->text('page_meta_description')->nullable();

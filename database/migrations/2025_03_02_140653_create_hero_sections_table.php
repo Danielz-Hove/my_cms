@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('hero_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->index(); // page_slug to identify the "page"
+            $table->string('page_slug')->unique()->nullable();
             $table->string('page_title')->nullable();
-            $table->enum('page_status', ['draft', 'published'])->default('draft');
+            $table->string('page_status')->default('draft');
             $table->text('page_meta_description')->nullable();
             $table->string('page_meta_keywords')->nullable();
             $table->string('hero_title')->nullable();
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('hero_video_url')->nullable();
             $table->string('hero_background_image')->nullable();
             $table->string('hero_foreground_image')->nullable();
+            $table->json('hero_features')->nullable(); // Add this line!
             $table->timestamps();
         });
     }

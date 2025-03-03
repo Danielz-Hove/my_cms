@@ -26,7 +26,6 @@ class CallToActionClientsSectionResource extends Resource
     {
         return $form
             ->schema([
-
                 Section::make('Call to Action Section')
                     ->schema([
                         TextInput::make('cta_headline')
