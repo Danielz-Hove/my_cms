@@ -12,14 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('faqs', function (Blueprint $table) {
-            $table->id()->nullable();
-            $table->string('question_title')->nullable(); // Allows NULL values
-            $table->text('answer_text')->nullable();
+            $table->id();
+            $table->string('faq_section_heading')->nullable();
+            $table->text('faq_short_description')->nullable();
+            $table->json('faq_accordion')->nullable(); // Use JSON column type
             $table->text('faq_cta_short_description')->nullable();
             $table->string('faq_cta_button_text')->nullable();
             $table->string('faq_cta_button_url')->nullable();
-            $table->string('faq_section_heading')->nullable();
-            $table->text('faq_short_description')->nullable();
             $table->timestamps();
         });
     }

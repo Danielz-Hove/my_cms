@@ -17,5 +17,10 @@ class ServicesSection extends Model
         'page_meta_keywords',
         'services_title',
         'services_subtext',
+        'service_cards', // Add this line!
+    ];
+
+    protected $casts = [
+        'service_cards' => 'array', // Or 'json'
     ];
 }
