@@ -12,21 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('about_us_sections', function (Blueprint $table) {
-            $table->id()->nullable();
-            $table->string('page_slug')->unique()->nullable();
-            $table->string('page_title')->nullable();
-            $table->string('page_status')->default('draft');
-            $table->text('page_meta_description')->nullable();
-            $table->string('page_meta_keywords')->nullable();
+            $table->id();
+            $table->string('page_slug')->unique();
             $table->string('about_us_subheading')->nullable();
             $table->string('about_us_title')->nullable();
             $table->text('about_us_description')->nullable();
             $table->string('about_us_meeting_image')->nullable();
             $table->integer('experience_years')->nullable();
-            $table->string('experience_text')->nullable();
             $table->text('experience_description')->nullable();
             $table->json('about_us_features')->nullable();
-            $table->json('about_us_iconlist')->nullable(); // Add this line
+            $table->json('about_us_iconlist')->nullable();
+            $table->enum('page_status', ['draft', 'published'])->default('draft'); // Added Status
             $table->timestamps();
         });
     }

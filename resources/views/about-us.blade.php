@@ -1,56 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us Sections</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-
-    @if (count($aboutUsSections) > 0)
-        @foreach ($aboutUsSections as $aboutUsSection)
-            <section>
-                <h2>{{ $aboutUsSection->about_us_title }}</h2>
-                <h3>{{ $aboutUsSection->about_us_subheading }}</h3>
-
-                @if ($aboutUsSection->about_us_meeting_image)
-                    <img src="{{ asset('storage/' . $aboutUsSection->about_us_meeting_image) }}" alt="About Us Image">
+<section id="about-us">
+    <div class="container">
+        @foreach($aboutUsSections as $aboutUsSection)
+            <div class="about-us-section"> <!-- Added a container for each section -->
+                @if($aboutUsSection->about_us_subheading)
+                    <h2>{{ $aboutUsSection->about_us_subheading }}</h2>
                 @endif
 
-                <p>{!! $aboutUsSection->about_us_description !!}</p>
-
-                @if ($aboutUsSection->experience_years)
-                    <p>Experience: {{ $aboutUsSection->experience_years }} years</p>
-                    <p>{{ $aboutUsSection->experience_description }}</p>
+                @if($aboutUsSection->about_us_title)
+                    <h1>{{ $aboutUsSection->about_us_title }}</h1>
                 @endif
 
-                @if ($aboutUsSection->about_us_features)
-                    <h3>Our Features</h3>
-                    <ul>
-                        @foreach ($aboutUsSection->about_us_features as $feature)
-                            <li>
-                                <strong>{{ $feature['heading'] }}</strong>: {{ $feature['paragraph'] }}
-                            </li>
+                @if($aboutUsSection->about_us_description)
+                    <p>{!! $aboutUsSection->about_us_description !!}</p>
+                @endif
+
+                @if($aboutUsSection->about_us_meeting_image)
+                    <img src="{{ Storage::url($aboutUsSection->about_us_meeting_image) }}" alt="About Us Image">
+                @endif
+
+                @if($aboutUsSection->experience_years || $aboutUsSection->experience_description)
+                    <div class="experience">
+                        @if($aboutUsSection->experience_years)
+                            <p>Experience: {{ $aboutUsSection->experience_years }} years</p>
+                        @endif
+                        @if($aboutUsSection->experience_description)
+                            <p>{{ $aboutUsSection->experience_description }}</p>
+                        @endif
+                    </div>
+                @endif
+
+                @if($aboutUsSection->about_us_features)
+                    <div class="features">
+                        <h3>Key Features</h3>
+                        <ul>
+                            @foreach($aboutUsSection->about_us_features as $feature)
+                                <li>
+                                    @if(isset($feature['image']))
+                                        <img src="{{ Storage::url($feature['image']) }}" alt="Feature Image" style="max-width: 50px;">
+                                    @endif
+                                    <strong>{{ $feature['heading'] }}</strong>: {{ $feature['paragraph'] }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if($aboutUsSection->about_us_iconlist)
+                    <div class="icon-list">
+                        @foreach($aboutUsSection->about_us_iconlist as $iconItem)
+                            <div class="icon-item">
+                                @if(isset($iconItem['icon']))
+                                    <img src="{{ Storage::url($iconItem['icon']) }}" alt="Icon" style="max-width: 30px;">
+                                @endif
+                                <span>{{ $iconItem['text'] }}</span>
+                            </div>
                         @endforeach
-                    </ul>
+                    </div>
                 @endif
-
-                @if ($aboutUsSection->about_us_iconlist)
-                    <h3>Icon List</h3>
-                    <ul>
-                        @foreach ($aboutUsSection->about_us_iconlist as $item)
-                            <li>
-                                <i class="{{ $item['icon'] }}"></i> {{ $item['text'] }}
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
-            </section>
+            </div> <!-- End of about-us-section container -->
         @endforeach
-    @else
-        <p>No About Us sections available.</p>
-    @endif
-
-</body>
-</html>
+    </div>
+</section>

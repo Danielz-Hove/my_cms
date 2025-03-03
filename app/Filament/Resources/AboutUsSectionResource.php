@@ -41,6 +41,20 @@ class AboutUsSectionResource extends Resource
                         TextInput::make('about_us_title')
                             ->label('Title')
                             ->maxLength(255)
+                            ->reactive() // Make reactive
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                if (empty(request()->get('page_slug'))){ //only update if pageslug is empty
+                                    $set('page_slug', Str::slug($state));
+                                }
+
+                            })
+                            ->nullable(),
+                        TextInput::make('page_slug')
+                            ->label('Page Slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(AboutUsSection::class, 'page_slug', fn ($record) => $record)
+                            ->regex('/^[a-z0-9-]+$/') // Validate the slug format
                             ->nullable(),
                         RichEditor::make('about_us_description')
                             ->label('Description')
@@ -73,6 +87,14 @@ class AboutUsSectionResource extends Resource
                                     ->label('Paragraph')
                                     ->rows(2)
                                     ->required(),
+                                FileUpload::make('image')
+                                    ->label('Feature Image')
+                                    ->image()
+                                    ->directory('feature-images')
+                                    ->imagePreviewHeight('100')
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                                    ->nullable(),
+
                             ])
                             ->collapsible()
                             ->collapsed()
@@ -82,17 +104,14 @@ class AboutUsSectionResource extends Resource
                         Repeater::make('about_us_iconlist')  // Icon List Repeater
                             ->label('Icon List')
                             ->schema([
-                                 FormsSelect::make('icon')
-                                    ->label('Icon')
-                                    ->options([
-                                        'heroicon-o-check-circle' => 'Check Circle',
-                                        'heroicon-o-star'        => 'Star',
-                                        'heroicon-o-heart'       => 'Heart',
-                                        'heroicon-o-thumb-up'   => 'Thumb Up',
-                                        // Add more icon options as needed
-                                    ])
-                                    ->searchable()
-                                    ->required(),
+                                FileUpload::make('icon')
+                                    ->label('Icon Image')
+                                    ->image()
+                                    ->directory('icon-images')
+                                    ->imagePreviewHeight('50')
+                                    ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif']) // Allow SVG
+                                    ->nullable(),
+
                                 TextInput::make('text')        // 'text' for clarity
                                     ->label('Text')
                                     ->required()
@@ -131,7 +150,13 @@ class AboutUsSectionResource extends Resource
                         foreach ($record->about_us_features as $feature) {
                             $heading = $feature['heading'] ?? '';
                             $paragraph = $feature['paragraph'] ?? '';
+                            $imagePath = $feature['image'] ?? null; // get image path
+
                             $featuresOutput .= '<b>' . e($heading) . '</b>: ' . e($paragraph) . '<br>';
+
+                            if ($imagePath) {
+                                $featuresOutput .= '<img src="' . \Illuminate\Support\Facades\Storage::url($imagePath) . '" style="max-width: 100px; max-height: 100px;" /><br>';
+                            }
                         }
 
                         return  \Illuminate\Support\Str::of($featuresOutput)->toHtmlString();
@@ -147,9 +172,14 @@ class AboutUsSectionResource extends Resource
 
                         $iconListOutput = '';
                         foreach ($record->about_us_iconlist as $item) {
-                            $icon = $item['icon'] ?? '';
+                            $iconPath = $item['icon'] ?? '';
                             $text = $item['text'] ?? '';
-                            $iconListOutput .= '<i class="' . $icon . '"></i> ' . e($text) . '<br>';
+
+                            if ($iconPath) {
+                                $iconListOutput .= '<img src="' . \Illuminate\Support\Facades\Storage::url($iconPath) . '" style="max-width: 30px; max-height: 30px; vertical-align: middle; margin-right: 5px;"> ' . e($text) . '<br>';
+                            } else {
+                                $iconListOutput .= e($text) . '<br>'; // Display text even if no icon
+                            }
                         }
 
                         return  \Illuminate\Support\Str::of($iconListOutput)->toHtmlString();

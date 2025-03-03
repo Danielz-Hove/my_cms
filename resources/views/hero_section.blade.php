@@ -1,4 +1,4 @@
-<section class="hero-container">
+<section class="hero-section">
     @foreach($heroSections as $heroSection)
         <div class="hero">
             <div class="hero-content">
