@@ -482,14 +482,20 @@
                     <h2>Voluptas enim suscipit temporibus</h2>
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
                     <ul>
-                        <li><i class="fa fa-check text-primary"></i>Lorem ipsum dolor sit amet</li>
-                        <li><i class="fa fa-check text-primary"></i>Consectetur adipiscing elit</li>
-                        <li><i class="fa fa-check text-primary"></i>Sed do eiusmod tempor</li>
-                        <li><i class="fa fa-check text-primary"></i>Valid incididunt ut labore et</li>
-                        <li><i class="fa fa-check text-primary"></i>Dolore magna aliqua</li>
-                        <li><i class="fa fa-check text-primary"></i>Ut enim ad minim veniam</li>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <li><i class="fa fa-check text-primary"></i>Lorem ipsum dolor sit amet</li>
+                                <li><i class="fa fa-check text-primary"></i>Consectetur adipiscing elit</li>
+                                <li><i class="fa fa-check text-primary"></i>Sed do eiusmod tempor</li>
+                            </div>
+                            <div class="col-md-6">
+                                <li><i class="fa fa-check text-primary"></i>Valid incididunt ut labore et</li>
+                                <li><i class="fa fa-check text-primary"></i>Dolore magna aliqua</li>
+                                <li><i class="fa fa-check text-primary"></i>Ut enim ad minim veniam</li>
+                            </div>
+                        </div>
                     </ul>
-                    <div class="row">
+                    <div class="row" style="padding-top: 10px;">
                         <div class="col-md-6 d-flex align-items-center">
                             <img src="https://placehold.co/75x75" alt="Team Image" class="img-fluid rounded-circle mr-2">
                             <div>
