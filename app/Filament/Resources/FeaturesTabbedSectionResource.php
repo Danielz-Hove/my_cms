@@ -18,7 +18,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\FileUpload; // Import FileUpload
 use Illuminate\Support\Str; // Import the Str class for slug generation
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\Select as FormSelect; //Prevent naming conflict with Tables\Columns\Select
+use Filament\Forms\Components\Placeholder; // Import Placeholder
 
 class FeaturesTabbedSectionResource extends Resource
 {
@@ -63,15 +63,11 @@ class FeaturesTabbedSectionResource extends Resource
                                 Repeater::make('icon_list') // Nested Repeater for Icon List
                                     ->label('Icon List')
                                     ->schema([
-                                        FormSelect::make('icon')  //Added FormSelect here to prevent the naming conflict
-                                            ->label('Icon')
-                                            ->options([
-                                                'heroicon-o-check-circle' => 'Check Circle',
-                                                'heroicon-o-star'         => 'Star',
-                                                'heroicon-o-heart'        => 'Heart',
-                                                // Add more icon options here
-                                            ])
-                                            ->searchable(),
+                                        TextInput::make('icon')
+                                            ->label('Icon (Font Awesome Class)')
+                                            ->placeholder('e.g., fa fa-check-circle')
+                                            ->maxLength(255)
+                                            ->nullable(),
                                         TextInput::make('text')
                                             ->label('Text')
                                             ->required()
@@ -83,6 +79,12 @@ class FeaturesTabbedSectionResource extends Resource
                             ->columns(1)  // Display fields in a single column within each repeater item
                             ->addActionLabel('Add Tab'),
                     ]),
+                    Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Icon List icons.  Examples: `fa fa-star`, `fa fa-check`, `fa fa-home`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 

@@ -1,0 +1,420 @@
+   /* General Styles */
+   body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f3f9ff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+a {
+    color: #0d83fd;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #0d83fd;
+}
+
+/* Navigation Bar */
+.navbar {
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0d83fd !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #555;
+    margin-left: 1rem;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: #0d83fd;
+}
+
+.btn-primary {
+    background-color: #0d83fd;
+    border-color: #0d83fd;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #0d83fd;
+    border-color: #0d83fd;
+}
+
+/* Hero Section */
+#hero {
+    padding: 7rem 0;
+    background-color: #f9f9f9;
+}
+
+#hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+#hero p {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+/* Features Section */
+#features {
+    padding: 5rem 0;
+}
+
+#features .nav-tabs .nav-link {
+    border: none;
+    color: #777;
+    padding: 0.75rem 1.5rem;
+    transition: color 0.2s ease;
+}
+
+#features .nav-tabs .nav-link.active {
+    color: #0d83fd;
+    border-bottom: 2px solid #0d83fd;
+}
+
+#features .tab-content {
+    margin-top: 2rem;
+}
+
+/* Key Features */
+#key-features .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+#key-features .card:hover {
+    transform: translateY(-5px);
+}
+
+#key-features .card-body {
+    padding: 2rem;
+}
+
+/* Call to Action */
+#cta {
+    background-color: #0d83fd;
+    color: #fff;
+    padding: 5rem 0;
+    text-align: center;
+}
+
+#cta h2 {
+    font-size: 2.75rem;
+}
+
+/* Testimonials */
+#testimonials {
+    padding: 5rem 0;
+    background-color: #f9f9f9;
+}
+
+#testimonials .card {
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    padding-top: 20px;
+}
+
+#testimonials .card-body {
+    text-align: left;
+}
+
+#testimonials .card-img-top {
+    width: 75px;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+}
+
+#testimonials .star-rating i {
+    color: #f39c12;
+}
+
+/* Stats Section */
+#stats {
+    padding: 4rem 0;
+}
+
+#stats .display-4 {
+    font-size: 3.5rem;
+    color: #0d83fd;
+}
+
+/* Services Section */
+#services {
+    padding: 5rem 0;
+}
+
+#services i {
+    font-size: 3rem;
+    color: #0d83fd;
+    margin-bottom: 1rem;
+}
+
+#services a {
+    font-weight: bold;
+}
+
+/* Pricing Section */
+#pricing {
+    padding: 5rem 0;
+    background-color: #f9f9f9;
+}
+
+#pricing .card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+#pricing .card:hover {
+    transform: translateY(-5px);
+}
+
+#pricing .card-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+#pricing .card-text.price {
+    font-size: 2rem;
+    color: #0d83fd;
+    font-weight: 700;
+}
+
+#pricing .badge-success {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #2ecc71;
+}
+
+#pricing ul.list-unstyled li i {
+    color: #2ecc71;
+}
+
+/* FAQ Section */
+#faq {
+    padding: 5rem 0;
+}
+
+#faq .card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+#faq .card-header button {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    font-weight: 500;
+}
+
+#faq .card-header button:hover {
+    color: #0d83fd;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 3rem 0;
+}
+
+footer a {
+    color: #0d83fd;
+}
+
+footer a:hover {
+    color: black;
+}
+
+.award-block {
+    border: 1px solid #ddd;
+    /* Light grey border */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 15px;
+    /* Add some padding around the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow */
+    background-color: #fff;
+    /*  background */
+}
+
+/*New CSS for about */
+.about-image-container {
+    position: relative;
+    /* Make this the positioning context */
+}
+
+.about-image-container img {
+    border-radius: 10px;
+    /*Optional, matches the screenshots */
+}
+
+.experience-badge {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #0d83fd;
+    /* Match the blue color */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Add a shadow for depth */
+    text-align: center;
+}
+
+/* CTA Section Styling */
+#cta {
+    background-color: #0d83fd;
+    /* Replace with the blue from the image */
+    color: white;
+}
+
+#cta .cta-content {
+    padding: 30px;
+    /* Add some padding around the text */
+    padding: 30px;
+    /* Add some padding around the text */
+    border-radius: 15px;
+    /* Add the border radius */
+}
+
+#cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+#cta p {
+    font-size: 1.2rem;
+}
+
+/* Company Logos Carousel Styling */
+#company-logos {
+    /* Optional: Add any specific styling for the background, etc. */
+}
+
+#company-logos .carousel-inner {
+    /* Optional: Adjust the height or other properties of the carousel */
+}
+
+#company-logos .logo-group {
+    display: flex;
+    /* Use flexbox for horizontal layout */
+    justify-content: space-around;
+    /* Distribute logos evenly */
+    align-items: center;
+    /* Vertically align logos */
+    padding: 15px;
+    /* Add padding around the logos */
+}
+
+#company-logos img {
+    max-width: 100px;
+    /* Adjust logo size */
+    max-height: 50px;
+    opacity: 0.6;
+    /* Adjust logo transparency */
+    transition: opacity 0.3s ease;
+    /* Smooth transition */
+}
+
+#company-logos img:hover {
+    opacity: 1;
+}
+
+/* Service Box Styling */
+.service-box {
+    border: 1px solid #ddd;
+    /* Light grey border */
+    border-radius: 10px;
+    /* Rounded corners */
+    padding: 20px;
+    /* Add padding inside the box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    /* Subtle shadow */
+    margin-bottom: 20px;
+    /* Add margin between service boxes */
+}
+
+.section-title-line {
+    width: 50px;
+    height: 3px;
+    background-color: #0d83fd;
+    margin: 0.5rem auto;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #0d83fd;
+    /* Or your theme's primary color */
+    color: white;
+}
+
+.nav-pills .nav-link {
+    color: #0d83fd;
+    border-radius: 30px;
+    /* Or your theme's primary color */
+}
+
+.card .btn {
+    text-align: center;
+    /* Center the text within the button */
+    display: block;
+    /* Make it a block-level element to span the width */
+    width: 100%;
+    /* Occupy the full width */
+    border-radius: 25px;
+}
+
+.card .btn .fa {
+    margin-left: 5px;
+    /* Adjust the spacing of the icon if needed */
+}
+
+.icon-box {
+    background-color: #e6f1fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+
+.footer-text {
+    color: black;
+}

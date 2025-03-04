@@ -15,6 +15,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater; // Import Repeater Component
+use Filament\Forms\Components\Placeholder; // Import Placeholder
 
 
 class FeaturesSectionResource extends Resource
@@ -32,10 +33,11 @@ class FeaturesSectionResource extends Resource
                         Repeater::make('features') // Changed name to 'features' (plural)
                             ->label('Features') // Label for the Repeater
                             ->schema([
-                                FileUpload::make('icon')
-                                    ->label('Icon')
-                                    ->image()
-                                    ->directory('feature-icons')
+                                /* Use Font Awesome Class instead of image upload */
+                                TextInput::make('icon')
+                                    ->label('Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa fa-lightbulb')
+                                    ->maxLength(255)
                                     ->nullable(),
                                 TextInput::make('heading')
                                     ->label('Heading')
@@ -54,6 +56,12 @@ class FeaturesSectionResource extends Resource
                             //->minItems(1)    // Optional: Minimum number of items allowed
 
                     ]),
+                Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Feature icons. Examples: `fa fa-lightbulb`, `fa fa-wrench`, `fa fa-code`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 

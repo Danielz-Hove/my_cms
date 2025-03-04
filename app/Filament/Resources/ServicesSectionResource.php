@@ -15,6 +15,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder; // Import Placeholder
 
 class ServicesSectionResource extends Resource
 {
@@ -56,10 +57,11 @@ class ServicesSectionResource extends Resource
                                     ->label('Read More Button URL')
                                     ->url()
                                     ->nullable(),
-                                FileUpload::make('card_image')
-                                    ->label('Card Image')
-                                    ->image()
-                                    ->directory('page-images')
+                                /* Use Font Awesome Class instead of image upload */
+                                TextInput::make('card_image')
+                                    ->label('Card Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa fa-cogs')
+                                    ->maxLength(255)
                                     ->nullable(),
                             ])
                             ->columns(2)
@@ -68,6 +70,12 @@ class ServicesSectionResource extends Resource
                             ->reorderable()
                             ->itemLabel(fn(array $state): ?string => $state['card_title'] ?? null),
                     ]),
+                Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Service Card Icons. Examples: `fa fa-cogs`, `fa fa-wrench`, `fa fa-code`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 

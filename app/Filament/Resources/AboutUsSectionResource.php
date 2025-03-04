@@ -21,6 +21,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select as FormsSelect;
+use Filament\Forms\Components\Placeholder;
 
 class AboutUsSectionResource extends Resource
 {
@@ -48,13 +49,6 @@ class AboutUsSectionResource extends Resource
                                 }
 
                             })
-                            ->nullable(),
-                        TextInput::make('page_slug')
-                            ->label('Page Slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->unique(AboutUsSection::class, 'page_slug', fn ($record) => $record)
-                            ->regex('/^[a-z0-9-]+$/') // Validate the slug format
                             ->nullable(),
                         RichEditor::make('about_us_description')
                             ->label('Description')
@@ -87,12 +81,12 @@ class AboutUsSectionResource extends Resource
                                     ->label('Paragraph')
                                     ->rows(2)
                                     ->required(),
-                                FileUpload::make('image')
-                                    ->label('Feature Image')
-                                    ->image()
-                                    ->directory('feature-images')
-                                    ->imagePreviewHeight('100')
-                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+
+                                /* Use Font Awesome Class instead of image URL */
+                                TextInput::make('image')
+                                    ->label('Feature Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa fa-check-circle')
+                                    ->maxLength(255)
                                     ->nullable(),
 
                             ])
@@ -104,12 +98,12 @@ class AboutUsSectionResource extends Resource
                         Repeater::make('about_us_iconlist')  // Icon List Repeater
                             ->label('Icon List')
                             ->schema([
-                                FileUpload::make('icon')
-                                    ->label('Icon Image')
-                                    ->image()
-                                    ->directory('icon-images')
-                                    ->imagePreviewHeight('50')
-                                    ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/gif']) // Allow SVG
+
+                                /* Use Font Awesome Class instead of Icon URL */
+                                TextInput::make('icon')
+                                    ->label('Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa fa-star')
+                                    ->maxLength(255)
                                     ->nullable(),
 
                                 TextInput::make('text')        // 'text' for clarity
@@ -122,6 +116,12 @@ class AboutUsSectionResource extends Resource
                             ->reorderable()
                             //->addButtonLabel('Add Icon + Text'),
                     ]),
+                Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Feature Icon and Icon List icons.  Examples: `fa fa-star`, `fa fa-check`, `fa fa-home`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 
@@ -150,12 +150,12 @@ class AboutUsSectionResource extends Resource
                         foreach ($record->about_us_features as $feature) {
                             $heading = $feature['heading'] ?? '';
                             $paragraph = $feature['paragraph'] ?? '';
-                            $imagePath = $feature['image'] ?? null; // get image path
+                            $iconClass = $feature['image'] ?? null; // Get icon class
 
                             $featuresOutput .= '<b>' . e($heading) . '</b>: ' . e($paragraph) . '<br>';
 
-                            if ($imagePath) {
-                                $featuresOutput .= '<img src="' . \Illuminate\Support\Facades\Storage::url($imagePath) . '" style="max-width: 100px; max-height: 100px;" /><br>';
+                            if ($iconClass) {
+                                $featuresOutput .= '<i class="' . e($iconClass) . '" style="font-size: 24px; margin-right: 5px;"></i><br>'; // Display the icon
                             }
                         }
 
@@ -172,11 +172,11 @@ class AboutUsSectionResource extends Resource
 
                         $iconListOutput = '';
                         foreach ($record->about_us_iconlist as $item) {
-                            $iconPath = $item['icon'] ?? '';
+                            $iconClass = $item['icon'] ?? ''; // Get icon class
                             $text = $item['text'] ?? '';
 
-                            if ($iconPath) {
-                                $iconListOutput .= '<img src="' . \Illuminate\Support\Facades\Storage::url($iconPath) . '" style="max-width: 30px; max-height: 30px; vertical-align: middle; margin-right: 5px;"> ' . e($text) . '<br>';
+                            if ($iconClass) {
+                                $iconListOutput .= '<i class="' . e($iconClass) . '" style="font-size: 16px; margin-right: 5px;"></i> ' . e($text) . '<br>'; // Display the icon
                             } else {
                                 $iconListOutput .= e($text) . '<br>'; // Display text even if no icon
                             }

@@ -15,6 +15,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder; // Import Placeholder
 
 class PricingSectionResource extends Resource
 {
@@ -54,10 +55,11 @@ class PricingSectionResource extends Resource
                                 Repeater::make('plan_features')
                                     ->label('Feature List')
                                     ->schema([
-                                        FileUpload::make('feature_icon')
-                                            ->label('Feature Icon')
-                                            ->image()
-                                            ->directory('page-images')
+                                        /* Use Font Awesome Class instead of image upload */
+                                        TextInput::make('feature_icon')
+                                            ->label('Feature Icon (Font Awesome Class)')
+                                            ->placeholder('e.g., fa fa-check')
+                                            ->maxLength(255)
                                             ->nullable(),
                                         TextInput::make('feature_text')
                                             ->label('Feature Text')
@@ -84,6 +86,12 @@ class PricingSectionResource extends Resource
                             ->reorderable()
                             ->itemLabel(fn(array $state): ?string => $state['plan_heading'] ?? null),
                     ]),
+                Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Feature Icons. Examples: `fa fa-check`, `fa fa-star`, `fa fa-arrow-right`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 

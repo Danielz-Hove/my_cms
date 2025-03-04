@@ -14,6 +14,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Placeholder;
 
 class HeroSectionResource extends Resource
 {
@@ -33,11 +34,13 @@ class HeroSectionResource extends Resource
                         TextInput::make('hero_subtitle')
                             ->label('Subheading Text')
                             ->maxLength(255),
-                        FileUpload::make('hero_subtitle_icon')
-                            ->label('Subheading Icon')
-                            ->image()
-                            ->directory('page-images')
+
+                        TextInput::make('hero_subtitle_icon')
+                            ->label('Subheading Icon (Font Awesome Class)')
+                            ->placeholder('e.g., fa-solid fa-star') // Updated example
+                            ->maxLength(255)
                             ->nullable(),
+
                         Textarea::make('hero_description')
                             ->label('Brief Description')
                             ->rows(3)
@@ -60,7 +63,7 @@ class HeroSectionResource extends Resource
                             ->directory('page-images')
                             ->nullable(),
                         FileUpload::make('hero_foreground_image')
-                            ->label('Foreground Image')
+                            ->label('Section Image')
                             ->image()
                             ->directory('page-images')
                             ->nullable(),
@@ -70,11 +73,10 @@ class HeroSectionResource extends Resource
                         Repeater::make('hero_features')
                             ->label('Features')
                             ->schema([
-                                FileUpload::make('icon')
-                                    ->label('Icon')
-                                    ->image()
-                                    ->directory('feature-icons')
-                                    ->nullable(),
+                                TextInput::make('icon')
+                                    ->label('Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa-solid fa-gear') // Updated example
+                                    ->maxLength(255),
                                 TextInput::make('heading')
                                     ->label('Heading')
                                     ->maxLength(255),
@@ -84,11 +86,17 @@ class HeroSectionResource extends Resource
                             ])
                             ->collapsible()
                             ->collapsed()
-                            ->defaultItems(0) //Set the default number of items
-                            //->addButtonLabel('Add Feature')
-                            ->itemLabel(fn (array $state): ?string => $state['heading'] ?? null), //Display heading as the item label
+                            ->defaultItems(0)
+                            ->itemLabel(fn (array $state): ?string => $state['heading'] ?? null),
 
                     ]),
+                Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the icon you want to use.  Examples: `fa-solid fa-gear`, `fa-solid fa-phone`, `fa-solid fa-check`, `fa-solid fa-check-circle`') // Updated description
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+
+                    ])->columns(1),
             ]);
     }
 

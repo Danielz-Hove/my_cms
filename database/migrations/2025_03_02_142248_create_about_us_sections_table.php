@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('about_us_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_slug')->unique();
+            $table->string('page_slug')->unique()->nullable();
             $table->string('about_us_subheading')->nullable();
             $table->string('about_us_title')->nullable();
             $table->text('about_us_description')->nullable();

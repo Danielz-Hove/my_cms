@@ -15,6 +15,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder; // Import Placeholder
 
 class ContactSectionResource extends Resource
 {
@@ -47,10 +48,11 @@ class ContactSectionResource extends Resource
                         Repeater::make('contact_features')
                             ->label('Contact Features')
                             ->schema([
-                                FileUpload::make('icon')
-                                    ->label('Icon')
-                                    ->image()
-                                    ->directory('page-images')
+                                 /* Use Font Awesome Class instead of image upload */
+                                TextInput::make('icon')
+                                    ->label('Icon (Font Awesome Class)')
+                                    ->placeholder('e.g., fa fa-phone')
+                                    ->maxLength(255)
                                     ->nullable(),
                                 TextInput::make('heading')
                                     ->label('Heading')
@@ -67,6 +69,12 @@ class ContactSectionResource extends Resource
                             ->reorderable()
                             ->itemLabel(fn(array $state): ?string => $state['heading'] ?? null),
                     ]),
+                 Section::make('Help Text')
+                    ->description('Enter the Font Awesome class name for the Contact Feature icons. Examples: `fa fa-phone`, `fa fa-envelope`, `fa fa-map-marker`')
+                    ->schema([
+                        Placeholder::make('font_awesome_link')
+                            ->content(fn () => "<a href='https://fontawesome.com/search' target='_blank' class='text-primary-500 hover:underline'>Find Font Awesome Icons Here</a>"),
+                    ])->columns(1),
             ]);
     }
 

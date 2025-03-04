@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+
 <section id="about-us">
     <div class="container">
         @foreach($aboutUsSections as $aboutUsSection)
@@ -36,7 +49,7 @@
                             @foreach($aboutUsSection->about_us_features as $feature)
                                 <li>
                                     @if(isset($feature['image']))
-                                        <img src="{{ Storage::url($feature['image']) }}" alt="Feature Image" style="max-width: 50px;">
+                                        <i class="{{ $feature['image'] }}" aria-hidden="true"></i>
                                     @endif
                                     <strong>{{ $feature['heading'] }}</strong>: {{ $feature['paragraph'] }}
                                 </li>
@@ -50,7 +63,7 @@
                         @foreach($aboutUsSection->about_us_iconlist as $iconItem)
                             <div class="icon-item">
                                 @if(isset($iconItem['icon']))
-                                    <img src="{{ Storage::url($iconItem['icon']) }}" alt="Icon" style="max-width: 30px;">
+                                    <i class="{{ $iconItem['icon'] }}" aria-hidden="true"></i>
                                 @endif
                                 <span>{{ $iconItem['text'] }}</span>
                             </div>
@@ -61,3 +74,5 @@
         @endforeach
     </div>
 </section>
+    </body>
+</html>
