@@ -453,3 +453,29 @@ footer a:hover {
       display: block; /*Ensure the images are block level*/
     }
   }
+  #backToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed position on the screen */
+    bottom: 20px; /* Distance from the bottom */
+    right: 30px; /* Distance from the right */
+    z-index: 99; /* Make sure it's on top of other elements */
+    border: none; /* Remove default button borders */
+    outline: none; /* Remove default focus outline */
+    background-color: #0d83fd; /* Semi-transparent black */
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 100%;
+    font-size: 18px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  #backToTopBtn:hover {
+    background-color: #0d83fd; /* Darker on hover */
+  }
+  
+  /* Optionally, add some transition for a smoother effect */
+  #backToTopBtn {
+    transition: all 0.3s ease;
+  }

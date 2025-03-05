@@ -12,10 +12,10 @@ use App\Http\Controllers\ServicesSectionController;
 use App\Http\Controllers\TestimonialsStatisticsSectionController;
 use App\Http\Controllers\CombinedSectionsController;
 
-Route::get('/', function () {
-    return view('welcome'); // Or your desired view for the homepage
-});
+Route::get('/', [CombinedSectionsController::class, 'index']);
 
+
+//Testing 
 Route::get('/all-hero-sections', [HeroSectionController::class, 'showAll'])->name('hero.all');  // Change route
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/call-to-action-clients', [CallToActionClientsSectionController::class, 'index'])->name('call-to-action-clients');
@@ -26,5 +26,3 @@ Route::get('/features-tabbed-sections', [FeaturesTabbedSectionController::class,
 Route::get('/pricing-sections', [PricingSectionController::class, 'index'])->name('pricing-sections');
 Route::get('/services-sections', [ServicesSectionController::class, 'index'])->name('services-sections');
 Route::get('/testimonials-statistics-sections', [TestimonialsStatisticsSectionController::class, 'index'])->name('testimonials-statistics-sections');
-
-Route::get('/all-sections', [CombinedSectionsController::class, 'index']);

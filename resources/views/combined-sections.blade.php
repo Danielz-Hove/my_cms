@@ -7,14 +7,13 @@
     <title>iLanding - Awesome Landing Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
     <!--Hero Section-->
     <section id="hero" class="py-0">
-        @foreach($heroSections as $heroSection)
+        @forelse($heroSections as $heroSection)
         <section style="background-image: url('{{ $heroSection->hero_background_image ? asset('storage/' . $heroSection->hero_background_image) : 'https://placehold.co/1920x1080' }}'); background-size: cover; background-position: center; min-height: 100vh; position:relative; display: flex; flex-direction: column;">
 
             <!-- Navigation Bar Wrapped in a Div -->
@@ -27,15 +26,18 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav ml-auto">
+                                <ul class="navbar-nav ml-auto mx-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#about">About</a>
+                                        <a class="nav-link sam" href="#">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#features">Features</a>
+                                        <a class="nav-link sam" href="#about">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#services">Services</a>
+                                        <a class="nav-link sam" href="#features">Features</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link sam" href="#services">Services</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +51,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#contact">Contact</a>
+                                        <a class="nav-link sam" href="#contact">Contact</a>
                                     </li>
                                 </ul>
                                 <a href="#" class="btn btn-primary rounded-pill ml-3">Get Started</a>
@@ -68,15 +70,15 @@
                         </small>
                         @else
                         <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
-                            {{ $heroSection->hero_subtitle }}
+                            {{ $heroSection->hero_subtitle ?? 'Your Subtitle Here' }} <!-- Placeholder -->
                         </small>
                         @endif
 
-                        <h1>{{ $heroSection->hero_title }}</h1>
-                        <h2>{{ $heroSection->page_title }}</h2>
-                        <p>{{ $heroSection->hero_description }}</p>
-                        <a href="{{ $heroSection->hero_button_url }}" class="btn btn-primary">{{ $heroSection->hero_button_text }}</a>
-                        <a href="{{ $heroSection->hero_video_url }}" class="btn btn-secondary"> <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video</a>
+                        <h1>{{ $heroSection->hero_title ?? 'Your Hero Title Here' }}</h1> <!-- Placeholder -->
+                        <h2>{{ $heroSection->page_title ?? 'Page Title' }}</h2>
+                        <p>{{ $heroSection->hero_description ?? 'Your Hero Description Here.  Explain what you do.' }}</p> <!-- Placeholder -->
+                        <a href="{{ $heroSection->hero_button_url ?? '#' }}" class="btn btn-primary">{{ $heroSection->hero_button_text ?? 'Learn More' }}</a> <!-- Placeholder -->
+                        <a href="{{ $heroSection->hero_video_url ?? '#' }}" class="btn btn-secondary"> <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video</a> <!-- Placeholder -->
                     </div>
                     <div class="col-md-6">
                         <img src="{{ $heroSection->hero_foreground_image ? asset('storage/' . $heroSection->hero_foreground_image) : 'https://placehold.co/600x400' }}" alt="Hero Image" class="img-fluid">
@@ -84,15 +86,15 @@
                 </div>
                 <br>
                 <div class="row text-center award-block">
-                    @if(is_array($heroSection->hero_features) && count($heroSection->hero_features) > 0)
+                    @if(isset($heroSection->hero_features) && is_array($heroSection->hero_features) && count($heroSection->hero_features) > 0)
                     @foreach($heroSection->hero_features as $feature)
                     <div class="col-md-3">
                         <div>
                             @if(isset($feature['icon']) && $feature['icon'])
                             <i class="fa {{ $feature['icon'] }} fa-2x mb-2 text-primary"></i>
                             @endif
-                            <div><b>{{ $feature['heading'] ?? '' }}</b></div>
-                            <small>{{ $feature['paragraph'] ?? '' }}</small>
+                            <div><b>{{ $feature['heading'] ?? 'Feature Heading' }}</b></div> <!-- Placeholder -->
+                            <small>{{ $feature['paragraph'] ?? 'Feature Description' }}</small> <!-- Placeholder -->
                         </div>
                     </div>
                     @endforeach
@@ -102,17 +104,30 @@
                 </div>
             </div>
         </section>
-        @endforeach
+        @empty
+        <!-- Hero Section Placeholder -->
+        <section style="background-image: url('https://placehold.co/1920x1080'); background-size: cover; background-position: center; min-height: 100vh; position:relative; display: flex; flex-direction: column;  background-color: #f8f9fa;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Hero Section Placeholder</h2>
+                        <p>No hero section data available. Please add data in the admin panel.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endforelse
     </section>
+
     <!-- About Us Section -->
     <section id="about" class="py-5 bg-light">
         <div class="container">
-            @foreach($aboutUsSections as $section)
-            <small class="text-primary" style="font-weight: 700; padding-bottom:10px;">{{ $section->about_us_subheading }}</small>
+            @forelse($aboutUsSections as $section)
+            <small class="text-primary" style="font-weight: 700; padding-bottom:10px;">{{ $section->about_us_subheading ?? 'About Us Subheading' }}</small>
             <div class="row">
                 <div class="col-md-6">
-                    <h2>{{ $section->about_us_title }}</h2>
-                    <p>{!! $section->about_us_description !!}</p> <!-- Use !! for HTML from RichEditor -->
+                    <h2>{{ $section->about_us_title ?? 'About Us Title' }}</h2>
+                    <p>{!! $section->about_us_description ?? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Please add content in the admin panel.' !!}</p> <!-- Use !! for HTML from RichEditor -->
                     <ul style="list-style: none;">
                         <div class="row">
                             <div class="col-md-6">
@@ -124,7 +139,7 @@
                                     @else
                                     <i class="fa fa-check text-primary"></i> <!-- Default if no icon -->
                                     @endif
-                                    {{ $item['text'] }}
+                                    {{ $item['text'] ?? 'List item text' }}
                                 </li>
                                 @endforeach
                                 @endif
@@ -159,66 +174,96 @@
                         <img src="https://placehold.co/600x400" alt="Placeholder Image" class="img-fluid">
                         @endif
                         <div class="experience-badge">
-                            {{ $section->experience_years }}+ Years
+                            {{ $section->experience_years ?? '10' }}+ Years
                             <br>
-                            {{ $section->experience_description }}
+                            {{ $section->experience_description ?? 'Experience Description' }}
                         </div>
                     </div>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <!-- About Us Placeholder -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>About Us Placeholder</h2>
+                    <p>No About Us data available. Please add data in the admin panel.</p>
+                </div>
+            </div>
+            @endforelse
         </div>
     </section>
 
     <!-- Features Section with Tabs -->
     <section id="features" class="py-5">
         <div class="container">
+            @if($featuresTabbedSections->isNotEmpty())
             <div class="text-center"> <!-- Added text-center here -->
                 <h2>{{ $featuresTabbedSections->first()->features_headline ?? 'Features' }}</h2>
-                <div style="width: 50px; height: 3px; margin: 0.5rem auto;"></div>
+                <div style="width: 50px; height: 3px; margin: 0.5rem auto; background-color: #3498db;"></div>
                 <!-- Added line -->
                 <p class="text-muted">{{ $featuresTabbedSections->first()->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
-            <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist"
-                style="padding: 5px;">
+            <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist" style="padding: 5px;">
+                @if(isset($featuresTabbedSections->first()->tabs) && is_array($featuresTabbedSections->first()->tabs))
                 @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
                 <li class="nav-item">
-                    <a class="nav-link {{ $key === 0 ? 'active' : '' }}" id="{{ Str::slug($tab['title']) }}-tab"
-                        data-toggle="tab" href="#{{ Str::slug($tab['title']) }}" role="tab"
-                        aria-controls="{{ Str::slug($tab['title']) }}"
-                        aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
-                        {{ $tab['title'] }}
+                    <a class="nav-link {{ $key === 0 ? 'active' : '' }}" id="{{ Str::slug($tab['title'] ?? 'tab') }}-tab" data-toggle="tab" href="#{{ Str::slug($tab['title'] ?? 'tab') }}" role="tab" aria-controls="{{ Str::slug($tab['title'] ?? 'tab') }}" aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
+                        {{ $tab['title'] ?? 'Tab Title' }}
                     </a>
                 </li>
                 @endforeach
+                @else
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#placeholder-tab">Placeholder Tab</a>
+                </li>
+                @endif
             </ul>
             <div class="tab-content mt-4" id="myTabContent">
+                @if(isset($featuresTabbedSections->first()->tabs) && is_array($featuresTabbedSections->first()->tabs))
                 @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
-                <div class="tab-pane fade {{ $key === 0 ? 'show active' : '' }}" id="{{ Str::slug($tab['title']) }}"
-                    role="tabpanel" aria-labelledby="{{ Str::slug($tab['title']) }}-tab">
+                <div class="tab-pane fade {{ $key === 0 ? 'show active' : '' }}" id="{{ Str::slug($tab['title'] ?? 'tab') }}" role="tabpanel" aria-labelledby="{{ Str::slug($tab['title'] ?? 'tab') }}-tab">
                     <div class="row">
                         <div class="col-md-6">
                             <h3>{{ $tab['subtitle'] ?? 'Voluptatem dignissimos provident' }}</h3>
                             <p>{!! $tab['content'] ?? 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' !!}</p>
                             <ul style="list-style: none;">
+                                @if(isset($tab['icon_list']) && is_array($tab['icon_list']))
                                 @foreach ($tab['icon_list'] ?? [] as $icon)
-                                <li><i class="{{ $icon['icon'] ?? 'fa fa-check' }} text-primary"></i> {{ $icon['text'] }}</li>
+                                <li><i class="{{ $icon['icon'] ?? 'fa fa-check' }} text-primary"></i> {{ $icon['text'] ?? 'List Item' }}</li>
                                 @endforeach
+                                @endif
                             </ul>
                         </div>
                         <div class="col-md-6">
                             @if (isset($tab['image']) && $tab['image'])
-                            <img src="{{ asset('storage/' . $tab['image']) }}" alt="{{ $tab['title'] }} Image"
-                                class="img-fluid">
+                            <img src="{{ asset('storage/' . $tab['image']) }}" alt="{{ $tab['title'] }} Image" class="img-fluid">
                             @else
-                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }} Image"
-                                class="img-fluid">
+                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }} Image" class="img-fluid">
                             @endif
                         </div>
                     </div>
                 </div>
                 @endforeach
+                @else
+                <!-- Placeholder Tab Pane -->
+                <div class="tab-pane fade show active" id="placeholder-tab" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>No tab content available. Please add data in the admin panel.</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
+            @else
+            <!-- Features Placeholder -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Features Placeholder</h2>
+                    <p>No Features data available. Please add data in the admin panel.</p>
+                </div>
+            </div>
+            @endif
         </div>
     </section>
     <!-- Key Features (Four Colored Boxes) -->
@@ -240,10 +285,14 @@
 
                             @if(isset($feature['heading']) && !empty($feature['heading']))
                             <h5 class="card-title">{{ $feature['heading'] }}</h5>
+                            @else
+                            <h5 class="card-title">Feature Heading</h5>
                             @endif
 
                             @if(isset($feature['text']) && !empty($feature['text']))
                             <p class="card-text">{{ $feature['text'] }}</p>
+                            @else
+                            <p class="card-text">Feature Description</p>
                             @endif
                         </div>
                     </div>
@@ -251,7 +300,7 @@
                 @endforeach
                 @else
                 <div class="col-12">
-                    <p>No features defined for this section: {{ $featuresSection->page_title }}</p>
+                    <p>No features defined for this section: {{ $featuresSection->page_title ?? 'Untitled Section' }}</p>
                 </div>
                 @endif
                 @endforeach
@@ -264,54 +313,66 @@
         </div>
     </section>
 
-    @foreach($callToActionClientsSections as $section)
+    @forelse($callToActionClientsSections as $section)
     <!-- Call to Action (Large Blue Section) -->
     <section id="cta" class="py-5" style="background-color: #007bff; /* Example Blue Color */">
         <div class="container" style="color: white;">
             <div class="text-center cta-content"> <!-- Added cta-content for styling -->
-                <h2 style="color: white;">{{ $section->cta_headline ?? 'Default Headline' }}</h2>
-                <p>{{ $section->cta_description ?? 'Default Description' }}</p>
-                <a href="{{ $section->cta_button_url ?? '#' }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $section->cta_button_text ?? 'Call To Action' }}</a>
+                <h2 style="color: white;">{{ $section->cta_headline ?? 'Call to Action' }}</h2>
+                <p>{{ $section->cta_description ?? 'Action Description' }}</p>
+                <a href="{{ $section->cta_button_url ?? '#' }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $section->cta_button_text ?? 'Action Button' }}</a>
             </div>
         </div>
     </section>
-    @endforeach
+    @empty
+    <!-- CTA Placeholder -->
+    <section id="cta" class="py-5" style="background-color: #007bff; color: white;">
+        <div class="container">
+            <div class="text-center">
+                <h2>Call To Action Placeholder</h2>
+                <p>No Call to Action data available. Please add data in the admin panel.</p>
+                <a href="#" class="btn btn-outline-light btn-lg rounded-pill">Call To Action</a>
+            </div>
+        </div>
+    </section>
+    @endforelse
+
     <!-- Client Logos Carousel -->
     <div id="logoCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
+        <div class="carousel-inner">
 
-        @if($callToActionClientsSections->isNotEmpty())
+            @if($callToActionClientsSections->isNotEmpty())
             @foreach($callToActionClientsSections as $section)
-                @if($section->client_logos)
-                    @foreach($section->client_logos as $key => $logoData)
-                        @if(isset($logoData['logo']))
-                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
-                                <img src="{{ asset('storage/' . $logoData['logo']) }}" class="d-block w-100" alt="Client Logo">
-                            </div>
-                        @endif
-                    @endforeach
-                @else
-                    <div class="carousel-item active">
-                        <p>No client logos found for this section.</p>
-                    </div>
-                @endif
+            @if($section->client_logos)
+            @foreach($section->client_logos as $key => $logoData)
+            @if(isset($logoData['logo']))
+            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                <img src="{{ asset('storage/' . $logoData['logo']) }}" class="d-block w-100" alt="Client Logo">
+            </div>
+            @endif
             @endforeach
-        @else
+            @else
+            <div class="carousel-item active">
+                <p>No client logos found for this section.</p>
+            </div>
+            @endif
+            @endforeach
+            @else
             <div class="carousel-item active">
                 <p>No call to action sections found.</p>
             </div>
-        @endif
+            @endif
 
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#logoCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#logoCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#logoCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#logoCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-5">
         <div class="container">
@@ -386,13 +447,13 @@
         </div>
     </section>
     <!-- Services Section -->
-    @foreach($servicesSections as $section)
+    @forelse($servicesSections as $section)
     <section id="services" class="py-5">
         <div class="container">
             <div class="text-center">
-                <h2>{{ $section->services_title }}</h2>
+                <h2>{{ $section->services_title ?? 'Services Title' }}</h2>
                 <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-                <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext }}</p>
+                <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext ?? 'Services Subtext' }}</p>
             </div>
 
             <div class="row">
@@ -408,8 +469,8 @@
                             @endif
                         </div>
                         <div>
-                            <h2>{{ $card['card_title'] }}</h2>
-                            <p>{{ $card['card_description'] }}</p>
+                            <h2>{{ $card['card_title'] ?? 'Card Title' }}</h2>
+                            <p>{{ $card['card_description'] ?? 'Card Description' }}</p>
                             @if ($card['card_button_text'] && $card['card_button_url'])
                             <a href="{{ $card['card_button_url'] }}">{{ $card['card_button_text'] }}</a>
                             @endif
@@ -421,7 +482,17 @@
             </div>
         </div>
     </section>
-    @endforeach
+    @empty
+    <!-- Services Placeholder Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2>Services</h2>
+                <p>No services data available. Please add data in the admin panel.</p>
+            </div>
+        </div>
+    </section>
+    @endforelse
     <!-- Pricing Plans -->
     <section id="pricing" class="py-5 bg-light">
         <div class="container">
@@ -434,6 +505,7 @@
             </div>
             <div class="row justify-content-center">
 
+                @if(isset($pricingSections->first()->pricing_plans) && is_array($pricingSections->first()->pricing_plans))
                 @foreach($pricingSections->first()->pricing_plans ?? [] as $plan)
                 <div class="col-md-4">
                     <div class="card" style="padding:20px; @if($loop->index === 1) background-color: #0d83fd; color: white; @endif">
@@ -441,20 +513,27 @@
                         <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
                         @endif
                         <div class="card-body">
-                            <h2 class="card-title" style="@if($loop->index === 1) color: white; @endif">{{ $plan['plan_heading'] }}</h2>
-                            <p class="card-text price" style="@if($loop->index === 1) color: white; @endif">${{ $plan['plan_amount'] }}<small>/month</small></p>
-                            <p class="card-text">{{ $plan['plan_paragraph'] }}</p>
+                            <h2 class="card-title" style="@if($loop->index === 1) color: white; @endif">{{ $plan['plan_heading'] ?? 'Plan Heading' }}</h2>
+                            <p class="card-text price" style="@if($loop->index === 1) color: white; @endif">${{ $plan['plan_amount'] ?? '0' }}<small>/month</small></p>
+                            <p class="card-text">{{ $plan['plan_paragraph'] ?? 'Plan Description' }}</p>
                             <b>Featured Included:</b>
                             <ul style="list-style: none;">
+                                @if(isset($plan['plan_features']) && is_array($plan['plan_features']))
                                 @foreach($plan['plan_features'] ?? [] as $feature)
-                                <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] }}</li>
+                                <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] ?? 'Feature Text' }}</li>
                                 @endforeach
+                                @endif
                             </ul>
                             <a href="{{ $plan['plan_button_url'] ?? '#' }}" class="btn @if($loop->index === 1) btn-light @else btn-primary @endif">{{ $plan['plan_button_text'] ?? 'Buy Now' }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
                 @endforeach
+                @else
+                <div class="col-md-12">
+                    <p>No pricing plans defined.</p>
+                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -462,6 +541,7 @@
     <section id="faq" class="py-5">
         <div class="container">
             <div class="row">
+                @if($faqs->isNotEmpty())
                 <div class="col-md-6">
                     <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
                     <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
@@ -469,25 +549,32 @@
                 <div class="col-md-6">
                     <div class="accordion" id="faqAccordion">
                         @foreach ($faqs as $faq)
+                        @if(isset($faq->faq_accordion) && is_array($faq->faq_accordion))
                         @foreach ($faq->faq_accordion as $key => $accordionItem)
                         <div class="card">
                             <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
                                 <h2 class="mb-0">
                                     <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
-                                        {{ $accordionItem['question_title'] }}
+                                        {{ $accordionItem['question_title'] ?? 'Question Title' }}
                                     </button>
                                 </h2>
                             </div>
                             <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
                                 <div class="card-body">
-                                    {{ $accordionItem['answer_text'] }}
+                                    {{ $accordionItem['answer_text'] ?? 'Answer Text' }}
                                 </div>
                             </div>
                         </div>
                         @endforeach
+                        @endif
                         @endforeach
                     </div>
                 </div>
+                @else
+                <div class="col-md-12">
+                    <p>No FAQs defined.</p>
+                </div>
+                @endif
             </div>
         </div>
     </section>
@@ -505,8 +592,7 @@
     <!-- Contact Section -->
     <section id="contact" class="py-5">
         <div class="container">
-
-            @foreach($contactSections as $contactSection)
+            @forelse($contactSections as $contactSection)
             <div class="text-center">
                 <h2>{{ $contactSection->contact_title ?? 'Contact' }}</h2>
                 <div style="width: 50px; height: 3px; background-color: #0d83fd; margin: 0.5rem auto;"></div>
@@ -552,7 +638,17 @@
                     </form>
                 </div>
             </div>
-            @endforeach <!-- End the loop -->
+            @empty
+            <!-- Contact Placeholder -->
+            <section id="contact" class="py-5">
+                <div class="container">
+                    <div class="text-center">
+                        <h2>Contact Us</h2>
+                        <p>No Contact Section data available. Please add data in the admin panel.</p>
+                    </div>
+                </div>
+            </section>
+            @endforelse <!-- End the loop -->
         </div>
     </section>
     <!-- Footer -->
@@ -615,11 +711,11 @@
             </div>
         </div>
     </footer>
-
+    <button onclick="topFunction()" id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>  <!-- Include your JS file -->
+    <script src="{{ asset('js/script.js') }}"></script> <!-- Include your JS file -->
     <script>
         $(document).ready(function() {
             $("#contactForm").submit(function(event) {
