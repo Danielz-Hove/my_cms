@@ -29,20 +29,7 @@ A modern CMS built with Laravel, offering a streamlined content management exper
 git clone https://github.com/Danielz-Hove/my_cms.git
 cd my_cms
 ```
-
-### Install Composer dependencies:
-
-First, require Filament as a dependency using composer:
-```sh
-composer require filament/filament:"^3.2" -W
-```
-This command will add the correct Filament version to your `composer.json` file and update your dependencies.
-
-Alternatively, you can manually add Filament to your `composer.json` file:
-```json
-"filament/filament": "^3.2.0"
-```
-Then, run the composer update command:
+### Run Composer update
 ```sh
 composer update
 ```
@@ -66,12 +53,6 @@ php artisan migrate
 php artisan db:seed
 ```
 
-### Install Frontend Dependencies (if needed):
-If you plan to modify or compile frontend assets (CSS, JavaScript), you'll need Node.js and npm.
-```sh
-npm install
-npm run dev # or npm run build for production
-```
 
 ### Serve the application:
 ```sh
@@ -83,7 +64,7 @@ php artisan serve
 ### Access Points:
 - **Frontend:** Open your browser and go to the URL displayed by `php artisan serve` (usually [http://127.0.0.1:8000](http://127.0.0.1:8000)).
 - **Admin Panel (Filament):** Navigate to `/admin` (e.g., [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)).
-- **Showcase:** Navigate to `/showcase` (e.g., [http://127.0.0.1:8000/showcase](http://127.0.0.1:8000/showcase)).
+- **Showcase:** Navigate to `/show-case` (e.g., [http://127.0.0.1:8000/showcase](http://127.0.0.1:8000/showcase)).
 
 ### Default Credentials (Admin):
 ```plaintext
