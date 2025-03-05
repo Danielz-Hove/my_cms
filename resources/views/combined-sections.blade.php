@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         @if($heroSection->hero_subtitle_icon)
-                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
+                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px; font-size:18px;">
                             <i class="fa {{ $heroSection->hero_subtitle_icon }} fa-spin"></i> {{ $heroSection->hero_subtitle }}
                         </small>
                         @else
@@ -169,77 +169,60 @@
             @endforeach
         </div>
     </section>
-    <!-- Features Section with Tabs -->
-    @foreach ($featuresTabbedSections as $section)
-    <section id="features-{{ $section->id }}" class="py-5">
-        <div class="container">
-            <div class="text-center">
-                <h2>{{ $section->features_headline ?? 'Features' }}</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-                <p class="text-muted">{{ $section->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
-            </div>
 
-            <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist" style="padding: 5px;">
-                @foreach($section->tabs as $key => $tab)
-                @php
-                // Generate a unique ID for each tab based on section ID and tab title
-                $tabId = Str::slug($section->id . '-' . $tab['title']);
-                @endphp
+<!-- Features Section with Tabs -->
+<section id="features" class="py-5">
+    <div class="container">
+        <div class="text-center"> <!-- Added text-center here -->
+            <h2>{{ $featuresTabbedSections->first()->features_headline ?? 'Features' }}</h2>
+            <div style="width: 50px; height: 3px; margin: 0.5rem auto;"></div>
+            <!-- Added line -->
+            <p class="text-muted">{{ $featuresTabbedSections->first()->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
+        </div>
+        <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist"
+            style="padding: 5px;">
+            @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
                 <li class="nav-item">
-                    <a class="nav-link {{ $loop->parent->first && $loop->first ? 'active' : '' }}"
-                        id="{{ $tabId }}-tab"
-                        data-toggle="tab"
-                        href="#{{ $tabId }}"
-                        role="tab"
-                        aria-controls="{{ $tabId }}"
-                        aria-selected="{{ $loop->parent->first && $loop->first ? 'true' : 'false' }}">
+                    <a class="nav-link {{ $key === 0 ? 'active' : '' }}" id="{{ Str::slug($tab['title']) }}-tab"
+                       data-toggle="tab" href="#{{ Str::slug($tab['title']) }}" role="tab"
+                       aria-controls="{{ Str::slug($tab['title']) }}"
+                       aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
                         {{ $tab['title'] }}
                     </a>
                 </li>
-                @endforeach
-            </ul>
-
-            <div class="tab-content mt-4" id="myTabContent">
-                @foreach($section->tabs as $tab)
-                @php
-                // Generate a unique ID for each tab based on section ID and tab title
-                $tabId = Str::slug($section->id . '-' . $tab['title']);
-                @endphp
-                <div class="tab-pane fade {{ $loop->parent->first && $loop->first ? 'show active' : '' }}"
-                    id="{{ $tabId }}"
-                    role="tabpanel"
-                    aria-labelledby="{{ $tabId }}-tab">
+            @endforeach
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+            @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
+                <div class="tab-pane fade {{ $key === 0 ? 'show active' : '' }}" id="{{ Str::slug($tab['title']) }}"
+                     role="tabpanel" aria-labelledby="{{ Str::slug($tab['title']) }}-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3>{{ $tab['subtitle'] ?? $tab['title'] }}</h3>
-                            <div class="content">
-                                {!! Str::markdown($tab['content'] ?? '') !!}
-                            </div>
-                            @if(isset($tab['icon_list']))
+                            <h3>{{ $tab['subtitle'] ?? 'Voluptatem dignissimos provident' }}</h3>
+                            <p>{!! $tab['content'] ?? 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' !!}</p>
                             <ul style="list-style: none;">
-                                @foreach($tab['icon_list'] as $iconItem)
-                                <li><i class="fa {{ $iconItem['icon'] }} text-success"></i> {{ $iconItem['text'] }}</li>
+                                @foreach ($tab['icon_list'] ?? [] as $icon)
+                                    <li><i class="{{ $icon['icon'] ?? 'fa fa-check' }} text-primary"></i> {{ $icon['text'] }}</li>
                                 @endforeach
                             </ul>
-                            @endif
                         </div>
                         <div class="col-md-6">
-                            @if(isset($tab['image']))
-                            <img src="{{ \Illuminate\Support\Facades\Storage::url($tab['image']) }}" alt="{{ $tab['title'] }}" class="img-fluid">
+                            @if (isset($tab['image']) && $tab['image'])
+                                <img src="{{ asset('storage/' . $tab['image']) }}" alt="{{ $tab['title'] }} Image"
+                                     class="img-fluid">
                             @else
-                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }}" class="img-fluid">
+                                <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }} Image"
+                                     class="img-fluid">
                             @endif
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
-    </section>
-    @endforeach
-
+    </div>
+</section>
     <!-- Key Features (Four Colored Boxes) -->
-    <section id="key-features" class="py-5">
+    <section id="key-features" class="py-5 bg-light">
         <div class="container">
             <div class="row">
                 @if(isset($featuresSections) && count($featuresSections) > 0)
@@ -401,6 +384,43 @@
         </div>
     </div>
 </section>
+<!-- Services Section -->
+@foreach($servicesSections as $section)
+        <section id="services" class="py-5">
+            <div class="container">
+                <div class="text-center">
+                    <h2>{{ $section->services_title }}</h2>
+                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                    <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext }}</p>
+                </div>
+
+                <div class="row">
+                    @if ($section->service_cards)
+                        @foreach ($section->service_cards as $card)
+                            <div class="col-md-6">
+                                <div class="service-box d-flex align-items-center">
+                                    <div class="icon-box">
+                                        @if($card['card_image'])
+                                            <i class="fa {{ $card['card_image'] }} fa-3x text-primary"></i>
+                                        @else
+                                            <i class="fa fa-cogs fa-3x text-primary"></i> <!-- Default icon if none provided -->
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <h2>{{ $card['card_title'] }}</h2>
+                                        <p>{{ $card['card_description'] }}</p>
+                                        @if ($card['card_button_text'] && $card['card_button_url'])
+                                            <a href="{{ $card['card_button_url'] }}">{{ $card['card_button_text'] }}</a>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </section>
+    @endforeach
   <!-- Pricing Plans -->
 <section id="pricing" class="py-5 bg-light">
     <div class="container">
@@ -471,7 +491,7 @@
     </div>
 </section>
 <!-- Call to Action (Bottom) -->
-<section id="cta-bottom" class="py-5" style="background-color:#1A98F2;color:white;">
+<section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
     <div class="container text-center" style="padding:60px;">
         <h2 style="color: white;">{{ $faq->faq_cta_button_text ? 'Call To Action' : '' }}</h2>
         <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
@@ -488,11 +508,11 @@
         @foreach($contactSections as $contactSection)
             <div class="text-center">
                 <h2>{{ $contactSection->contact_title ?? 'Contact' }}</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <div style="width: 50px; height: 3px; background-color: #0d83fd; margin: 0.5rem auto;"></div>
                 <p class="text-muted">{{ $contactSection->contact_subtitle ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
             <div class="row">
-                <div class="col-md-4 contact-info" style="background-color:#1A98F2;color:white; padding:40px; border-radius:20px;">
+                <div class="col-md-4 contact-info" style="background-color:#0d83fd;color:white; padding:40px; border-radius:20px;">
                     <h3 style="color: white;">{{ $contactSection->contact_sidebar_title ?? 'Contact Info' }}</h3>
                     <p>{{ $contactSection->contact_paragraph ?? 'Prassent sacies massia cousulls o pellentesque ness, egestas non essi. Vestibulum ante ipsum perilis.' }}</p>
 
