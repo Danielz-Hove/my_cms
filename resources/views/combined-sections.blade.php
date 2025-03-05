@@ -7,118 +7,129 @@
     <title>iLanding - Awesome Landing Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
     <!--Hero Section-->
-<section id="hero" class="py-5" style="background-image: url('{{ $heroSections->count() > 0 && $heroSections->first()->hero_background_image ? Storage::url($heroSections->first()->hero_background_image) : 'https://placehold.co/1920x1080' }}'); background-size: cover; background-position: center; padding-bottom: 100px;">
-    <!-- Header/Navigation Bar Moved Inside -->
-    <header style="position: absolute; top: 0; left: 0; width: 100%; z-index: 1000; margin-top:10px;">
-        <div style="padding: 10px;">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light rounded-pill">
-                <div class="container">
-                    <a class="navbar-brand" href="#">iLanding</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#features">Features</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#services">Services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#pricing">Pricing</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contact">Contact</a>
-                            </li>
-                        </ul>
-                            <a href="#" class="btn btn-primary rounded-pill ml-3">Get Started</a>
+    <section id="hero" class="py-0">
+        @foreach($heroSections as $heroSection)
+        <section style="background-image: url('{{ $heroSection->hero_background_image ? asset('storage/' . $heroSection->hero_background_image) : 'https://placehold.co/1920x1080' }}'); background-size: cover; background-position: center; min-height: 100vh; position:relative; display: flex; flex-direction: column;">
+
+            <!-- Navigation Bar Wrapped in a Div -->
+            <div style="z-index: 1000;">
+                <div style="padding: 10px;">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded-pill">
+                        <div class="container">
+                            <a class="navbar-brand" href="#">iLanding</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarNav">
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#about">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#features">Features</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#services">Services</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#contact">Contact</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn-primary rounded-pill ml-3">Get Started</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="container mt-auto" style=" padding: 20px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        @if($heroSection->hero_subtitle_icon)
+                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
+                            <i class="fa {{ $heroSection->hero_subtitle_icon }} fa-spin"></i> {{ $heroSection->hero_subtitle }}
+                        </small>
+                        @else
+                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
+                            {{ $heroSection->hero_subtitle }}
+                        </small>
+                        @endif
+
+                        <h1>{{ $heroSection->hero_title }}</h1>
+                        <h2>{{ $heroSection->page_title }}</h2>
+                        <p>{{ $heroSection->hero_description }}</p>
+                        <a href="{{ $heroSection->hero_button_url }}" class="btn btn-primary">{{ $heroSection->hero_button_text }}</a>
+                        <a href="{{ $heroSection->hero_video_url }}" class="btn btn-secondary"> <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video</a>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{ $heroSection->hero_foreground_image ? asset('storage/' . $heroSection->hero_foreground_image) : 'https://placehold.co/600x400' }}" alt="Hero Image" class="img-fluid">
+                    </div>
+                </div>
+                <br>
+                <div class="row text-center award-block">
+                    @if(is_array($heroSection->hero_features) && count($heroSection->hero_features) > 0)
+                    @foreach($heroSection->hero_features as $feature)
+                    <div class="col-md-3">
+                        <div>
+                            @if(isset($feature['icon']) && $feature['icon'])
+                            <i class="fa {{ $feature['icon'] }} fa-2x mb-2 text-primary"></i>
+                            @endif
+                            <div><b>{{ $feature['heading'] ?? '' }}</b></div>
+                            <small>{{ $feature['paragraph'] ?? '' }}</small>
                         </div>
                     </div>
-                </nav>
-            </div>
-        </header>
-        <div class="container" style="margin-top: 90px;">
-            @if ($heroSections->count() > 0)
-            <div class="row">
-                <div class="col-md-6" style="background-color: rgba(255, 255, 255, 0.8); padding: 20px;">
-                    <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
-                        <i class="fa {{ $heroSections->first()->hero_subtitle_icon ?: 'fa-gear fa-spin' }}"></i> {{ $heroSections->first()->hero_subtitle }}
-                    </small>
-                    <h1>{{ $heroSections->first()->hero_title }}</h1>
-                    <h2>{{ $heroSections->first()->page_title }}</h2>
-                    <p>{{ $heroSections->first()->hero_description }}</p>
-                    <a href="{{ $heroSections->first()->hero_button_url }}" class="btn btn-primary">{{ $heroSections->first()->hero_button_text }}</a>
-                    @if($heroSections->first()->hero_video_url)
-                        <a href="{{ $heroSections->first()->hero_video_url }}" class="btn btn-secondary">
-                            <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video
-                        </a>
+                    @endforeach
+                    @else
+                    <div class="col-md-12">No features available.</div>
                     @endif
                 </div>
-                <div class="col-md-6">
-                    <img src="{{ $heroSections->count() > 0 && $heroSections->first()->hero_foreground_image ? Storage::url($heroSections->first()->hero_foreground_image) : 'https://placehold.co/600x400' }}" alt="Hero Image" class="img-fluid">
-                </div>
             </div>
-            <br>
-            @if (is_array($heroSections->first()->hero_features) && count($heroSections->first()->hero_features) > 0)
-            <div class="row text-center award-block">
-                @foreach ($heroSections->first()->hero_features as $feature)
-                <div class="col-md-3">
-                    <div>
-                        <i class="fa fa-trophy fa-2x mb-2 text-primary"></i>
-                        <div><b>{{ $feature['title'] ?? 'Title Here' }}</b></div>
-                        <small>{{ $feature['description'] ?? 'Description Here' }}</small>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            @endif
-            @else
-            <p>No Hero Section Found.</p>
-            @endif
-        </div>
+        </section>
+        @endforeach
     </section>
     <!-- About Us Section -->
     <section id="about" class="py-5 bg-light">
         <div class="container">
-            <small class="text-primary">MORE ABOUT US</small>
+            @foreach($aboutUsSections as $section)
+            <small class="text-primary" style="font-weight: 700; padding-bottom:10px;">{{ $section->about_us_subheading }}</small>
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Voluptas enim suscipit temporibus</h2>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    <h2>{{ $section->about_us_title }}</h2>
+                    <p>{!! $section->about_us_description !!}</p> <!-- Use !! for HTML from RichEditor -->
                     <ul style="list-style: none;">
                         <div class="row">
                             <div class="col-md-6">
-                                <li><i class="fa fa-check text-primary"></i> Lorem ipsum dolor sit amet</li>
-                                <li><i class="fa fa-check text-primary"></i> Consectetur adipiscing elit</li>
-                                <li><i class="fa fa-check text-primary"></i> Sed do eiusmod tempor</li>
+                                @if(isset($section->about_us_iconlist))
+                                @foreach($section->about_us_iconlist as $item)
+                                <li>
+                                    @if(isset($item['icon']))
+                                    <i class="{{ $item['icon'] }} text-primary"></i>
+                                    @else
+                                    <i class="fa fa-check text-primary"></i> <!-- Default if no icon -->
+                                    @endif
+                                    {{ $item['text'] }}
+                                </li>
+                                @endforeach
+                                @endif
                             </div>
-                            <div class="col-md-6">
-                                <li><i class="fa fa-check text-primary"></i> Valid incididunt ut labore et</li>
-                                <li><i class="fa fa-check text-primary"></i> Dolore magna aliqua</li>
-                                <li><i class="fa fa-check text-primary"></i> Ut enim ad minim veniam</li>
-                            </div>
+
                         </div>
                     </ul>
                     <div class="row" style="padding-top: 10px;">
@@ -142,124 +153,142 @@
                 </div>
                 <div class="col-md-6">
                     <div class="about-image-container">
-                        <img src="https://placehold.co/600x400" alt="Team Image" class="img-fluid">
+                        @if($section->about_us_meeting_image)
+                        <img src="{{ asset('storage/' . $section->about_us_meeting_image) }}" alt="About Us Image" class="img-fluid">
+                        @else
+                        <img src="https://placehold.co/600x400" alt="Placeholder Image" class="img-fluid">
+                        @endif
                         <div class="experience-badge">
-                            15+ Years
+                            {{ $section->experience_years }}+ Years
                             <br>
-                            Of experience in business service
+                            {{ $section->experience_description }}
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </section>
-
     <!-- Features Section with Tabs -->
-    <section id="features" class="py-5">
+    @foreach ($featuresTabbedSections as $section)
+    <section id="features-{{ $section->id }}" class="py-5">
         <div class="container">
-            <div class="text-center"> <!-- Added text-center here -->
-                <h2>Features</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
+            <div class="text-center">
+                <h2>{{ $section->features_headline ?? 'Features' }}</h2>
+                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <p class="text-muted">{{ $section->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
+
             <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist" style="padding: 5px;">
+                @foreach($section->tabs as $key => $tab)
+                @php
+                // Generate a unique ID for each tab based on section ID and tab title
+                $tabId = Str::slug($section->id . '-' . $tab['title']);
+                @endphp
                 <li class="nav-item">
-                    <a class="nav-link active" id="media-tab" data-toggle="tab" href="#media" role="tab" aria-controls="media"
-                        aria-selected="true">Media</a>
+                    <a class="nav-link {{ $loop->parent->first && $loop->first ? 'active' : '' }}"
+                        id="{{ $tabId }}-tab"
+                        data-toggle="tab"
+                        href="#{{ $tabId }}"
+                        role="tab"
+                        aria-controls="{{ $tabId }}"
+                        aria-selected="{{ $loop->parent->first && $loop->first ? 'true' : 'false' }}">
+                        {{ $tab['title'] }}
+                    </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="process"
-                        aria-selected="false">Process</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="explores-tab" data-toggle="tab" href="#explores" role="tab" aria-controls="explores"
-                        aria-selected="false">Explores</a>
-                </li>
+                @endforeach
             </ul>
+
             <div class="tab-content mt-4" id="myTabContent">
-                <div class="tab-pane fade show active" id="media" role="tabpanel" aria-labelledby="media-tab">
+                @foreach($section->tabs as $tab)
+                @php
+                // Generate a unique ID for each tab based on section ID and tab title
+                $tabId = Str::slug($section->id . '-' . $tab['title']);
+                @endphp
+                <div class="tab-pane fade {{ $loop->parent->first && $loop->first ? 'show active' : '' }}"
+                    id="{{ $tabId }}"
+                    role="tabpanel"
+                    aria-labelledby="{{ $tabId }}-tab">
                     <div class="row">
                         <div class="col-md-6">
-                            <h3>Voluptatem dignissimos provident</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                            <h3>{{ $tab['subtitle'] ?? $tab['title'] }}</h3>
+                            <div class="content">
+                                {!! Str::markdown($tab['content'] ?? '') !!}
+                            </div>
+                            @if(isset($tab['icon_list']))
                             <ul style="list-style: none;">
-                                <li><i class="fa fa-check text-success"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                <li><i class="fa fa-check text-success"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-                                <li><i class="fa fa-check text-success"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                <li><i class="fa fa-check text-success"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                                @foreach($tab['icon_list'] as $iconItem)
+                                <li><i class="fa {{ $iconItem['icon'] }} text-success"></i> {{ $iconItem['text'] }}</li>
+                                @endforeach
                             </ul>
+                            @endif
                         </div>
                         <div class="col-md-6">
-                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="Media Image" class="img-fluid">
+                            @if(isset($tab['image']))
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($tab['image']) }}" alt="{{ $tab['title'] }}" class="img-fluid">
+                            @else
+                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }}" class="img-fluid">
+                            @endif
                         </div>
                     </div>
                 </div>
-
-                <div class="tab-pane fade" id="process" role="tabpanel" aria-labelledby="process-tab">
-                    <p>Content for the Process tab goes here. Add your process-related information and images.</p>
-                </div>
-
-                <div class="tab-pane fade" id="explores" role="tabpanel" aria-labelledby="explores-tab">
-                    <p>Content for the Explores tab goes here. Add your exploration-related information and images.</p>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
+    @endforeach
 
     <!-- Key Features (Four Colored Boxes) -->
     <section id="key-features" class="py-5">
         <div class="container">
             <div class="row">
+                @if(isset($featuresSections) && count($featuresSections) > 0)
+                @foreach($featuresSections as $featuresSection)
+                @if(isset($featuresSection->features) && is_array($featuresSection->features) && count($featuresSection->features) > 0)
+                @foreach($featuresSection->features as $key => $feature)
                 <div class="col-md-3 mb-4">
-                    <div class="card text-black h-100" style="background-color: #fff4e2;">
+                    <div class="card text-black h-100" style="background-color: {{ $key % 4 == 0 ? '#fff4e2' : ($key % 4 == 1 ? '#deedfe' : ($key % 4 == 2 ? '#d5f1e5' : '#fdefed')) }};">
                         <div class="card-body text-center">
-                            <i class="fa fa-lightbulb fa-3x mb-2"></i>
-                            <h5 class="card-title">Corporis voluptatibus</h5>
-                            <p class="card-text">Aut rerum necessitatibus saepe.</p>
-                        </div>
-                    </div>
-                </div>
+                            @if(isset($feature['icon']) && !empty($feature['icon']))
+                            <i class="{{ $feature['icon'] }} fa-3x mb-2"></i>
+                            @else
+                            <i class="fa fa-question-circle fa-3x mb-2"></i> {{-- Default icon if none provided --}}
+                            @endif
 
-                <div class="col-md-3 mb-4">
-                    <div class="card text-black h-100" style="background-color: #deedfe;">
-                        <div class="card-body text-center">
-                            <i class="fa fa-check-circle fa-3x mb-2"></i>
-                            <h5 class="card-title">Explicabo consectetur</h5>
-                            <p class="card-text">Est dicta illo at aut reiciendis excepturi. Sed.</p>
-                        </div>
-                    </div>
-                </div>
+                            @if(isset($feature['heading']) && !empty($feature['heading']))
+                            <h5 class="card-title">{{ $feature['heading'] }}</h5>
+                            @endif
 
-                <div class="col-md-3 mb-4">
-                    <div class="card text-black h-100" style="background-color: #d5f1e5;">
-                        <div class="card-body text-center">
-                            <i class="fa fa-tree fa-3x mb-2"></i>
-                            <h5 class="card-title">Utiamco laboria</h5>
-                            <p class="card-text">Excepteur sint occaecat cupidatat.</p>
+                            @if(isset($feature['text']) && !empty($feature['text']))
+                            <p class="card-text">{{ $feature['text'] }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-3 mb-4">
-                    <div class="card text-black h-100" style="background-color: #fdefed;">
-                        <div class="card-body text-center">
-                            <i class="fa fa-shield-alt fa-3x mb-2"></i>
-                            <h5 class="card-title">Labore consequatur</h5>
-                            <p class="card-text">Aut omnis dolores. Dolores similique facilis.</p>
-                        </div>
-                    </div>
+                @endforeach
+                @else
+                <div class="col-12">
+                    <p>No features defined for this section: {{ $featuresSection->page_title }}</p>
                 </div>
+                @endif
+                @endforeach
+                @else
+                <div class="col-12">
+                    <p>No feature sections defined.</p>
+                </div>
+                @endif
             </div>
         </div>
     </section>
 
+    @foreach($callToActionClientsSections as $section)
     <!-- Call to Action (Large Blue Section) -->
-    <section id="cta" class="py-5">
+    <section id="cta" class="py-5" style="background-color: #007bff; /* Example Blue Color */">
         <div class="container" style="color: white;">
             <div class="text-center cta-content"> <!-- Added cta-content for styling -->
-                <h2 style="color: white;">Maecenas tempus tellus eget condimentum</h2>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel.</p>
-                <a href="#" class="btn btn-outline-light btn-lg rounded-pill">Call To Action</a>
+                <h2 style="color: white;">{{ $section->cta_headline ?? 'Default Headline' }}</h2>
+                <p>{{ $section->cta_description ?? 'Default Description' }}</p>
+                <a href="{{ $section->cta_button_url ?? '#' }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $section->cta_button_text ?? 'Call To Action' }}</a>
             </div>
         </div>
     </section>
@@ -267,354 +296,218 @@
     <!-- Company Logos Carousel -->
     <section id="company-logos" class="py-3 bg-white">
         <div class="container">
-            <div id="logoCarousel" class="carousel slide" data-ride="carousel">
+            <div id="logoCarousel_{{ $section->id }}" class="carousel slide" data-ride="carousel"> <!-- Unique ID for each carousel -->
                 <div class="carousel-inner">
+                    @if($section->clientLogos) <!-- Check if clientLogos exist -->
+                    @foreach(collect($section->clientLogos)->chunk(5) as $key => $logoGroup)
+                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                        <div class="logo-group">
+                            @foreach ($logoGroup as $logo)
+                            @if (isset($logo['logo']) && $logo['logo'])
+                            <img src="{{ asset('storage/' . $logo['logo']) }}" alt="Client Logo" class="img-fluid">
+                            @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    @endforeach
+                    @else
                     <div class="carousel-item active">
-                        <div class="logo-group">
-                            <img src="https://placehold.co/100x50" alt="Logo 1" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 2" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 3" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 4" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 5" class="img-fluid">
-                        </div>
+                        <p>No client logos available for this section.</p>
                     </div>
-                    <div class="carousel-item">
-                        <div class="logo-group">
-                            <img src="https://placehold.co/100x50" alt="Logo 6" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 7" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 8" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 9" class="img-fluid">
-                            <img src="https://placehold.co/100x50" alt="Logo 10" class="img-fluid">
-                        </div>
-                    </div>
+                    @endif
                 </div>
-                <a class="carousel-control-prev" href="#logoCarousel" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#logoCarousel_{{ $section->id }}" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#logoCarousel" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#logoCarousel_{{ $section->id }}" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
             </div>
         </div>
     </section>
+    @endforeach
+   <!-- Testimonials Section -->
+<section id="testimonials" class="py-5">
+    <div class="container">
+        <div class="text-center">
+            <h2>Testimonials</h2>
+            <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+            <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
+        </div>
+        <div class="row">
+            @forelse ($testimonialsStatisticsSections as $testimonialSection)
+                @if ($testimonialSection->testimonials)
+                    @foreach ($testimonialSection->testimonials as $testimonial)
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                @if ($testimonial['image'])
+                                    <img src="{{ asset('storage/' . $testimonial['image']) }}" class="card-img-top" alt="{{ $testimonial['testimonial_title'] ?? 'Testimonial Image' }}" style="max-height: 150px; object-fit: cover;">
+                                @else
+                                    <img src="https://placehold.co/75x75" class="card-img-top" alt="Placeholder Image">
+                                @endif
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-5">
-        <div class="container">
-            <div class="text-center"> <!-- Added text-center here -->
-                <h2>Testimonials</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $testimonial['testimonial_title'] ?? 'No Title' }}</h5>
+                                    <p class="card-text">{{ $testimonial['position'] ?? 'Ceo & Founder' }}</p> <!-- Added position field -->
+                                    <div class="star-rating">
+                                        @for ($i = 0; $i < ($testimonial['star_rating'] ?? 5); $i++)
+                                            <i class="fa fa-star"></i>
+                                        @endfor
+                                        @for ($i = 0; $i < (5 - ($testimonial['star_rating'] ?? 5)); $i++)
+                                            <i class="fa fa-star-o"></i> <!-- Or a different empty star icon -->
+                                        @endfor
+                                    </div>
+                                    <p>{{ $testimonial['paragraph'] ?? 'No content available.' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            @empty
+                <div class="col-12">
+                    <p class="text-center">No testimonial sections available.</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+   <!-- Stats/Counters Section -->
+<section id="stats" class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            @if ($testimonialsStatisticsSections->isNotEmpty())
+                @foreach ($testimonialsStatisticsSections as $testimonialSection)
+                    @if ($testimonialSection->statistics)
+                        @foreach ($testimonialSection->statistics as $statistic)
+                            <div class="col-md-3">
+                                <span class="display-4" style="color: black;">{{ $statistic['statistic_number'] ?? '0' }}</span>
+                                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                                <p>{{ $statistic['statistic_text'] ?? 'Statistic' }}</p>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="col-12">
+                            <p class="text-center">No statistics available for this section.</p>
+                        </div>
+                    @endif
+                @endforeach
+            @else
+                <div class="col-12">
+                    <p class="text-center">No testimonial/statistic sections available.</p>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+  <!-- Pricing Plans -->
+<section id="pricing" class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center">
+            <h2>{{ $pricingSections->first()->pricing_title ?? 'Pricing' }}</h2>
+            <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+            <p class="text-muted" style="padding-bottom: 20px;">
+                {{ $pricingSections->first()->pricing_subtext ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}
+            </p>
+        </div>
+        <div class="row justify-content-center">
+
+            @foreach($pricingSections->first()->pricing_plans ?? [] as $plan)
+                <div class="col-md-4">
+                    <div class="card" style="padding:20px; @if($loop->index === 1) background-color: #0d83fd; color: white; @endif">
+                        @if($loop->index === 1)
+                            <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
+                        @endif
+                        <div class="card-body">
+                            <h2 class="card-title" style="@if($loop->index === 1) color: white; @endif">{{ $plan['plan_heading'] }}</h2>
+                            <p class="card-text price" style="@if($loop->index === 1) color: white; @endif">${{ $plan['plan_amount'] }}<small>/month</small></p>
+                            <p class="card-text">{{ $plan['plan_paragraph'] }}</p>
+                            <b>Featured Included:</b>
+                            <ul style="list-style: none;">
+                                @foreach($plan['plan_features'] ?? [] as $feature)
+                                    <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] }}</li>
+                                @endforeach
+                            </ul>
+                            <a href="{{ $plan['plan_button_url'] ?? '#' }}" class="btn @if($loop->index === 1) btn-light @else btn-primary @endif">{{ $plan['plan_button_text'] ?? 'Buy Now' }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+ <!-- FAQ Section -->
+<section id="faq" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
+                <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
             </div>
-            <div class="row">
-                <div class="col-md-6 mb-4"> <!-- Added mb-4 here -->
-                    <div class="card">
-                        <img src="https://placehold.co/75x75" class="card-img-top" alt="Testimonial 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Saul Goodman</h5>
-                            <p class="card-text">Ceo & Founder</p>
-                            <div class="star-rating">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+            <div class="col-md-6">
+                <div class="accordion" id="faqAccordion">
+                    @foreach ($faqs as $faq)
+                        @foreach ($faq->faq_accordion as $key => $accordionItem)
+                            <div class="card">
+                                <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
+                                            {{ $accordionItem['question_title'] }}
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
+                                    <div class="card-body">
+                                        {{ $accordionItem['answer_text'] }}
+                                    </div>
+                                </div>
                             </div>
-                            <p>Praesent iaculis parasol consequat sem cursus eget. Accumsan cous quenci slicies egestas diam. Aliquam eget nib et.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4"> <!-- Added mb-4 here -->
-                    <div class="card">
-                        <img src="https://placehold.co/75x75" class="card-img-top" alt="Testimonial 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Sara wilson</h5>
-                            <p class="card-text">Designer</p>
-                            <div class="star-rating">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p>Exsport fugiat lorem ipsum mattis crasis mattis crasis quae eram nolae dolor quenci cillum quidi eram molis quenum quam lore eram velit simi aliqua nesciunt.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 mb-4"> <!-- Added mb-4 here -->
-                    <div class="card">
-                        <img src="https://placehold.co/75x75" class="card-img-top" alt="Testimonial 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Jone Kerlis</h5>
-                            <p class="card-text">Mare Danler</p>
-                            <div class="star-rating">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p>Iours quidi iours querit export clabo dolore laborare culture quena magna aliqua quous quta forem quin seds quis nesciunt culture.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-4"> <!-- Added mb-4 here -->
-                    <div class="card">
-                        <img src="https://placehold.co/75x75" class="card-img-top" alt="Testimonial 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Matt Brandon</h5>
-                            <p class="card-text">Invester</p>
-                            <div class="star-rating">
-                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-                            </div>
-                            <p>Fugiat wisim eram quase culture dolore dolor culture quasi culture dolore dolorum larem quin lore quem quta wisim culture sunt quiba.</p>
-                        </div>
-                    </div>
+                        @endforeach
+                    @endforeach
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+<!-- Call to Action (Bottom) -->
+<section id="cta-bottom" class="py-5" style="background-color:#1A98F2;color:white;">
+    <div class="container text-center" style="padding:60px;">
+        <h2 style="color: white;">{{ $faq->faq_cta_button_text ? 'Call To Action' : '' }}</h2>
+        <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
+        @if($faq->faq_cta_button_text && $faq->faq_cta_button_url)
+            <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
+        @endif
+    </div>
+</section>
 
-    <!-- Stats/Counters Section -->
-    <section id="stats" class="py-5 bg-light">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-3">
-                    <span class="display-4" style="color: black;">232</span>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                    <p>Clients</p>
-                </div>
-                <div class="col-md-3">
-                    <span class="display-4" style="color: black;">521</span>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                    <p>Projects</p>
-                </div>
-                <div class="col-md-3">
-                    <span class="display-4" style="color: black;">1453</span>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                    <p>Hours of Support</p>
-                </div>
-                <div class="col-md-3">
-                    <span class="display-4" style="color: black;">32</span>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                    <p>Workers</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Services Section -->
-    <section id="services" class="py-5">
-        <div class="container">
-            <div class="text-center"> <!-- Added text-center here -->
-                <h2>Services</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                <p class="text-muted" style="padding-bottom: 20px;">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
-            </div>
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="service-box d-flex align-items-center">
-                        <div class="icon-box">
-                            <i class="fa fa-line-chart fa-3x text-primary"></i>
-                        </div>
-                        <div>
-                            <h2>Nescunt mete</h2>
-                            <p>Provident nihil nisi qui consequatur non omnis maiores. Eos animi assumuam lore minis tempore quis perferendis tempore et consequatur.</p>
-                            <a href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-box d-flex align-items-center">
-                        <div class="icon-box">
-                            <i class="fa fa-share-alt fa-3x text-primary"></i>
-                        </div>
-                        <div>
-                            <h2>Eosle Commodi</h2>
-                            <p>Ut autem aute num a. Sinti sit facilis num tam libero. Libero quispil neque eum his non lore nesciunt culture.</p>
-                            <a href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-box d-flex align-items-center">
-                        <div class="icon-box">
-                            <i class="fa fa-shopping-cart fa-3x text-primary"></i>
-                        </div>
-                        <div>
-                            <h2>Ledo markt</h2>
-                            <p>Ut excepturi voluptatem lore sedi. Quiden fuga consequuntur minus aliquid exiqui rot quia quidlores consequat minus</p>
-                            <a href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="service-box d-flex align-items-center">
-                        <div class="icon-box">
-                            <i class="fa fa-bar-chart fa-3x text-primary"></i>
-                        </div>
-                        <div>
-                            <h2>Asperiores Commodt</h2>
-                            <p>Non et tempus ilios minus abore essi lore consequatur. Cupiditate sed error eus fugiat sit provident adiposi neque.</p>
-                            <a href="#">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Pricing Plans -->
-    <section id="pricing" class="py-5 bg-light">
-        <div class="container">
+        @foreach($contactSections as $contactSection)
             <div class="text-center">
-                <h2>Pricing</h2>
+                <h2>{{ $contactSection->contact_title ?? 'Contact' }}</h2>
                 <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-                <p class="text-muted" style="padding-bottom: 20px;">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="card" style="padding:20px;">
-                        <div class="card-body">
-                            <h2 class="card-title">Basic Plan</h2>
-                            <p class="card-text price">$9.9<small>/month</small></p>
-                            <p class="card-text">Sedi uti perspiciatis unde omnis ite natis error sit voluptatem lausantium doloremque deliciosa.</p>
-                            <b>Featured Included:</b>
-                            <ul style="list-style: none;">
-                                <li><i class="fa fa-check-circle text-primary"></i> Duis aute irure dolor</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Excepteur sint occaecat</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Nemo enim ipsam voluptatem</li>
-                            </ul>
-                            <a href="#" class="btn btn-primary">Buy Now <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" style="background-color: #0d83fd; color: white; padding:20px">
-                        <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
-                        <div class="card-body">
-                            <h2 class="card-title" style="color: white;">Standard Plan</h2>
-                            <p class="card-text price" style="color: white;">$19.9<small>/month</small></p>
-                            <p class="card-text">At vero eos et accusamus eti iusto odio dignissimuss dolorous qui menditi presentatio voluptatum.</p>
-                            <b>Featured Included:</b>
-                            <ul style="list-style: none;">
-                                <li><i class="fa fa-check-circle text-light"></i> Lorem ipsum dolor sit amet</li>
-                                <li><i class="fa fa-check-circle text-light"></i> Consectetur adipiscing elit</li>
-                                <li><i class="fa fa-check-circle text-light"></i> Sed do eiusmod tempor</li>
-                                <li><i class="fa fa-check-circle text-light"></i> Ut labore in dolore magna</li>
-                            </ul>
-                            <a href="#" class="btn btn-light">Buy Now <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h2 class="card-title">Premium Plan</h2>
-                            <p class="card-text price">$39.9<small>/month</small></p>
-                            <p class="card-text">Quis autum lore reprehenderit queni in eus voluptate velit esse quem nuilia resistent consequat.</p>
-                            <b>Featured Included:</b>
-                            <ul style="list-style: none;">
-                                <li><i class="fa fa-check-circle text-primary"></i> Temporibus autem set</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Saequi evenite et et volupta</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Nam libero tempore solita</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Cumsque nihil impedit oso</li>
-                                <li><i class="fa fa-check-circle text-primary"></i> Maximus piacere facime passieren</li>
-                            </ul>
-                            <a href="#" class="btn btn-primary">Buy Now <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- FAQ Section -->
-    <section id="faq" class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2>Have a question? Check out the FAQ</h2>
-                    <p class="text-muted">Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.</p>
-                </div>
-                <div class="col-md-6">
-                    <div class="accordion" id="faqAccordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne" style="background-color: white;">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Non venustatiati atiati at lorem simis duno?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#faqAccordion" style="background-color: white;">
-                                <div class="card-body">
-                                    Feugiat proetum simis ipsum consquent. Tempest iaculis urna liti et volutpat lacus lorenes non cuturbita gravida. Viverralitis lesics magna fringilla urna porttitor rhoncus dolor paris nim.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo" style="background-color: white;">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Feugiat scelerisque varios mortibiti eninis susc faucibus?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                                <div class="card-body">
-                                    Contact us through the contact form or call us directly.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree" style="background-color: white;">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Dolor sit amet consectetur adiposcing eliti pelimesoso?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                                <div class="card-body">
-                                    Contact us through the contact form or call us directly
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingFour" style="background-color: white;">
-                                <h2 class="mb-0">
-                                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                        Au alia tempore adipi dilapidus eliquidi eliferendi inita in nulla?
-                                    </button>
-                                </h2>
-                            </div>
-                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#faqAccordion">
-                                <div class="card-body">
-                                    Contact us through the contact form or call us directly.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action (Bottom) -->
-    <section id="cta-bottom" class="py-5" style="background-color:#1A98F2;color:white;">
-        <div class="container text-center" style="padding:60px;">
-            <h2 style="color: white;">Call To Action</h2>
-            <p>Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.</p>
-            <a href="#" class="btn btn-outline-light btn-lg rounded-pill">Call To Action</a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <div class="text-center"> <!-- Added text-center here -->
-                <h2>Contact</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div> <!-- Added line -->
-                <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
+                <p class="text-muted">{{ $contactSection->contact_subtitle ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
             <div class="row">
                 <div class="col-md-4 contact-info" style="background-color:#1A98F2;color:white; padding:40px; border-radius:20px;">
-                    <h3 style="color: white;">Contact Info</h3>
-                    <p>Prassent sacies massia cousulls o pellentesque ness, egestas non essi. Vestibulum ante ipsum perilis.</p>
-                    <p><i class="fa fa-map-marker"></i> Our Location <br> A108 Adam Street New York, NY 535022</p>
-                    <p><i class="fa fa-phone"></i> Phone Number <br> +1 5555 98488 55</p>
-                    <p><i class="fa fa-envelope"></i> Email Address <br> info@example.com contact@example.com</p>
+                    <h3 style="color: white;">{{ $contactSection->contact_sidebar_title ?? 'Contact Info' }}</h3>
+                    <p>{{ $contactSection->contact_paragraph ?? 'Prassent sacies massia cousulls o pellentesque ness, egestas non essi. Vestibulum ante ipsum perilis.' }}</p>
+
+                    @if($contactSection->contact_features)
+                        @foreach($contactSection->contact_features as $feature)
+                            @if(isset($feature['icon']) && isset($feature['heading']) && isset($feature['description']))
+                                <p>
+                                    <i class="{{ $feature['icon'] }}"></i>
+                                    <strong>{{ $feature['heading'] }}</strong> <br>
+                                    {{ $feature['description'] }}
+                                </p>
+                            @endif
+                        @endforeach
+                    @endif
+
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-7" style=" border-radius:10px; padding:40px; background-color:white;">
@@ -638,8 +531,9 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
+         @endforeach <!-- End the loop -->
+    </div>
+</section>
     <!-- Footer -->
     <footer class="py-5 bg-white">
         <div class="container">
@@ -726,6 +620,7 @@
             });
         });
     </script>
+    <!-- JavaScript to handle tab switching -->
 </body>
 
 </html>

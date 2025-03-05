@@ -4,6 +4,9 @@
     color: #333;
     line-height: 1.6;
     background-color: #f3f9ff;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
 }
 
 h1,
