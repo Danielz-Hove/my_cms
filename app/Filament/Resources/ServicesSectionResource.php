@@ -42,7 +42,7 @@ class ServicesSectionResource extends Resource
                             ->schema([
                                 TextInput::make('card_title')
                                     ->label('Card Title')
-                                    ->required()
+                                    ->nullable()
                                     ->maxLength(255),
                                 Textarea::make('card_description')
                                     ->label('Card Description')

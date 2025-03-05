@@ -75,12 +75,10 @@ class AboutUsSectionResource extends Resource
                             ->schema([
                                 TextInput::make('heading')
                                     ->label('Heading')
-                                    ->required()
                                     ->maxLength(255),
                                 Textarea::make('paragraph')
                                     ->label('Paragraph')
-                                    ->rows(2)
-                                    ->required(),
+                                    ->rows(2),
 
                                 /* Use Font Awesome Class instead of image URL */
                                 TextInput::make('image')
@@ -108,7 +106,6 @@ class AboutUsSectionResource extends Resource
 
                                 TextInput::make('text')        // 'text' for clarity
                                     ->label('Text')
-                                    ->required()
                                     ->maxLength(255),
                             ])
                             ->collapsible()

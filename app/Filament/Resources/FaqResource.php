@@ -38,12 +38,12 @@ class FaqResource extends Resource
                             ->schema([
                                 TextInput::make('question_title')
                                     ->label('Question Title')
-                                    ->required()
+                                    ->nullable()
                                     ->maxLength(255),
                                 Textarea::make('answer_text')
                                     ->label('Answer Text')
                                     ->rows(3)
-                                    ->required(),
+                                    ->nullable(),
                             ])
                             ->collapsible()
                             ->collapsed()

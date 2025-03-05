@@ -37,7 +37,7 @@ class TestimonialsStatisticsSectionResource extends Resource
                         TextInput::make('title')
                             ->label('Section Title')
                             ->maxLength(255)
-                            ->required(),
+                            ->nullable(),
 
                         Textarea::make('subtext')
                             ->label('Section Subtext')
@@ -57,7 +57,7 @@ class TestimonialsStatisticsSectionResource extends Resource
                                 TextInput::make('testimonial_title')
                                     ->label('Testimonial Title')
                                     ->maxLength(255)
-                                    ->required(),
+                                    ->nullable(),
 
                                 Select::make('star_rating')  // Use the imported Rating Component
                                     ->label('Star Rating')
@@ -69,12 +69,12 @@ class TestimonialsStatisticsSectionResource extends Resource
                                         '5' => '5 Stars',
                                     ])
                                     ->default('5')
-                                    ->required(),
+                                    ->nullable(),
 
                                 Textarea::make('paragraph')
                                     ->label('Testimonial Paragraph')
                                     ->rows(3)
-                                    ->required(),
+                                    ->nullable(),
                             ])
                             ->columns(2)
                             ->collapsible()
@@ -93,13 +93,13 @@ class TestimonialsStatisticsSectionResource extends Resource
                                 TextInput::make('statistic_number')
                                     ->label('Statistic Number')
                                     ->numeric()
-                                    ->required()
+                                    ->nullable()
                                     ->minValue(0)
                                     ->maxValue(999999),  // Example range
                                 TextInput::make('statistic_text')
                                     ->label('Statistic Text')
                                     ->maxLength(255)
-                                    ->required(),
+                                    ->nullable(),
                             ])
                             ->columns(2)
                             ->collapsible()

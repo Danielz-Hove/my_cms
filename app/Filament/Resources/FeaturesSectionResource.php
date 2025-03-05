@@ -42,7 +42,7 @@ class FeaturesSectionResource extends Resource
                                 TextInput::make('heading')
                                     ->label('Heading')
                                     ->maxLength(255)
-                                    ->required(), // Add validation as needed
+                                    ->nullable(),
                                 Textarea::make('text')
                                     ->label('Text')
                                     ->rows(2)

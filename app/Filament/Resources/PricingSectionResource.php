@@ -42,12 +42,12 @@ class PricingSectionResource extends Resource
                             ->schema([
                                 TextInput::make('plan_heading')
                                     ->label('Plan Heading')
-                                    ->required()
+                                    ->nullable()
                                     ->maxLength(255),
                                 TextInput::make('plan_amount')
                                     ->label('Amount')
                                     ->numeric()
-                                    ->required(),
+                                    ->nullable(),
                                 Textarea::make('plan_paragraph')
                                     ->label('Paragraph')
                                     ->rows(2)

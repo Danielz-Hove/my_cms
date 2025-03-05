@@ -581,10 +581,15 @@
     <!-- Call to Action (Bottom) -->
     <section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
         <div class="container text-center" style="padding:60px;">
-            <h2 style="color: white;">{{ $faq->faq_cta_button_text ? 'Call To Action' : '' }}</h2>
-            <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
-            @if($faq->faq_cta_button_text && $faq->faq_cta_button_url)
-            <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
+
+            @if(!isset($faq))
+                <p>No FAQ data found in the database.</p>
+            @else
+                <h2 style="color: white;">{{ isset($faq->faq_cta_button_text) ? 'Call To Action' : '' }}</h2>
+                <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
+                @if(isset($faq->faq_cta_button_text) && isset($faq->faq_cta_button_url))
+                    <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
+                @endif
             @endif
         </div>
     </section>

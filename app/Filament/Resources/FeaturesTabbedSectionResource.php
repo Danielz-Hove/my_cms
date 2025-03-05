@@ -45,7 +45,7 @@ class FeaturesTabbedSectionResource extends Resource
                             ->schema([
                                 TextInput::make('title')
                                     ->label('Tab Title')
-                                    ->required()
+                                    ->nullable()
                                     ->maxLength(255),
                                 TextInput::make('subtitle') // Added Subtitle
                                     ->label('Tab Subtitle')
@@ -70,7 +70,6 @@ class FeaturesTabbedSectionResource extends Resource
                                             ->nullable(),
                                         TextInput::make('text')
                                             ->label('Text')
-                                            ->required()
                                             ->maxLength(255),
                                     ])
                                     ->columns(2) // Adjust columns as needed for icon/text layout
