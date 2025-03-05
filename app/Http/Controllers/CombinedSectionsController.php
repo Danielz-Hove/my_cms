@@ -18,6 +18,20 @@ class CombinedSectionsController extends Controller
 {
     public function index(): View
     {
+        $data = $this->getSectionData();
+
+        return view('combined-sections', $data);
+    }
+
+    public function showcase(): View
+    {
+        $data = $this->getSectionData();
+
+        return view('show-case', $data);
+    }
+
+    private function getSectionData(): array
+    {
         $aboutUsSections = AboutUsSection::all();
         $callToActionClientsSections = CallToActionClientsSection::all();
         $contactSections = ContactSection::all();
@@ -29,7 +43,7 @@ class CombinedSectionsController extends Controller
         $servicesSections = ServicesSection::all();
         $testimonialsStatisticsSections = TestimonialsStatisticsSection::all();
 
-        return view('combined-sections', [
+        return [
             'aboutUsSections' => $aboutUsSections,
             'callToActionClientsSections' => $callToActionClientsSections,
             'contactSections' => $contactSections,
@@ -40,6 +54,6 @@ class CombinedSectionsController extends Controller
             'pricingSections' => $pricingSections,
             'servicesSections' => $servicesSections,
             'testimonialsStatisticsSections' => $testimonialsStatisticsSections,
-        ]);
+        ];
     }
 }

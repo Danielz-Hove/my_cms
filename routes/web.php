@@ -12,7 +12,8 @@ use App\Http\Controllers\ServicesSectionController;
 use App\Http\Controllers\TestimonialsStatisticsSectionController;
 use App\Http\Controllers\CombinedSectionsController;
 
-Route::get('/', [CombinedSectionsController::class, 'index']);
+Route::get('/', [CombinedSectionsController::class, 'index']); // Access combined-sections
+Route::get('/show-case', [CombinedSectionsController::class, 'showcase']);   // Access show-case
 
 
 //Testing 
