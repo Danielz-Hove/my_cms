@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
              WebsiteSettingsSeeder::class,
          ]);
          $this->call([
-            HeroSectionSeeder::class, // Add this line
+            UserSeeder::class,
         ]);
     }
 }
