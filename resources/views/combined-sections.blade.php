@@ -170,57 +170,57 @@
         </div>
     </section>
 
-<!-- Features Section with Tabs -->
-<section id="features" class="py-5">
-    <div class="container">
-        <div class="text-center"> <!-- Added text-center here -->
-            <h2>{{ $featuresTabbedSections->first()->features_headline ?? 'Features' }}</h2>
-            <div style="width: 50px; height: 3px; margin: 0.5rem auto;"></div>
-            <!-- Added line -->
-            <p class="text-muted">{{ $featuresTabbedSections->first()->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
-        </div>
-        <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist"
-            style="padding: 5px;">
-            @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
+    <!-- Features Section with Tabs -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="text-center"> <!-- Added text-center here -->
+                <h2>{{ $featuresTabbedSections->first()->features_headline ?? 'Features' }}</h2>
+                <div style="width: 50px; height: 3px; margin: 0.5rem auto;"></div>
+                <!-- Added line -->
+                <p class="text-muted">{{ $featuresTabbedSections->first()->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
+            </div>
+            <ul class="nav nav-pills justify-content-center bg-light rounded flex-wrap" id="myTab" role="tablist"
+                style="padding: 5px;">
+                @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
                 <li class="nav-item">
                     <a class="nav-link {{ $key === 0 ? 'active' : '' }}" id="{{ Str::slug($tab['title']) }}-tab"
-                       data-toggle="tab" href="#{{ Str::slug($tab['title']) }}" role="tab"
-                       aria-controls="{{ Str::slug($tab['title']) }}"
-                       aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
+                        data-toggle="tab" href="#{{ Str::slug($tab['title']) }}" role="tab"
+                        aria-controls="{{ Str::slug($tab['title']) }}"
+                        aria-selected="{{ $key === 0 ? 'true' : 'false' }}">
                         {{ $tab['title'] }}
                     </a>
                 </li>
-            @endforeach
-        </ul>
-        <div class="tab-content mt-4" id="myTabContent">
-            @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
+                @endforeach
+            </ul>
+            <div class="tab-content mt-4" id="myTabContent">
+                @foreach ($featuresTabbedSections->first()->tabs ?? [] as $key => $tab)
                 <div class="tab-pane fade {{ $key === 0 ? 'show active' : '' }}" id="{{ Str::slug($tab['title']) }}"
-                     role="tabpanel" aria-labelledby="{{ Str::slug($tab['title']) }}-tab">
+                    role="tabpanel" aria-labelledby="{{ Str::slug($tab['title']) }}-tab">
                     <div class="row">
                         <div class="col-md-6">
                             <h3>{{ $tab['subtitle'] ?? 'Voluptatem dignissimos provident' }}</h3>
                             <p>{!! $tab['content'] ?? 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.' !!}</p>
                             <ul style="list-style: none;">
                                 @foreach ($tab['icon_list'] ?? [] as $icon)
-                                    <li><i class="{{ $icon['icon'] ?? 'fa fa-check' }} text-primary"></i> {{ $icon['text'] }}</li>
+                                <li><i class="{{ $icon['icon'] ?? 'fa fa-check' }} text-primary"></i> {{ $icon['text'] }}</li>
                                 @endforeach
                             </ul>
                         </div>
                         <div class="col-md-6">
                             @if (isset($tab['image']) && $tab['image'])
-                                <img src="{{ asset('storage/' . $tab['image']) }}" alt="{{ $tab['title'] }} Image"
-                                     class="img-fluid">
+                            <img src="{{ asset('storage/' . $tab['image']) }}" alt="{{ $tab['title'] }} Image"
+                                class="img-fluid">
                             @else
-                                <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }} Image"
-                                     class="img-fluid">
+                            <img src="https://placehold.co/600x400/ADD8E6/000000" alt="{{ $tab['title'] }} Image"
+                                class="img-fluid">
                             @endif
                         </div>
                     </div>
                 </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    </div>
-</section>
+    </section>
     <!-- Key Features (Four Colored Boxes) -->
     <section id="key-features" class="py-5 bg-light">
         <div class="container">
@@ -275,169 +275,170 @@
             </div>
         </div>
     </section>
+    @endforeach
+    <!-- Client Logos Carousel -->
+    <div id="logoCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
 
-    <!-- Company Logos Carousel -->
-    <section id="company-logos" class="py-3 bg-white">
+        @if($callToActionClientsSections->isNotEmpty())
+            @foreach($callToActionClientsSections as $section)
+                @if($section->client_logos)
+                    @foreach($section->client_logos as $key => $logoData)
+                        @if(isset($logoData['logo']))
+                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                <img src="{{ asset('storage/' . $logoData['logo']) }}" class="d-block w-100" alt="Client Logo">
+                            </div>
+                        @endif
+                    @endforeach
+                @else
+                    <div class="carousel-item active">
+                        <p>No client logos found for this section.</p>
+                    </div>
+                @endif
+            @endforeach
+        @else
+            <div class="carousel-item active">
+                <p>No call to action sections found.</p>
+            </div>
+        @endif
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#logoCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#logoCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5">
         <div class="container">
-            <div id="logoCarousel_{{ $section->id }}" class="carousel slide" data-ride="carousel"> <!-- Unique ID for each carousel -->
-                <div class="carousel-inner">
-                    @if($section->clientLogos) <!-- Check if clientLogos exist -->
-                    @foreach(collect($section->clientLogos)->chunk(5) as $key => $logoGroup)
-                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <div class="logo-group">
-                            @foreach ($logoGroup as $logo)
-                            @if (isset($logo['logo']) && $logo['logo'])
-                            <img src="{{ asset('storage/' . $logo['logo']) }}" alt="Client Logo" class="img-fluid">
-                            @endif
-                            @endforeach
+            <div class="text-center">
+                <h2>Testimonials</h2>
+                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
+            </div>
+            <div class="row">
+                @forelse ($testimonialsStatisticsSections as $testimonialSection)
+                @if ($testimonialSection->testimonials)
+                @foreach ($testimonialSection->testimonials as $testimonial)
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        @if ($testimonial['image'])
+                        <img src="{{ asset('storage/' . $testimonial['image']) }}" class="card-img-top" alt="{{ $testimonial['testimonial_title'] ?? 'Testimonial Image' }}" style="max-height: 150px; object-fit: cover;">
+                        @else
+                        <img src="https://placehold.co/75x75" class="card-img-top" alt="Placeholder Image">
+                        @endif
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $testimonial['testimonial_title'] ?? 'No Title' }}</h5>
+                            <p class="card-text">{{ $testimonial['position'] ?? 'Ceo & Founder' }}</p> <!-- Added position field -->
+                            <div class="star-rating">
+                                @for ($i = 0; $i < ($testimonial['star_rating'] ?? 5); $i++)
+                                    <i class="fa fa-star"></i>
+                                    @endfor
+                                    @for ($i = 0; $i < (5 - ($testimonial['star_rating'] ?? 5)); $i++)
+                                        <i class="fa fa-star-o"></i> <!-- Or a different empty star icon -->
+                                        @endfor
+                            </div>
+                            <p>{{ $testimonial['paragraph'] ?? 'No content available.' }}</p>
                         </div>
                     </div>
-                    @endforeach
-                    @else
-                    <div class="carousel-item active">
-                        <p>No client logos available for this section.</p>
-                    </div>
-                    @endif
                 </div>
-                <a class="carousel-control-prev" href="#logoCarousel_{{ $section->id }}" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#logoCarousel_{{ $section->id }}" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                @endforeach
+                @endif
+                @empty
+                <div class="col-12">
+                    <p class="text-center">No testimonial sections available.</p>
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+    <!-- Stats/Counters Section -->
+    <section id="stats" class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                @if ($testimonialsStatisticsSections->isNotEmpty())
+                @foreach ($testimonialsStatisticsSections as $testimonialSection)
+                @if ($testimonialSection->statistics)
+                @foreach ($testimonialSection->statistics as $statistic)
+                <div class="col-md-3">
+                    <span class="display-4" style="color: black;">{{ $statistic['statistic_number'] ?? '0' }}</span>
+                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                    <p>{{ $statistic['statistic_text'] ?? 'Statistic' }}</p>
+                </div>
+                @endforeach
+                @else
+                <div class="col-12">
+                    <p class="text-center">No statistics available for this section.</p>
+                </div>
+                @endif
+                @endforeach
+                @else
+                <div class="col-12">
+                    <p class="text-center">No testimonial/statistic sections available.</p>
+                </div>
+                @endif
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    @foreach($servicesSections as $section)
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2>{{ $section->services_title }}</h2>
+                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext }}</p>
+            </div>
+
+            <div class="row">
+                @if ($section->service_cards)
+                @foreach ($section->service_cards as $card)
+                <div class="col-md-6">
+                    <div class="service-box d-flex align-items-center">
+                        <div class="icon-box">
+                            @if($card['card_image'])
+                            <i class="fa {{ $card['card_image'] }} fa-3x text-primary"></i>
+                            @else
+                            <i class="fa fa-cogs fa-3x text-primary"></i> <!-- Default icon if none provided -->
+                            @endif
+                        </div>
+                        <div>
+                            <h2>{{ $card['card_title'] }}</h2>
+                            <p>{{ $card['card_description'] }}</p>
+                            @if ($card['card_button_text'] && $card['card_button_url'])
+                            <a href="{{ $card['card_button_url'] }}">{{ $card['card_button_text'] }}</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @endif
             </div>
         </div>
     </section>
     @endforeach
-   <!-- Testimonials Section -->
-<section id="testimonials" class="py-5">
-    <div class="container">
-        <div class="text-center">
-            <h2>Testimonials</h2>
-            <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-            <p class="text-muted">Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.</p>
-        </div>
-        <div class="row">
-            @forelse ($testimonialsStatisticsSections as $testimonialSection)
-                @if ($testimonialSection->testimonials)
-                    @foreach ($testimonialSection->testimonials as $testimonial)
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                @if ($testimonial['image'])
-                                    <img src="{{ asset('storage/' . $testimonial['image']) }}" class="card-img-top" alt="{{ $testimonial['testimonial_title'] ?? 'Testimonial Image' }}" style="max-height: 150px; object-fit: cover;">
-                                @else
-                                    <img src="https://placehold.co/75x75" class="card-img-top" alt="Placeholder Image">
-                                @endif
-
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $testimonial['testimonial_title'] ?? 'No Title' }}</h5>
-                                    <p class="card-text">{{ $testimonial['position'] ?? 'Ceo & Founder' }}</p> <!-- Added position field -->
-                                    <div class="star-rating">
-                                        @for ($i = 0; $i < ($testimonial['star_rating'] ?? 5); $i++)
-                                            <i class="fa fa-star"></i>
-                                        @endfor
-                                        @for ($i = 0; $i < (5 - ($testimonial['star_rating'] ?? 5)); $i++)
-                                            <i class="fa fa-star-o"></i> <!-- Or a different empty star icon -->
-                                        @endfor
-                                    </div>
-                                    <p>{{ $testimonial['paragraph'] ?? 'No content available.' }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-            @empty
-                <div class="col-12">
-                    <p class="text-center">No testimonial sections available.</p>
-                </div>
-            @endforelse
-        </div>
-    </div>
-</section>
-   <!-- Stats/Counters Section -->
-<section id="stats" class="py-5 bg-light">
-    <div class="container">
-        <div class="row text-center">
-            @if ($testimonialsStatisticsSections->isNotEmpty())
-                @foreach ($testimonialsStatisticsSections as $testimonialSection)
-                    @if ($testimonialSection->statistics)
-                        @foreach ($testimonialSection->statistics as $statistic)
-                            <div class="col-md-3">
-                                <span class="display-4" style="color: black;">{{ $statistic['statistic_number'] ?? '0' }}</span>
-                                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-                                <p>{{ $statistic['statistic_text'] ?? 'Statistic' }}</p>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="col-12">
-                            <p class="text-center">No statistics available for this section.</p>
-                        </div>
-                    @endif
-                @endforeach
-            @else
-                <div class="col-12">
-                    <p class="text-center">No testimonial/statistic sections available.</p>
-                </div>
-            @endif
-        </div>
-    </div>
-</section>
-<!-- Services Section -->
-@foreach($servicesSections as $section)
-        <section id="services" class="py-5">
-            <div class="container">
-                <div class="text-center">
-                    <h2>{{ $section->services_title }}</h2>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-                    <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext }}</p>
-                </div>
-
-                <div class="row">
-                    @if ($section->service_cards)
-                        @foreach ($section->service_cards as $card)
-                            <div class="col-md-6">
-                                <div class="service-box d-flex align-items-center">
-                                    <div class="icon-box">
-                                        @if($card['card_image'])
-                                            <i class="fa {{ $card['card_image'] }} fa-3x text-primary"></i>
-                                        @else
-                                            <i class="fa fa-cogs fa-3x text-primary"></i> <!-- Default icon if none provided -->
-                                        @endif
-                                    </div>
-                                    <div>
-                                        <h2>{{ $card['card_title'] }}</h2>
-                                        <p>{{ $card['card_description'] }}</p>
-                                        @if ($card['card_button_text'] && $card['card_button_url'])
-                                            <a href="{{ $card['card_button_url'] }}">{{ $card['card_button_text'] }}</a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                </div>
+    <!-- Pricing Plans -->
+    <section id="pricing" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center">
+                <h2>{{ $pricingSections->first()->pricing_title ?? 'Pricing' }}</h2>
+                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <p class="text-muted" style="padding-bottom: 20px;">
+                    {{ $pricingSections->first()->pricing_subtext ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}
+                </p>
             </div>
-        </section>
-    @endforeach
-  <!-- Pricing Plans -->
-<section id="pricing" class="py-5 bg-light">
-    <div class="container">
-        <div class="text-center">
-            <h2>{{ $pricingSections->first()->pricing_title ?? 'Pricing' }}</h2>
-            <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
-            <p class="text-muted" style="padding-bottom: 20px;">
-                {{ $pricingSections->first()->pricing_subtext ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}
-            </p>
-        </div>
-        <div class="row justify-content-center">
+            <div class="row justify-content-center">
 
-            @foreach($pricingSections->first()->pricing_plans ?? [] as $plan)
+                @foreach($pricingSections->first()->pricing_plans ?? [] as $plan)
                 <div class="col-md-4">
                     <div class="card" style="padding:20px; @if($loop->index === 1) background-color: #0d83fd; color: white; @endif">
                         @if($loop->index === 1)
-                            <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
+                        <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
                         @endif
                         <div class="card-body">
                             <h2 class="card-title" style="@if($loop->index === 1) color: white; @endif">{{ $plan['plan_heading'] }}</h2>
@@ -446,66 +447,66 @@
                             <b>Featured Included:</b>
                             <ul style="list-style: none;">
                                 @foreach($plan['plan_features'] ?? [] as $feature)
-                                    <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] }}</li>
+                                <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] }}</li>
                                 @endforeach
                             </ul>
                             <a href="{{ $plan['plan_button_url'] ?? '#' }}" class="btn @if($loop->index === 1) btn-light @else btn-primary @endif">{{ $plan['plan_button_text'] ?? 'Buy Now' }} <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
-    </div>
-</section>
- <!-- FAQ Section -->
-<section id="faq" class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
-                <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
+                @endforeach
             </div>
-            <div class="col-md-6">
-                <div class="accordion" id="faqAccordion">
-                    @foreach ($faqs as $faq)
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section id="faq" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
+                    <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="accordion" id="faqAccordion">
+                        @foreach ($faqs as $faq)
                         @foreach ($faq->faq_accordion as $key => $accordionItem)
-                            <div class="card">
-                                <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
-                                    <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
-                                            {{ $accordionItem['question_title'] }}
-                                        </button>
-                                    </h2>
-                                </div>
-                                <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
-                                    <div class="card-body">
-                                        {{ $accordionItem['answer_text'] }}
-                                    </div>
+                        <div class="card">
+                            <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
+                                        {{ $accordionItem['question_title'] }}
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
+                                <div class="card-body">
+                                    {{ $accordionItem['answer_text'] }}
                                 </div>
                             </div>
+                        </div>
                         @endforeach
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Call to Action (Bottom) -->
-<section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
-    <div class="container text-center" style="padding:60px;">
-        <h2 style="color: white;">{{ $faq->faq_cta_button_text ? 'Call To Action' : '' }}</h2>
-        <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
-        @if($faq->faq_cta_button_text && $faq->faq_cta_button_url)
+    </section>
+    <!-- Call to Action (Bottom) -->
+    <section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
+        <div class="container text-center" style="padding:60px;">
+            <h2 style="color: white;">{{ $faq->faq_cta_button_text ? 'Call To Action' : '' }}</h2>
+            <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
+            @if($faq->faq_cta_button_text && $faq->faq_cta_button_url)
             <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
-        @endif
-    </div>
-</section>
+            @endif
+        </div>
+    </section>
 
-<!-- Contact Section -->
-<section id="contact" class="py-5">
-    <div class="container">
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
 
-        @foreach($contactSections as $contactSection)
+            @foreach($contactSections as $contactSection)
             <div class="text-center">
                 <h2>{{ $contactSection->contact_title ?? 'Contact' }}</h2>
                 <div style="width: 50px; height: 3px; background-color: #0d83fd; margin: 0.5rem auto;"></div>
@@ -517,15 +518,15 @@
                     <p>{{ $contactSection->contact_paragraph ?? 'Prassent sacies massia cousulls o pellentesque ness, egestas non essi. Vestibulum ante ipsum perilis.' }}</p>
 
                     @if($contactSection->contact_features)
-                        @foreach($contactSection->contact_features as $feature)
-                            @if(isset($feature['icon']) && isset($feature['heading']) && isset($feature['description']))
-                                <p>
-                                    <i class="{{ $feature['icon'] }}"></i>
-                                    <strong>{{ $feature['heading'] }}</strong> <br>
-                                    {{ $feature['description'] }}
-                                </p>
-                            @endif
-                        @endforeach
+                    @foreach($contactSection->contact_features as $feature)
+                    @if(isset($feature['icon']) && isset($feature['heading']) && isset($feature['description']))
+                    <p>
+                        <i class="{{ $feature['icon'] }}"></i>
+                        <strong>{{ $feature['heading'] }}</strong> <br>
+                        {{ $feature['description'] }}
+                    </p>
+                    @endif
+                    @endforeach
                     @endif
 
                 </div>
@@ -551,9 +552,9 @@
                     </form>
                 </div>
             </div>
-         @endforeach <!-- End the loop -->
-    </div>
-</section>
+            @endforeach <!-- End the loop -->
+        </div>
+    </section>
     <!-- Footer -->
     <footer class="py-5 bg-white">
         <div class="container">

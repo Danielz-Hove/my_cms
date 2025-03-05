@@ -420,3 +420,36 @@ footer a:hover {
 .footer-text {
     color: black;
 }
+#logoCarousel{
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+#logoCarousel .carousel-item {
+    display: flex; /* Use flexbox to display multiple logos */
+  }
+  
+  #logoCarousel .carousel-item img {
+    width: auto; /* Let the images have their natural width */
+    max-height: 80px; /* Set a maximum height */
+    object-fit: contain; /* Ensure the entire logo is visible */
+    margin: 0 10px; /* Add some horizontal spacing */
+  }
+  
+  /*Hide the controls*/
+  .carousel-control-prev,
+  .carousel-control-next {
+      display: none;
+  }
+  
+  /* Adjust for different screen sizes */
+  @media (max-width: 768px) {
+    #logoCarousel .carousel-item {
+      display: block; /* Stack logos on smaller screens */
+    }
+  
+    #logoCarousel .carousel-item img {
+      width: 50%; /* Make each logo take up half the width on smaller screens */
+      margin: 10px auto; /* Center the logos horizontally */
+      display: block; /*Ensure the images are block level*/
+    }
+  }
