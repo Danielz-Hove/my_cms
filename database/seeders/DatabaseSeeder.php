@@ -17,5 +17,17 @@ class DatabaseSeeder extends Seeder
          $this->call([
             UserSeeder::class,
         ]);
+        $this->call([
+            HeroSectionSeeder::class,
+            AboutUsSectionSeeder::class,
+            FeaturesTabbedSectionSeeder::class,
+            FeaturesSectionSeeder::class,
+            CallToActionClientsSectionSeeder::class,
+            TestimonialsStatisticsSectionSeeder::class,
+            ServicesSectionSeeder::class,
+            PricingSectionSeeder::class,
+            FaqSeeder::class,
+            ContactSectionSeeder::class,
+        ]);
     }
 }
