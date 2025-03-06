@@ -26,7 +26,7 @@ class FeaturesTabbedSectionSeeder extends Seeder
                         'title' => 'Medusa',  // Title from Tab
                         'subtitle' => 'Voluptatem dignissimos provident',  // Title from Subtitle
                         'content' => "Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit. Ullamco laboris nisi ut aliquip ex ea commodo consequat. Ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-                        'image' => 'images/drag-and-drop.jpg', // Placeholder
+                        'image' => 'images/tab-1-image.jpg', // Placeholder
                         'icon_list' => [
                             [
                                 'icon' => 'fa fa-check',
@@ -46,7 +46,7 @@ class FeaturesTabbedSectionSeeder extends Seeder
                         'title' => 'Preasants',  // Added Tab
                         'subtitle' => 'Preasants Voluptatum',  // Added Subtitle
                         'content' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
-                        'image' => 'images/preasants.jpg', // Placeholder
+                        'image' => 'images/tab-2-image.jpg', // Placeholder
                         'icon_list' => [
                             [
                                 'icon' => 'fa fa-check',
@@ -66,7 +66,7 @@ class FeaturesTabbedSectionSeeder extends Seeder
                         'title' => 'Explica',  // Added Tab
                         'subtitle' => 'Explica Voluptatum',  // Added Subtitle
                         'content' => "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-                        'image' => 'images/explica.jpg', // Placeholder
+                        'image' => 'images/tab-3-image.jpg', // Placeholder
                         'icon_list' => [
                             [
                                 'icon' => 'fa fa-check',

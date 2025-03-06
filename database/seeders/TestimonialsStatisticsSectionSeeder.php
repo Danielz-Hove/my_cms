@@ -22,28 +22,28 @@ class TestimonialsStatisticsSectionSeeder extends Seeder
                     [
                         'testimonial_title' => 'Saul Goodman',
                         'position' => 'Ceo & Founder',
-                        'image' => 'images/testimonial-1.jpg', // Placeholder
+                        'image' => 'images/profile.jpg', // Placeholder
                         'star_rating' => 5, // As shown in image
                         'paragraph' => "Proasis praes catas parass consequat sem quirs alicies Quam quistia alicies dolores ilum tempore.",
                     ],
                      [
                         'testimonial_title' => 'Sara Wilson',
                         'position' => 'Designer',
-                        'image' => 'images/testimonial-2.jpg', // Placeholder
+                        'image' => 'images/profile.jpg', // Placeholder
                         'star_rating' => 5, // As shown in image
                         'paragraph' => "Exceputi tempor ilium taties catas malis Quam quistia malis Quam quistia alicies Quam quistia alicies dolores ilum tempore.",
                     ],
                     [
                         'testimonial_title' => 'Jena Karlis',
                         'position' => 'Store Owner',
-                        'image' => 'images/testimonial-3.jpg', // Placeholder
+                        'image' => 'images/profile.jpg', // Placeholder
                         'star_rating' => 5, // As shown in image
                         'paragraph' => "Yours ilium quisti catas export dolores catas Quam magna quistia ratione culpas Quam quistia alicies dolores ilum tempore.",
                     ],
                     [
                         'testimonial_title' => 'Matt Brandon',
                         'position' => 'Freelancer',
-                        'image' => 'images/testimonial-4.jpg', // Placeholder
+                        'image' => 'images/profile.jpg', // Placeholder
                         'star_rating' => 5, // As shown in image
                         'paragraph' => "Fugitat volupte ilium taties culpas dolores malis Quam catas Quam quistia alicies Quam quistia alicies dolores ilum tempore.",
                     ],

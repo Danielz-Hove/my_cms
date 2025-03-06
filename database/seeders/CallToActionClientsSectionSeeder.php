@@ -24,17 +24,8 @@ class CallToActionClientsSectionSeeder extends Seeder
                 'cta_button_url' => '/contact',
                 'client_logos' => json_encode([
                     [
-                        'logo' => 'images/lifegroups.png', // Placeholder logos
-                    ],
-                    [
-                        'logo' => 'images/grabyo.png', // Placeholder logos
-                    ],
-                     [
-                        'logo' => 'images/citrus.png', // Placeholder logos
-                    ],
-                     [
-                        'logo' => 'images/trustly.png', // Placeholder logos
-                    ],
+                        'logo' => 'images/logo-1.png', // Placeholder logos
+                    ]
                 ]),
                 'created_at' => now(),
                 'updated_at' => now(),

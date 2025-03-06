@@ -26,8 +26,8 @@ class HeroSectionSeeder extends Seeder
                 'hero_button_text' => 'Get Started', //
                 'hero_button_url' => '/features',
                 'hero_video_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Consider replacing with a professional demo video
-                'hero_background_image' => 'images/hero-bg.jpg', // Placeholder:  replace with an actual path
-                'hero_foreground_image' => 'images/hero-foreground.png', // Placeholder
+                'hero_background_image' => 'images/hero-background-image.jpg', // Placeholder:  replace with an actual path
+                'hero_foreground_image' => 'images/hero-section-image.jpg', // Placeholder
                 'hero_features' => json_encode([
                     [
                         'icon' => 'fa fa-trophy',  // Updated Icon
@@ -45,7 +45,7 @@ class HeroSectionSeeder extends Seeder
                         'paragraph' => 'Etiam sit amet',
                     ],
                     [
-                        'icon' => 'fa fa-check-square-o',  // Updated Icon
+                        'icon' => 'fa fa-check-square',  // Updated Icon
                         'heading' => '12k Pretium',
                         'paragraph' => 'Vestibulum ante',
                     ],

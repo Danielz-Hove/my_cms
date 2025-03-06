@@ -149,7 +149,7 @@
                     </ul>
                     <div class="row" style="padding-top: 10px;">
                         <div class="col-md-6 d-flex align-items-center">
-                            <img src="https://placehold.co/75x75" alt="Team Image" class="img-fluid rounded-circle mr-2">
+                            <img src="{{ asset('storage/images/profile.jpg') }}" alt="Team Image" class="img-fluid rounded-circle mr-2" style="width: 50px; height:50px;">
                             <div>
                                 Mario Smith
                                 <br>
