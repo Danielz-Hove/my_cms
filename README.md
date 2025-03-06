@@ -43,10 +43,6 @@ cp .env.example .env
 ```
 Edit the `.env` file and configure your database connection (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`). Pay close attention to `APP_URL` - set it to your development or production URL.
 
-### Configure APP_URL:
-```sh
-APP_URL=http://127.0.0.1:8000 //CORSS
-```
 ### Generate application key:
 ```sh
 php artisan key:generate
