@@ -63,3 +63,95 @@ function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbar = document.querySelector('.navbar'); //Select the entire nav element
+    if (navbarToggler) {
+      navbarToggler.addEventListener('click', function() {
+        navbar.classList.toggle('no-rounded-pill'); // Toggle a class on the entire navbar
+      });
+    }
+  });
+
+  //Hero Section
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.querySelector('#hero section');
+
+    // Add .active after a delay (simulating page load)
+    setTimeout(() => {
+        heroSection.classList.add('active');
+    }, 300); //Adjust the timeout to modify the effect
+});
+
+//About Section
+document.addEventListener('DOMContentLoaded', function() {
+    const aboutSection = document.querySelector('#about');
+  
+    function handleScroll() {
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const elementTop = aboutSection.offsetTop;
+  
+      if (elementTop < scrollY + windowHeight * 0.8) {
+        aboutSection.classList.add('active');
+      }
+    }
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('#testimonials .card');
+
+    function handleScroll() {
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+
+        cards.forEach(card => {
+            const cardTop = card.offsetTop;
+            if (cardTop < scrollY + windowHeight * 0.8) {
+                card.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+});
+// JavaScript for Contact Section scroll animations
+document.addEventListener('DOMContentLoaded', function() {
+    const contactSection = document.querySelector('#contact');
+
+    function handleScroll() {
+        const windowHeight = window.innerHeight;
+        const scrollY = window.scrollY;
+        const elementTop = contactSection.offsetTop;
+
+        if (elementTop < scrollY + windowHeight * 0.8) {
+            contactSection.classList.add('active');
+        }
+    }
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const footer = document.querySelector('footer');
+
+    // Add .active after a short delay to bring the footer in
+    setTimeout(() => {
+        footer.classList.add('active');
+    }, 500);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionButtons = document.querySelectorAll('.card-header button');
+
+    accordionButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const icon = this.querySelector('.accordion-icon');
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+      });
+    });
+  });

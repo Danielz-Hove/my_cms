@@ -14,6 +14,7 @@ h2,
 h3,
 h4,
 h5,
+h5,
 h6 {
     font-weight: bold;
     color: #2c3e50;
@@ -37,6 +38,7 @@ a:hover {
 .navbar-brand {
     font-size: 1.75rem;
     font-weight: 700;
+    padding-left: 50px;
     color: #0d83fd !important;
 }
 
@@ -49,6 +51,30 @@ a:hover {
 .navbar-light .navbar-nav .nav-link:focus {
     color: #0d83fd;
 }
+.navbar .navbar-toggler .navbar-toggler-icon {
+    padding-right: 50px;
+  }
+
+  .navbar-toggler-icon {
+    border: none; /*  Explicitly remove any border */
+    outline: none; /* Remove the outline on focus */
+  }
+  
+  /* Additional rules to target border on specific states (e.g., focus) if needed */
+  .navbar-toggler:focus {
+      border: none; /*Remove from the button*/
+      outline: none; /* Remove focus outline from the button */
+      box-shadow: none; /*Remove box-shadow if it exists*/
+  }
+  
+  .navbar-toggler {
+    border: none; /* Ensure the button itself has no border */
+    outline: none !important; /* Important to override browser defaults */
+  }
+  /* Style for when rounded pill is disabled */
+.navbar.no-rounded-pill {
+    border-radius: 0 !important; /* Override Bootstrap's rounded-pill */
+  }
 
 .btn-primary {
     background-color: #0d83fd;
@@ -479,3 +505,233 @@ footer a:hover {
   #backToTopBtn {
     transition: all 0.3s ease;
   }
+
+  .sam {
+    color: #000 !important;
+  }
+  
+  .sam:hover {
+    color: #007bff !important;
+  }
+
+  /* Media Queries for Responsiveness */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .award-block .col-md-3 {
+    flex: 0 0 50%;
+    /* Occupy 50% width */
+    max-width: 50%;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+  #hero h1 {
+    font-size: 3rem;
+  }
+    .award-block .col-md-3 {
+      flex: 0 0 25%;
+      /* Occupy 25% width */
+      max-width: 25%;
+    }
+
+    #hero h1 {
+        font-size: 3.5rem;
+    }
+
+    #key-features .col-md-3 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    #features .nav-pills .nav-link {
+      font-size: 0.9rem;  /* Adjust as needed */
+      padding: 0.5rem 0.75rem;  /* Adjust padding */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+  #key-features .col-md-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+  }
+
+  #contact .contact-info{
+        margin-bottom:0;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+/* Custom Media Queries */
+
+/* Adjustments for smaller screens */
+@media (max-width: 767px) {
+    #hero {
+        padding: 3rem 0;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0.5rem 0;
+    }
+}
+
+@media (max-width: 575px) {
+    #hero {
+        padding: 2rem 0;
+    }
+
+    #hero h1 {
+        font-size: 2rem;
+    }
+    #cta h2 {
+        font-size: 2rem; /* Smaller heading */
+    }
+
+    #cta p {
+        font-size: 1rem; /* Slightly smaller text */
+    }
+
+    .btn-lg {
+        font-size: 1rem; /* Smaller buttons */
+        padding: 0.75rem 1.5rem;
+    }
+}
+
+/* Hero Section - Subtle Fade In */
+#hero section .container {
+    opacity: 0;
+    transform: translateY(20px); /* Move down slightly */
+    transition: all 0.6s ease-out;
+}
+
+#hero section.active .container {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hero Button - Hover effect */
+#hero section .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#hero section small { /*Subtitle*/
+    animation: pulseSubtitle 2s infinite alternate; /* Make sure to add this class on the element*/
+}
+
+/*Animation declaration*/
+@keyframes pulseSubtitle {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+/* About Section - Slide In */
+#about .row {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.7s ease-out;
+}
+
+#about.active .row {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#features .nav-pills .nav-link {
+    transition: all 0.3s ease;
+}
+
+#features .nav-pills .nav-link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#features .tab-content .tab-pane {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#testimonials .card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease-out;
+}
+
+#testimonials .card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#testimonials .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#services .service-box {
+    transition: all 0.3s ease;
+}
+
+#services .service-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+#contact .form-control:focus {
+    border-color: #0d83fd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 131, 253, 0.25);
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
+
+/*Contact info in sidebar*/
+#contact .contact-info{
+    transform: translateX(-100px);
+    opacity: 0;
+    transition: all 0.6s ease-out;
+}
+
+#contact.active .contact-info{
+    transform: translateX(0px);
+    opacity: 1;
+}
+footer {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+footer.active {
+    opacity: 1;
+    transform: translateY(0);
+}
