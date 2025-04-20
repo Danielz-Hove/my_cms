@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <!--Hero Section-->
     <section id="hero" class="py-0">
         @forelse($heroSections as $heroSection)
@@ -21,12 +22,28 @@
                 <div style="padding: 10px;">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light rounded-pill">
                         <div class="container">
-                            <a class="navbar-brand" href="#">iLanding</a>
+                            <a class="navbar-brand" href="#">
+                                @if($websiteSettings && $websiteSettings->navbar_logo_image)
+                                <img src="{{ asset('storage/' . $websiteSettings->navbar_logo_image) }}" alt="Logo" height="30">
+                                @elseif($websiteSettings && $websiteSettings->navbar_logo_text)
+                                {{ $websiteSettings->navbar_logo_text }}
+                                @else
+                                iLanding
+                                @endif
+                            </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav ml-auto mx-auto">
+                                    @if($websiteSettings && $websiteSettings->navbar_links)
+                                    @foreach($websiteSettings->navbar_links as $link)
+                                    <li class="nav-item">
+                                        <a class="nav-link sam" href="{{ $link['link'] }}">{{ $link['text'] }}</a>
+                                    </li>
+                                    @endforeach
+                                    @else
+                                    <!-- Default links if no settings are available -->
                                     <li class="nav-item">
                                         <a class="nav-link sam" href="#">Home</a>
                                     </li>
@@ -53,8 +70,13 @@
                                     <li class="nav-item">
                                         <a class="nav-link sam" href="#contact">Contact</a>
                                     </li>
+                                    @endif
                                 </ul>
+                                @if($websiteSettings && $websiteSettings->navbar_button_text)
+                                <a href="#" class="btn btn-primary rounded-pill ml-3">{{ $websiteSettings->navbar_button_text }}</a>
+                                @else
                                 <a href="#" class="btn btn-primary rounded-pill ml-3">Get Started</a>
+                                @endif
                             </div>
                         </div>
                     </nav>
@@ -118,7 +140,6 @@
         </section>
         @endforelse
     </section>
-
     <!-- About Us Section -->
     <section id="about" class="py-5 bg-light">
         <div class="container">
@@ -583,13 +604,13 @@
         <div class="container text-center" style="padding:60px;">
 
             @if(!isset($faq))
-                <p>No FAQ data found in the database.</p>
+            <p>No FAQ data found in the database.</p>
             @else
-                <h2 style="color: white;">{{ isset($faq->faq_cta_button_text) ? 'Call To Action' : '' }}</h2>
-                <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
-                @if(isset($faq->faq_cta_button_text) && isset($faq->faq_cta_button_url))
-                    <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
-                @endif
+            <h2 style="color: white;">{{ isset($faq->faq_cta_button_text) ? 'Call To Action' : '' }}</h2>
+            <p>{{ $faq->faq_cta_short_description ?? 'Dam dolore ir representarit in voluptate cum dolore cula qualogo qui cula offies deserunts molliti anim id est laborum.' }}</p>
+            @if(isset($faq->faq_cta_button_text) && isset($faq->faq_cta_button_url))
+            <a href="{{ $faq->faq_cta_button_url }}" class="btn btn-outline-light btn-lg rounded-pill">{{ $faq->faq_cta_button_text }}</a>
+            @endif
             @endif
         </div>
     </section>
@@ -662,14 +683,42 @@
             <div class="row">
                 <!-- Left Footer - iLanding details -->
                 <div class="col-md-3">
+                    @if($websiteSettings && $websiteSettings->footer_logo_image)
+                    <img src="{{ asset('storage/' . $websiteSettings->footer_logo_image) }}" alt="Logo" height="30">
+                    @elseif($websiteSettings && $websiteSettings->footer_logo_text)
+                    <h5 class="footer-text" style="padding-bottom:10px;">{{ $websiteSettings->footer_logo_text }}</h5>
+                    @else
                     <h5 class="footer-text" style="padding-bottom:10px;">iLanding</h5>
-                    <p class="footer-text">A108 Adam Street <br>New York, NY 535022</p>
-                    <p class="footer-text">Phone: +1 5555 98488 55 <br>Email: info@example.com</p>
+                    @endif
 
+                    @if($websiteSettings && $websiteSettings->footer_address)
+                    <p class="footer-text">{{ $websiteSettings->footer_address }}</p>
+                    @else
+                    <p class="footer-text">A108 Adam Street <br>New York, NY 535022</p>
+                    @endif
+
+                    @if($websiteSettings && $websiteSettings->footer_phone)
+                    <p class="footer-text">Phone: {{ $websiteSettings->footer_phone }}</p>
+                    @else
+                    <p class="footer-text">Phone: +1 5555 98488 55</p>
+                    @endif
+
+                    @if($websiteSettings && $websiteSettings->footer_email)
+                    <p class="footer-text">Email: {{ $websiteSettings->footer_email }}</p>
+                    @else
+                    <p class="footer-text">Email: info@example.com</p>
+                    @endif
+
+                    @if($websiteSettings && $websiteSettings->footer_social_icons)
+                    @foreach($websiteSettings->footer_social_icons as $icon)
+                    <a href="{{ $icon['url'] }}" class="text-black mr-2"><i class="fab {{ $icon['text'] }} fa-2x"></i></a>
+                    @endforeach
+                    @else
                     <a href="#" class="text-black mr-2"><i class="fab fa-facebook-square fa-2x"></i></a>
                     <a href="#" class="text-black mr-2"><i class="fab fa-twitter-square fa-2x"></i></a>
                     <a href="#" class="text-black mr-2"><i class="fab fa-linkedin fa-2x"></i></a>
                     <a href="#" class="text-black mr-2"><i class="fab fa-instagram fa-2x"></i></a>
+                    @endif
                 </div>
 
                 <!-- Middle Left Footer - Useful Links -->
@@ -710,7 +759,11 @@
 
             <div class="row">
                 <div class="col-md-12 text-center mt-3">
+                    @if($websiteSettings && $websiteSettings->footer_copyright)
+                    <p class="footer-text">{{ $websiteSettings->footer_copyright }}</p>
+                    @else
                     <p class="footer-text">© Copyright <b>iLanding</b>. All Rights Reserved</p>
+                    @endif
                     <p class="footer-text">Composed by Danielz Hove</p>
                 </div>
             </div>

@@ -12,6 +12,7 @@ use App\Models\HeroSection;
 use App\Models\PricingSection;
 use App\Models\ServicesSection;
 use App\Models\TestimonialsStatisticsSection;
+use App\Models\WebsiteSettings; // Import the WebsiteSettings model
 use Illuminate\View\View;
 
 class CombinedSectionsController extends Controller
@@ -42,6 +43,7 @@ class CombinedSectionsController extends Controller
         $pricingSections = PricingSection::all();
         $servicesSections = ServicesSection::all();
         $testimonialsStatisticsSections = TestimonialsStatisticsSection::all();
+        $websiteSettings = WebsiteSettings::first(); // Get the first (or only) settings record
 
         return [
             'aboutUsSections' => $aboutUsSections,
@@ -54,6 +56,7 @@ class CombinedSectionsController extends Controller
             'pricingSections' => $pricingSections,
             'servicesSections' => $servicesSections,
             'testimonialsStatisticsSections' => $testimonialsStatisticsSections,
+            'websiteSettings' => $websiteSettings, // Pass the settings to the view
         ];
     }
 }

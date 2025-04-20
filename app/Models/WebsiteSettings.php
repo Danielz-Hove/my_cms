@@ -3,9 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class WebsiteSettings extends Model
 {
+    protected $casts = [
+        'navbar_links' => 'array',
+        'footer_social_icons' => 'array',
+        'contact_sections' => 'array', // Add this!
+    ];
+
     protected $fillable = [
         'navbar_logo_text',
         'navbar_logo_image',
@@ -18,10 +25,24 @@ class WebsiteSettings extends Model
         'footer_email',
         'footer_social_icons',
         'footer_copyright',
+        'contact_sections', // Add this!
     ];
 
-    protected $casts = [
-        'navbar_links' => 'array',
-        'footer_social_icons' => 'array',
-    ];
+    // Optional: Mutator for accessing the navbar_logo_image URL.  Only needed if your
+    // images are stored outside the public directory.
+    public function getNavbarLogoImageUrlAttribute()
+    {
+        if ($this->navbar_logo_image) {
+            return Storage::url($this->navbar_logo_image);
+        }
+        return null;
+    }
+
+    public function getFooterLogoImageUrlAttribute()
+    {
+        if ($this->footer_logo_image) {
+            return Storage::url($this->footer_logo_image);
+        }
+        return null;
+    }
 }
