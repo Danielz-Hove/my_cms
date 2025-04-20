@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iLanding - Awesome Landing Page</title>
 
-        <!-- Favicon (add this line) -->
-        <link rel="icon" href="{{ asset('storage/images/favicon.png') }}" type="image/png">
+    <!-- Favicon (add this line) -->
+    <link rel="icon" href="{{ asset('storage/images/favicon.png') }}" type="image/png">
 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -90,7 +90,7 @@
 
             <div class="container mt-auto" style=" padding: 20px;">
                 <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-left">  <!-- Added text alignment classes -->
+                    <div class="col-md-6 text-center text-md-left"> <!-- Added text alignment classes -->
                         @if($heroSection->hero_subtitle_icon)
                         <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px; font-size:18px;">
                             <i class="fa {{ $heroSection->hero_subtitle_icon }} fa-spin"></i> {{ $heroSection->hero_subtitle }}
@@ -104,9 +104,9 @@
                         <h1>{{ $heroSection->hero_title ?? 'Your Hero Title Here' }}</h1> <!-- Placeholder -->
                         <h2>{{ $heroSection->page_title ?? 'Page Title' }}</h2>
                         <p>{{ $heroSection->hero_description ?? 'Your Hero Description Here.  Explain what you do.' }}</p> <!-- Placeholder -->
-                        <div class="d-flex flex-column flex-sm-row align-items-center">  <!-- Make buttons responsive -->
+                        <div class="d-flex flex-column flex-sm-row align-items-center"> <!-- Make buttons responsive -->
                             <a href="{{ $heroSection->hero_button_url ?? '#' }}" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">{{ $heroSection->hero_button_text ?? 'Learn More' }}</a> <!-- Placeholder -->
-                            <a href="{{ $heroSection->hero_video_url ?? '#' }}" class="btn btn-secondary"> <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video</a> <!-- Placeholder -->
+                            <a href="{{ $heroSection->hero_video_url ?? '#' }}" class="btn btn-secondary mb-3"> <i class="fa fa-play-circle" aria-hidden="true"></i> Play Video</a> <!-- Placeholder -->
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -117,7 +117,7 @@
                 <div class="row text-center award-block">
                     @if(isset($heroSection->hero_features) && is_array($heroSection->hero_features) && count($heroSection->hero_features) > 0)
                     @foreach($heroSection->hero_features as $feature)
-                    <div class="col-6 col-md-3 mb-3">  <!-- Added responsive column classes and margin -->
+                    <div class="col-6 col-md-3 mb-3"> <!-- Added responsive column classes and margin -->
                         <div>
                             @if(isset($feature['icon']) && $feature['icon'])
                             <i class="fa {{ $feature['icon'] }} fa-2x mb-2 text-primary"></i>
@@ -177,19 +177,34 @@
                     </ul>
                     <div class="row" style="padding-top: 10px;">
                         <div class="col-md-6 d-flex align-items-center">
-                            <img src="{{ asset('storage/images/profile.jpg') }}" alt="Team Image" class="img-fluid rounded-circle mr-2" style="width: 50px; height:50px;">
-                            <div>
-                                Mario Smith
-                                <br>
-                                CEO & Founder
+                            <!-- Large Screen Content -->
+                            <div class="d-none d-md-flex align-items-center">
+                                <img src="{{ asset('storage/images/profile.jpg') }}" alt="Team Image" class="img-fluid rounded-circle mr-2" style="width: 50px; height:50px;">
+                                <div>
+                                    Mario Smith (Large Screen)
+                                    <br>
+                                    CEO & Founder
+                                </div>
+                            </div>
+
+                            <!-- Small Screen Content -->
+                            <div class="d-flex d-md-none align-items-center justify-content-center text-center">
                             </div>
                         </div>
-                        <div class="col-md-6 d-flex align-items-center">
-                            <i class="fa fa-phone text-primary mr-2"></i>
-                            <div>
-                                Call us anytime
-                                <br>
-                                +1 1333 456-789
+
+                        <div class="col-md-6 d-flex align-items-center d-none d-md-flex"> <!-- Added d-none d-md-flex to the outer div -->
+                            <!-- Large Screen Content -->
+                            <div class="d-none d-md-flex align-items-center">
+                                <i class="fa fa-phone text-primary mr-2"></i>
+                                <div>
+                                    Call us anytime (Large Screen)
+                                    <br>
+                                    +1 1333 456-789
+                                </div>
+                            </div>
+
+                            <!-- Small Screen Content -->
+                            <div class="d-flex d-md-none align-items-center justify-content-center text-center">
                             </div>
                         </div>
                     </div>
@@ -565,48 +580,48 @@
             </div>
         </div>
     </section>
-<!-- FAQ Section -->
-<section id="faq" class="py-5">
-    <div class="container">
-        <div class="row">
-            @if($faqs->isNotEmpty())
-            <div class="col-md-6">
-                <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
-                <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
-            </div>
-            <div class="col-md-6">
-                <div class="accordion" id="faqAccordion">
-                    @foreach ($faqs as $faq)
-                    @if(isset($faq->faq_accordion) && is_array($faq->faq_accordion))
-                    @foreach ($faq->faq_accordion as $key => $accordionItem)
-                    <div class="card">
-                        <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
-                                    {{ $accordionItem['question_title'] ?? 'Question Title' }}
-                                    <i class="fas fa-chevron-down float-right"></i>  <!-- Arrow Icon -->
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
-                            <div class="card-body">
-                                {{ $accordionItem['answer_text'] ?? 'Answer Text' }}
+    <!-- FAQ Section -->
+    <section id="faq" class="py-5">
+        <div class="container">
+            <div class="row">
+                @if($faqs->isNotEmpty())
+                <div class="col-md-6">
+                    <h2>{{ $faqs->first()->faq_section_heading ?? 'Have a question? Check out the FAQ' }}</h2>
+                    <p class="text-muted">{{ $faqs->first()->faq_short_description ?? 'Manomium tempus tellus eget condimentum rhoncus sem quam semper libero sit amet adipiscing sem neque sod ipsum.' }}</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="accordion" id="faqAccordion">
+                        @foreach ($faqs as $faq)
+                        @if(isset($faq->faq_accordion) && is_array($faq->faq_accordion))
+                        @foreach ($faq->faq_accordion as $key => $accordionItem)
+                        <div class="card">
+                            <div class="card-header" id="heading{{ $key }}" style="background-color: white;">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left {{ $key === 0 ? '' : 'collapsed' }}" type="button" data-toggle="collapse" data-target="#collapse{{ $key }}" aria-expanded="{{ $key === 0 ? 'true' : 'false' }}" aria-controls="collapse{{ $key }}">
+                                        {{ $accordionItem['question_title'] ?? 'Question Title' }}
+                                        <i class="fas fa-chevron-down float-right"></i> <!-- Arrow Icon -->
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse{{ $key }}" class="collapse {{ $key === 0 ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#faqAccordion" style="background-color: white;">
+                                <div class="card-body">
+                                    {{ $accordionItem['answer_text'] ?? 'Answer Text' }}
+                                </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endif
+                        @endforeach
                     </div>
-                    @endforeach
-                    @endif
-                    @endforeach
                 </div>
+                @else
+                <div class="col-md-12">
+                    <p>No FAQs defined.</p>
+                </div>
+                @endif
             </div>
-            @else
-            <div class="col-md-12">
-                <p>No FAQs defined.</p>
-            </div>
-            @endif
         </div>
-    </div>
-</section>
+    </section>
     <!-- Call to Action (Bottom) -->
     <section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
         <div class="container text-center" style="padding:60px;">
@@ -685,124 +700,125 @@
             @endforelse <!-- End the loop -->
         </div>
     </section>
-   <!-- Footer -->
-<footer class="py-5 bg-white">
-    <div class="container">
-        <div class="row">
-            <!-- Left Footer - iLanding details -->
-            <div class="col-md-3">
-                @if($websiteSettings && $websiteSettings->footer_logo_image)
-                <img src="{{ asset('storage/' . $websiteSettings->footer_logo_image) }}" alt="Logo" height="30">
-                @elseif($websiteSettings && $websiteSettings->footer_logo_text)
-                <h5 class="footer-text" style="padding-bottom:10px;">{{ $websiteSettings->footer_logo_text }}</h5>
-                @else
-                <h5 class="footer-text" style="padding-bottom:10px;">iLanding</h5>
-                @endif
+    <!-- Footer -->
+    <footer class="py-5 bg-white">
+        <div class="container">
+            <div class="row">
+                <!-- Left Footer - iLanding details -->
+                <div class="col-md-3">
+                    @if($websiteSettings && $websiteSettings->footer_logo_image)
+                    <img src="{{ asset('storage/' . $websiteSettings->footer_logo_image) }}" alt="Logo" height="30">
+                    @elseif($websiteSettings && $websiteSettings->footer_logo_text)
+                    <h5 class="footer-text" style="padding-bottom:10px;">{{ $websiteSettings->footer_logo_text }}</h5>
+                    @else
+                    <h5 class="footer-text" style="padding-bottom:10px;">iLanding</h5>
+                    @endif
 
-                @if($websiteSettings && $websiteSettings->footer_address)
-                <p class="footer-text">{{ $websiteSettings->footer_address }}</p>
-                @else
-                <p class="footer-text">A108 Adam Street <br>New York, NY 535022</p>
-                @endif
+                    @if($websiteSettings && $websiteSettings->footer_address)
+                    <p class="footer-text">{{ $websiteSettings->footer_address }}</p>
+                    @else
+                    <p class="footer-text">A108 Adam Street <br>New York, NY 535022</p>
+                    @endif
 
-                @if($websiteSettings && $websiteSettings->footer_phone)
-                <p class="footer-text">Phone: {{ $websiteSettings->footer_phone }}</p>
-                @else
-                <p class="footer-text">Phone: +1 5555 98488 55</p>
-                @endif
+                    @if($websiteSettings && $websiteSettings->footer_phone)
+                    <p class="footer-text">Phone: {{ $websiteSettings->footer_phone }}</p>
+                    @else
+                    <p class="footer-text">Phone: +1 5555 98488 55</p>
+                    @endif
 
-                @if($websiteSettings && $websiteSettings->footer_email)
-                <p class="footer-text">Email: {{ $websiteSettings->footer_email }}</p>
-                @else
-                <p class="footer-text">Email: info@example.com</p>
-                @endif
+                    @if($websiteSettings && $websiteSettings->footer_email)
+                    <p class="footer-text">Email: {{ $websiteSettings->footer_email }}</p>
+                    @else
+                    <p class="footer-text">Email: info@example.com</p>
+                    @endif
 
-                @if($websiteSettings && $websiteSettings->footer_social_icons)
-                @foreach($websiteSettings->footer_social_icons as $icon)
-                <a href="{{ $icon['url'] }}" class="text-black mr-2"><i class="fab {{ $icon['text'] }} fa-2x"></i></a>
-                @endforeach
-                @else
-                <a href="#" class="text-black mr-2"><i class="fab fa-facebook-square fa-2x"></i></a>
-                <a href="#" class="text-black mr-2"><i class="fab fa-twitter-square fa-2x"></i></a>
-                <a href="#" class="text-black mr-2"><i class="fab fa-linkedin fa-2x"></i></a>
-                <a href="#" class="text-black mr-2"><i class="fab fa-instagram fa-2x"></i></a>
-                @endif
+                    @if($websiteSettings && $websiteSettings->footer_social_icons)
+                    @foreach($websiteSettings->footer_social_icons as $icon)
+                    <a href="{{ $icon['url'] }}" class="text-black mr-2"><i class="fab {{ $icon['text'] }} fa-2x"></i></a>
+                    @endforeach
+                    @else
+                    <a href="#" class="text-black mr-2"><i class="fab fa-facebook-square fa-2x"></i></a>
+                    <a href="#" class="text-black mr-2"><i class="fab fa-twitter-square fa-2x"></i></a>
+                    <a href="#" class="text-black mr-2"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a href="#" class="text-black mr-2"><i class="fab fa-instagram fa-2x"></i></a>
+                    @endif
+                </div>
+
+                <!-- Middle Left Footer - Useful Links -->
+                <div class="col-md-3">
+                    <h5 class="footer-text" style="padding-bottom:10px;">Useful Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" style="color:black;">Home</a></li>
+                        <li><a href="#" style="color:black;">About Us</a></li>
+                        <li><a href="#" style="color:black;">Services</a></li>
+                        <li><a href="#" style="color:black;">Terms of Service</a></li>
+                        <li><a href="#" style="color:black;">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Middle Right Footer - Our Services -->
+                <div class="col-md-3">
+                    <h5 class="footer-text" style="padding-bottom:10px;">Our Services</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" style="color:black;">Web Design</a></li>
+                        <li><a href="#" style="color:black;">Web Development</a></li>
+                        <li><a href="#" style="color:black;">Product Management</a></li>
+                        <li><a href="#" style="color:black;">Marketing</a></li>
+                        <li><a href="#" style="color:black;">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <!-- Right Footer - Other Stuff-->
+                <div class="col-md-3">
+                    <h5 class="footer-text" style="padding-bottom:10px;">His scelerisque</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" style="color:black;">Modestiar accusamus lasm</a></li>
+                        <li><a href="#" style="color:black;">Exceputri dignisimus</a></li>
+                        <li><a href="#" style="color:black;">Directa</a></li>
+                        <li><a href="#" style="color:black;">35 quain consectetr</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Middle Left Footer - Useful Links -->
-            <div class="col-md-3">
-                <h5 class="footer-text" style="padding-bottom:10px;">Useful Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" style="color:black;">Home</a></li>
-                    <li><a href="#" style="color:black;">About Us</a></li>
-                    <li><a href="#" style="color:black;">Services</a></li>
-                    <li><a href="#" style="color:black;">Terms of Service</a></li>
-                    <li><a href="#" style="color:black;">Privacy Policy</a></li>
-                </ul>
-            </div>
-
-            <!-- Middle Right Footer - Our Services -->
-            <div class="col-md-3">
-                <h5 class="footer-text" style="padding-bottom:10px;">Our Services</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" style="color:black;">Web Design</a></li>
-                    <li><a href="#" style="color:black;">Web Development</a></li>
-                    <li><a href="#" style="color:black;">Product Management</a></li>
-                    <li><a href="#" style="color:black;">Marketing</a></li>
-                    <li><a href="#" style="color:black;">Graphic Design</a></li>
-                </ul>
-            </div>
-
-            <!-- Right Footer - Other Stuff-->
-            <div class="col-md-3">
-                <h5 class="footer-text" style="padding-bottom:10px;">His scelerisque</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" style="color:black;">Modestiar accusamus lasm</a></li>
-                    <li><a href="#" style="color:black;">Exceputri dignisimus</a></li>
-                    <li><a href="#" style="color:black;">Directa</a></li>
-                    <li><a href="#" style="color:black;">35 quain consectetr</a></li>
-                </ul>
+            <div class="row">
+                <div class="col-md-12 text-center mt-3">
+                    @if($websiteSettings && $websiteSettings->footer_copyright)
+                    <p class="footer-text">{{ $websiteSettings->footer_copyright }}</p>
+                    @else
+                    <p class="footer-text">© Copyright <b>iLanding</b>. All Rights Reserved</p>
+                    @endif
+                    <p class="footer-text">Composed by Danielz Hove</p>
+                </div>
             </div>
         </div>
+    </footer>
+    <button onclick="topFunction()" id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script> <!-- Include your JS file -->
+    <script>
+        $(document).ready(function() {
+            $("#contactForm").submit(function(event) {
+                // Prevent the form from submitting normally
+                event.preventDefault();
 
-        <div class="row">
-            <div class="col-md-12 text-center mt-3">
-                @if($websiteSettings && $websiteSettings->footer_copyright)
-                <p class="footer-text">{{ $websiteSettings->footer_copyright }}</p>
-                @else
-                <p class="footer-text">© Copyright <b>iLanding</b>. All Rights Reserved</p>
-                @endif
-                <p class="footer-text">Composed by Danielz Hove</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<button onclick="topFunction()" id="backToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="{{ asset('js/script.js') }}"></script> <!-- Include your JS file -->
-<script>
-    $(document).ready(function() {
-        $("#contactForm").submit(function(event) {
-            // Prevent the form from submitting normally
-            event.preventDefault();
+                // Basic form validation (you can expand this)
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var message = $("#message").val();
 
-            // Basic form validation (you can expand this)
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var message = $("#message").val();
+                if (name === "" || email === "" || message === "") {
+                    alert("Please fill in all fields.");
+                    return;
+                }
 
-            if (name === "" || email === "" || message === "") {
-                alert("Please fill in all fields.");
-                return;
-            }
-
-            // You would typically use AJAX here to submit the form to a server
-            // For demonstration, we'll just show an alert
-            alert("Form submitted (but not really sent)!");
+                // You would typically use AJAX here to submit the form to a server
+                // For demonstration, we'll just show an alert
+                alert("Form submitted (but not really sent)!");
+            });
         });
-    });
-  </script>
- </body>
+    </script>
+</body>
+
 </html>
