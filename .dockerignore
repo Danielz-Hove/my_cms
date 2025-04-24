@@ -1,0 +1,8 @@
+.git
+node_modules
+vendor
+.idea
+*.log
+public/storage
+storage/logs/*
+tests
