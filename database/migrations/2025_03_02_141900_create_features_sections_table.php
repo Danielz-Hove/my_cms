@@ -9,7 +9,7 @@ class CreateFeaturesSectionsTable extends Migration
     public function up()
     {
         Schema::create('features_sections', function (Blueprint $table) {
-            $table->id()->nullable();
+            $table->id();
             $table->string('page_slug')->nullable();
             $table->string('page_title')->nullable();
             $table->string('page_status')->default('draft');

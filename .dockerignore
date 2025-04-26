@@ -1,8 +1,8 @@
-.git
-node_modules
-vendor
-.idea
+node_modules/
+vendor/
+.git/
+.idea/
+.vscode/
 *.log
-public/storage
 storage/logs/*
-tests
+public/storage
