@@ -15,7 +15,7 @@ class WebsiteSettingsSeeder extends Seeder
     {
         WebsiteSettings::create([
             'navbar_logo_text' => 'My Website',
-            'footer_copyright' => '© 2023 My Company',
+            'footer_copyright' => '© 2025 My Company',
             // Add other default settings here
         ]);
     }

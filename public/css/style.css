@@ -735,3 +735,68 @@ footer.active {
     opacity: 1;
     transform: translateY(0);
 }
+
+.side-panel {
+    height: 50%;  /* Half-height */
+    width: 0; /* Start hidden */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    top: 50%; /* Position from the top */
+    left: 0;
+    transform: translateY(-50%); /* Vertically center the panel */
+    background-color: #111; /* Black background */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px; /* Space for content */
+    transition: 0.5s; /* Smooth transition */
+}
+
+.side-panel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-panel a:hover {
+    color: #f1f1f1;
+}
+
+.side-panel .close-button {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Optional: Style for the button that opens the panel (if you want it distinct) */
+#sidePanelToggleButton {
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1001; /* Ensure it's above the side panel */
+    position: fixed;      /* Fixed position */
+    top: 50%;             /* Position from the top */
+    left: 20px;           /* Distance from the left */
+    transform: translateY(-50%); /* Vertically center the button */
+}
+
+/* Media query to adjust close button position for smaller screens */
+@media screen and (max-height: 450px) {
+    .side-panel {padding-top: 15px;}
+    .side-panel a {font-size: 18px;}
+    .side-panel .close-button {
+        font-size: 25px;
+        top: 5px;
+        right: 10px;
+    }
+}

@@ -16,7 +16,24 @@
 </head>
 
 <body>
+    <!-- Side Panel Button -->
+    <button id="sidePanelToggleButton" style="position: fixed; top: 20px; left: 20px; z-index: 1001;">
+    <i class="fa fa-cog"></i> <!-- Gear icon -->
+    </button>
 
+    <!-- The Side Panel -->
+    <div id="sidePanel" class="side-panel">
+        <a href="javascript:void(0)" class="close-button" onclick="closeSidePanel()">×</a> <!-- Close Button -->
+
+        <!-- Side Panel Content -->
+        <h2>About Us</h2>
+        <p>Some information about our company...</p>
+        <ul>
+            <li><a href="#">Our Mission</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
     <!--Hero Section-->
     <section id="hero" class="py-0">
         @forelse($heroSections as $heroSection)

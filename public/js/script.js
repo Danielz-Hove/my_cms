@@ -155,3 +155,23 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+  function openSidePanel() {
+    document.getElementById("sidePanel").style.width = "250px"; // Adjust width as desired
+}
+
+function closeSidePanel() {
+    document.getElementById("sidePanel").style.width = "0";
+}
+
+// Event listener for the toggle button
+document.addEventListener('DOMContentLoaded', function() {
+    var toggleButton = document.getElementById('sidePanelToggleButton');
+    toggleButton.addEventListener('click', function() {
+        if (document.getElementById("sidePanel").style.width === "250px") {
+            closeSidePanel();
+        } else {
+            openSidePanel();
+        }
+    });
+});
