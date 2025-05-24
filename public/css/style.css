@@ -7,258 +7,345 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h5,
-h6 {
+  }
+  
+  :root {
+    --primary-color: #0d83fd; /* Default primary color */
+    --bg-color: #f3f9ff; /* Default background color (light) */
+    --text-color: #333; /* Default text color (dark) */
+    --card-bg-color: #fff; /* Default card background */
+    --navbar-bg-color: #f8f9fa; /* Default navbar background */
+    --footer-bg-color: #2c3e50; /* Default footer background */
+    --footer-text-color: #fff; /* Default footer text */
+  }
+  
+  body[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #eee;
+    --card-bg-color: #212121;
+    --navbar-bg-color: #343a40;
+    --footer-bg-color: #1e272e;
+    --footer-text-color: #aaa;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h5,
+  h6 {
     font-weight: bold;
     color: #2c3e50;
-}
-
-a {
-    color: #0d83fd;
+  }
+  
+  a {
+    color: var(--primary-color);
     text-decoration: none;
-}
-
-a:hover {
-    color: #0d83fd;
-}
-
-/* Navigation Bar */
-.navbar {
+  }
+  
+  a:hover {
+    color: var(--primary-color);
+  }
+  
+  /* Navigation Bar */
+  .navbar {
     padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.navbar-brand {
+    background-color: var(--navbar-bg-color);
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-brand {
     font-size: 1.75rem;
     font-weight: 700;
     padding-left: 50px;
-    color: #0d83fd !important;
-}
-
-.navbar-light .navbar-nav .nav-link {
+    color: var(--primary-color) !important;
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
     color: #555;
     margin-left: 1rem;
-}
-
-.navbar-light .navbar-nav .nav-link:hover,
-.navbar-light .navbar-nav .nav-link:focus {
-    color: #0d83fd;
-}
-.navbar .navbar-toggler .navbar-toggler-icon {
+  }
+  
+  .navbar-light .navbar-nav .nav-link:hover,
+  .navbar-light .navbar-nav .nav-link:focus {
+    color: var(--primary-color);
+  }
+  
+  .navbar .navbar-toggler .navbar-toggler-icon {
     padding-right: 50px;
   }
-
+  
   .navbar-toggler-icon {
-    border: none; /*  Explicitly remove any border */
-    outline: none; /* Remove the outline on focus */
+    border: none;
+    /*  Explicitly remove any border */
+    outline: none;
+    /* Remove the outline on focus */
   }
   
   /* Additional rules to target border on specific states (e.g., focus) if needed */
   .navbar-toggler:focus {
-      border: none; /*Remove from the button*/
-      outline: none; /* Remove focus outline from the button */
-      box-shadow: none; /*Remove box-shadow if it exists*/
+    border: none;
+    /*Remove from the button*/
+    outline: none;
+    /* Remove focus outline from the button */
+    box-shadow: none;
+    /*Remove box-shadow if it exists*/
   }
   
   .navbar-toggler {
-    border: none; /* Ensure the button itself has no border */
-    outline: none !important; /* Important to override browser defaults */
+    border: none;
+    /* Ensure the button itself has no border */
+    outline: none !important;
+    /* Important to override browser defaults */
   }
+  
   /* Style for when rounded pill is disabled */
-.navbar.no-rounded-pill {
-    border-radius: 0 !important; /* Override Bootstrap's rounded-pill */
+  .navbar.no-rounded-pill {
+    border-radius: 0 !important;
+    /* Override Bootstrap's rounded-pill */
   }
-
-.btn-primary {
-    background-color: #0d83fd;
-    border-color: #0d83fd;
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
     color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     transition: background-color 0.2s ease;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: #0d83fd;
-    border-color: #0d83fd;
-}
-
-/* Hero Section */
-#hero {
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  /* Hero Section */
+  #hero {
     padding: 7rem 0;
-    background-color: #f9f9f9;
-}
-
-#hero h1 {
+    background-color: var(--bg-color);
+      transition: background-color 0.3s;
+  
+  }
+  
+  .hero-section {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s;
+  }
+  
+  #hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
     line-height: 1.2;
-}
-
-#hero p {
+  }
+  
+  #hero p {
     font-size: 1.2rem;
     color: #777;
-}
-
-/* Features Section */
-#features {
+  }
+  
+  .hero-subtitle {
+    background-color: #e1eefe;
+    color: #007bff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+  
+  /* Features Section */
+  #features {
     padding: 5rem 0;
-}
-
-#features .nav-tabs .nav-link {
+  }
+  
+  #features .nav-tabs .nav-link {
     border: none;
     color: #777;
     padding: 0.75rem 1.5rem;
     transition: color 0.2s ease;
-}
-
-#features .nav-tabs .nav-link.active {
-    color: #0d83fd;
-    border-bottom: 2px solid #0d83fd;
-}
-
-#features .tab-content {
+  }
+  
+  #features .nav-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+  }
+  
+  #features .tab-content {
     margin-top: 2rem;
-}
-
-/* Key Features */
-#key-features .card {
+  }
+  
+  /* Key Features */
+  #key-features .card {
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease;
-}
-
-#key-features .card:hover {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #key-features .card:hover {
     transform: translateY(-5px);
-}
-
-#key-features .card-body {
+  }
+  
+  #key-features .card-body {
     padding: 2rem;
-}
-
-/* Call to Action */
-#cta {
-    background-color: #0d83fd;
+  }
+  
+  #key-features .card.key-feature-card-0 {
+    background-color: #fff4e2;
+  }
+  
+  #key-features .card.key-feature-card-1 {
+    background-color: #deedfe;
+  }
+  
+  #key-features .card.key-feature-card-2 {
+    background-color: #d5f1e5;
+  }
+  
+  #key-features .card.key-feature-card-3 {
+    background-color: #fdefed;
+  }
+  
+  /* Call to Action */
+  #cta {
+    background-color: var(--primary-color);
     color: #fff;
     padding: 5rem 0;
     text-align: center;
-}
-
-#cta h2 {
+  }
+  
+  #cta h2 {
     font-size: 2.75rem;
-}
-
-/* Testimonials */
-#testimonials {
+  }
+  
+  /* Testimonials */
+  #testimonials {
     padding: 5rem 0;
-    background-color: #f9f9f9;
-}
-
-#testimonials .card {
+    background-color: var(--bg-color);
+    transition: background-color 0.3s;
+  }
+  
+  #testimonials .card {
     border: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     border-radius: 10px;
     padding-top: 20px;
-}
-
-#testimonials .card-body {
+      background-color: var(--card-bg-color);
+    color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #testimonials .card-body {
     text-align: left;
-}
-
-#testimonials .card-img-top {
+  }
+  
+  #testimonials .card-img-top {
     width: 75px;
     border-radius: 50%;
     margin: 0 auto 1rem;
-}
-
-#testimonials .star-rating i {
+  }
+  
+  #testimonials .star-rating i {
     color: #f39c12;
-}
-
-/* Stats Section */
-#stats {
+  }
+  
+  /* Stats Section */
+  #stats {
     padding: 4rem 0;
-}
-
-#stats .display-4 {
+      background-color: var(--bg-color);
+        transition: background-color 0.3s;
+  }
+  
+  #stats .display-4 {
     font-size: 3.5rem;
-    color: #0d83fd;
-}
-
-/* Services Section */
-#services {
+    color: var(--primary-color);
+  }
+  
+  /* Services Section */
+  #services {
     padding: 5rem 0;
-}
-
-#services i {
+  }
+  
+  #services i {
     font-size: 3rem;
-    color: #0d83fd;
+    color: var(--primary-color);
     margin-bottom: 1rem;
-}
-
-#services a {
+  }
+  
+  #services a {
     font-weight: bold;
-}
-
-/* Pricing Section */
-#pricing {
+  }
+  
+  .services-subtext {
+    padding-bottom: 20px;
+  }
+  
+  /* Pricing Section */
+  #pricing {
     padding: 5rem 0;
-    background-color: #f9f9f9;
-}
-
-#pricing .card {
+    background-color: var(--bg-color);
+      transition: background-color 0.3s;
+  }
+  
+  #pricing .card {
     border: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     border-radius: 10px;
     transition: transform 0.2s ease-in-out;
-}
-
-#pricing .card:hover {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #pricing .card:hover {
     transform: translateY(-5px);
-}
-
-#pricing .card-title {
+  }
+  
+  #pricing .card-title {
     font-size: 1.75rem;
     font-weight: bold;
-}
-
-#pricing .card-text.price {
+  }
+  
+  #pricing .card-text.price {
     font-size: 2rem;
-    color: #0d83fd;
+    color: var(--primary-color);
     font-weight: 700;
-}
-
-#pricing .badge-success {
+  }
+  
+  #pricing .badge-success {
     position: absolute;
     top: 10px;
     right: 10px;
     background-color: #2ecc71;
-}
-
-#pricing ul.list-unstyled li i {
+  }
+  
+  #pricing ul.list-unstyled li i {
     color: #2ecc71;
-}
-
-/* FAQ Section */
-#faq {
+  }
+  
+  /* FAQ Section */
+  #faq {
     padding: 5rem 0;
-}
-
-#faq .card {
+  }
+  
+  #faq .card {
     border: 1px solid #eee;
     border-radius: 8px;
     margin-bottom: 1rem;
-}
-
-#faq .card-header button {
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #faq .card-header button {
     color: #333;
     text-decoration: none;
     display: block;
@@ -266,28 +353,29 @@ a:hover {
     text-align: left;
     padding: 1rem;
     font-weight: 500;
-}
-
-#faq .card-header button:hover {
-    color: #0d83fd;
-}
-
-/* Footer */
-footer {
-    background-color: #2c3e50;
-    color: #fff;
+  }
+  
+  #faq .card-header button:hover {
+    color: var(--primary-color);
+  }
+  
+  /* Footer */
+  footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+      transition: background-color 0.3s, color 0.3s;
     padding: 3rem 0;
-}
-
-footer a {
-    color: #0d83fd;
-}
-
-footer a:hover {
+  }
+  
+  footer a {
+    color: var(--primary-color);
+  }
+  
+  footer a:hover {
     color: black;
-}
-
-.award-block {
+  }
+  
+  .award-block {
     /* Light grey border */
     border-radius: 10px;
     /* Rounded corners */
@@ -297,24 +385,24 @@ footer a:hover {
     /* Subtle shadow */
     background-color: #fff;
     /*  background */
-}
-
-/*New CSS for about */
-.about-image-container {
+  }
+  
+  /*New CSS for about */
+  .about-image-container {
     position: relative;
     /* Make this the positioning context */
-}
-
-.about-image-container img {
+  }
+  
+  .about-image-container img {
     border-radius: 10px;
     /*Optional, matches the screenshots */
-}
-
-.experience-badge {
+  }
+  
+  .experience-badge {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #0d83fd;
+    background-color: var(--primary-color);
     /* Match the blue color */
     color: white;
     padding: 10px 15px;
@@ -323,43 +411,43 @@ footer a:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* Add a shadow for depth */
     text-align: center;
-}
-
-/* CTA Section Styling */
-#cta {
-    background-color: #0d83fd;
+  }
+  
+  /* CTA Section Styling */
+  #cta {
+    background-color: var(--primary-color);
     /* Replace with the blue from the image */
     color: white;
-}
-
-#cta .cta-content {
+  }
+  
+  #cta .cta-content {
     padding: 30px;
     /* Add some padding around the text */
     padding: 30px;
     /* Add some padding around the text */
     border-radius: 15px;
     /* Add the border radius */
-}
-
-#cta h2 {
+  }
+  
+  #cta h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-}
-
-#cta p {
+  }
+  
+  #cta p {
     font-size: 1.2rem;
-}
-
-/* Company Logos Carousel Styling */
-#company-logos {
+  }
+  
+  /* Company Logos Carousel Styling */
+  #company-logos {
     /* Optional: Add any specific styling for the background, etc. */
-}
-
-#company-logos .carousel-inner {
+  }
+  
+  #company-logos .carousel-inner {
     /* Optional: Adjust the height or other properties of the carousel */
-}
-
-#company-logos .logo-group {
+  }
+  
+  #company-logos .logo-group {
     display: flex;
     /* Use flexbox for horizontal layout */
     justify-content: space-around;
@@ -368,9 +456,9 @@ footer a:hover {
     /* Vertically align logos */
     padding: 15px;
     /* Add padding around the logos */
-}
-
-#company-logos img {
+  }
+  
+  #company-logos img {
     max-width: 100px;
     /* Adjust logo size */
     max-height: 50px;
@@ -378,14 +466,14 @@ footer a:hover {
     /* Adjust logo transparency */
     transition: opacity 0.3s ease;
     /* Smooth transition */
-}
-
-#company-logos img:hover {
+  }
+  
+  #company-logos img:hover {
     opacity: 1;
-}
-
-/* Service Box Styling */
-.service-box {
+  }
+  
+  /* Service Box Styling */
+  .service-box {
     border: 1px solid #ddd;
     /* Light grey border */
     border-radius: 10px;
@@ -396,28 +484,28 @@ footer a:hover {
     /* Subtle shadow */
     margin-bottom: 20px;
     /* Add margin between service boxes */
-}
-
-.section-title-line {
+  }
+  
+  .section-title-line {
     width: 50px;
     height: 3px;
-    background-color: #0d83fd;
+    background-color: var(--primary-color);
     margin: 0.5rem auto;
-}
-
-.nav-pills .nav-link.active {
-    background-color: #0d83fd;
+  }
+  
+  .nav-pills .nav-link.active {
+    background-color: var(--primary-color);
     /* Or your theme's primary color */
     color: white;
-}
-
-.nav-pills .nav-link {
-    color: #0d83fd;
+  }
+  
+  .nav-pills .nav-link {
+    color: var(--primary-color);
     border-radius: 30px;
     /* Or your theme's primary color */
-}
-
-.card .btn {
+  }
+  
+  .card .btn {
     text-align: center;
     /* Center the text within the button */
     display: block;
@@ -425,14 +513,14 @@ footer a:hover {
     width: 100%;
     /* Occupy the full width */
     border-radius: 25px;
-}
-
-.card .btn .fa {
+  }
+  
+  .card .btn .fa {
     margin-left: 5px;
     /* Adjust the spacing of the icon if needed */
-}
-
-.icon-box {
+  }
+  
+  .icon-box {
     background-color: #e6f1fe;
     display: flex;
     align-items: center;
@@ -441,53 +529,73 @@ footer a:hover {
     margin-bottom: 50px;
     margin-right: 20px;
     border-radius: 10px;
-}
-
-.footer-text {
+  }
+  
+  .footer-text {
     color: black;
-}
-#logoCarousel{
+  }
+  
+  #logoCarousel {
     margin-top: 50px;
     margin-bottom: 20px;
-}
-#logoCarousel .carousel-item {
-    display: flex; /* Use flexbox to display multiple logos */
+  }
+  
+  #logoCarousel .carousel-item {
+    display: flex;
+    /* Use flexbox to display multiple logos */
   }
   
   #logoCarousel .carousel-item img {
-    width: auto; /* Let the images have their natural width */
-    max-height: 80px; /* Set a maximum height */
-    object-fit: contain; /* Ensure the entire logo is visible */
-    margin: 0 10px; /* Add some horizontal spacing */
+    width: auto;
+    /* Let the images have their natural width */
+    max-height: 80px;
+    /* Set a maximum height */
+    object-fit: contain;
+    /* Ensure the entire logo is visible */
+    margin: 0 10px;
+    /* Add some horizontal spacing */
   }
   
   /*Hide the controls*/
   .carousel-control-prev,
   .carousel-control-next {
-      display: none;
+    display: none;
   }
   
   /* Adjust for different screen sizes */
   @media (max-width: 768px) {
     #logoCarousel .carousel-item {
-      display: block; /* Stack logos on smaller screens */
+      display: block;
+      /* Stack logos on smaller screens */
     }
   
     #logoCarousel .carousel-item img {
-      width: 50%; /* Make each logo take up half the width on smaller screens */
-      margin: 10px auto; /* Center the logos horizontally */
-      display: block; /*Ensure the images are block level*/
+      width: 50%;
+      /* Make each logo take up half the width on smaller screens */
+      margin: 10px auto;
+      /* Center the logos horizontally */
+      display: block;
+      /*Ensure the images are block level*/
     }
   }
+  
   #backToTopBtn {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed position on the screen */
-    bottom: 20px; /* Distance from the bottom */
-    right: 30px; /* Distance from the right */
-    z-index: 99; /* Make sure it's on top of other elements */
-    border: none; /* Remove default button borders */
-    outline: none; /* Remove default focus outline */
-    background-color: #0d83fd; /* Semi-transparent black */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed position on the screen */
+    bottom: 20px;
+    /* Distance from the bottom */
+    right: 30px;
+    /* Distance from the right */
+    z-index: 99;
+    /* Make sure it's on top of other elements */
+    border: none;
+    /* Remove default button borders */
+    outline: none;
+    /* Remove default focus outline */
+    background-color: var(--primary-color);
+    /* Semi-transparent black */
     color: white;
     cursor: pointer;
     padding: 15px;
@@ -498,14 +606,15 @@ footer a:hover {
   }
   
   #backToTopBtn:hover {
-    background-color: #0d83fd; /* Darker on hover */
+    background-color: var(--primary-color);
+    /* Darker on hover */
   }
   
   /* Optionally, add some transition for a smoother effect */
   #backToTopBtn {
     transition: all 0.3s ease;
   }
-
+  
   .sam {
     color: #000 !important;
   }
@@ -513,265 +622,379 @@ footer a:hover {
   .sam:hover {
     color: #007bff !important;
   }
-
+  
   /* Media Queries for Responsiveness */
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  .award-block .col-md-3 {
-    flex: 0 0 50%;
-    /* Occupy 50% width */
-    max-width: 50%;
+  
+  /* Small devices (landscape phones, 576px and up) */
+  @media (min-width: 576px) {
+    .award-block .col-md-3 {
+      flex: 0 0 50%;
+      /* Occupy 50% width */
+      max-width: 50%;
+    }
   }
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-
-  #hero h1 {
-    font-size: 3rem;
-  }
+  
+  /* Medium devices (tablets, 768px and up) */
+  @media (min-width: 768px) {
+    #hero h1 {
+      font-size: 3rem;
+    }
+  
     .award-block .col-md-3 {
       flex: 0 0 25%;
       /* Occupy 25% width */
       max-width: 25%;
     }
-
+  
     #hero h1 {
-        font-size: 3.5rem;
+      font-size: 3.5rem;
     }
-
+  
     #key-features .col-md-3 {
-        flex: 0 0 50%;
-        max-width: 50%;
+      flex: 0 0 50%;
+      max-width: 50%;
     }
+  
     #features .nav-pills .nav-link {
-      font-size: 0.9rem;  /* Adjust as needed */
-      padding: 0.5rem 0.75rem;  /* Adjust padding */
+      font-size: 0.9rem;
+      /* Adjust as needed */
+      padding: 0.5rem 0.75rem;
+      /* Adjust padding */
     }
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-
-  #key-features .col-md-3 {
+  }
+  
+  /* Large devices (desktops, 992px and up) */
+  @media (min-width: 992px) {
+    #key-features .col-md-3 {
       flex: 0 0 25%;
       max-width: 25%;
+    }
+  
+    #contact .contact-info {
+      margin-bottom: 0;
+    }
   }
-
-  #contact .contact-info{
-        margin-bottom:0;
-    }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
-}
-
-/* Custom Media Queries */
-
-/* Adjustments for smaller screens */
-@media (max-width: 767px) {
+  
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (min-width: 1200px) {
+  }
+  
+  /* Custom Media Queries */
+  
+  /* Adjustments for smaller screens */
+  @media (max-width: 767px) {
     #hero {
-        padding: 3rem 0;
+      padding: 3rem 0;
     }
-
+  
     #hero h1 {
-        font-size: 2.5rem;
+      font-size: 2.5rem;
     }
-
+  
     .navbar-brand {
-        font-size: 1.5rem;
+      font-size: 1.5rem;
     }
-
+  
     .navbar-nav {
-        text-align: center;
+      text-align: center;
     }
-
+  
     .navbar-nav .nav-item {
-        margin: 0.5rem 0;
+      margin: 0.5rem 0;
     }
-}
-
-@media (max-width: 575px) {
+  }
+  
+  @media (max-width: 575px) {
     #hero {
-        padding: 2rem 0;
+      padding: 2rem 0;
     }
-
+  
     #hero h1 {
-        font-size: 2rem;
+      font-size: 2rem;
     }
+  
     #cta h2 {
-        font-size: 2rem; /* Smaller heading */
+      font-size: 2rem;
+      /* Smaller heading */
     }
-
+  
     #cta p {
-        font-size: 1rem; /* Slightly smaller text */
+      font-size: 1rem;
+      /* Slightly smaller text */
     }
-
+  
     .btn-lg {
-        font-size: 1rem; /* Smaller buttons */
-        padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      /* Smaller buttons */
+      padding: 0.75rem 1.5rem;
     }
-}
-
-/* Hero Section - Subtle Fade In */
-#hero section .container {
+  }
+  
+  /* Hero Section - Subtle Fade In */
+  #hero section .container {
     opacity: 0;
-    transform: translateY(20px); /* Move down slightly */
+    transform: translateY(20px);
+    /* Move down slightly */
     transition: all 0.6s ease-out;
-}
-
-#hero section.active .container {
+  }
+  
+  #hero section.active .container {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Hero Button - Hover effect */
-#hero section .btn-primary:hover {
+  }
+  
+  /* Hero Button - Hover effect */
+  #hero section .btn-primary:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#hero section small { /*Subtitle*/
-    animation: pulseSubtitle 2s infinite alternate; /* Make sure to add this class on the element*/
-}
-
-/*Animation declaration*/
-@keyframes pulseSubtitle {
-  from {
-    transform: scale(1);
   }
-  to {
-    transform: scale(1.05);
+  
+  #hero section small {
+    /*Subtitle*/
+    animation: pulseSubtitle 2s infinite alternate;
+    /* Make sure to add this class on the element*/
   }
-}
-
-/* About Section - Slide In */
-#about .row {
+  
+  /*Animation declaration*/
+  @keyframes pulseSubtitle {
+    from {
+      transform: scale(1);
+    }
+  
+    to {
+      transform: scale(1.05);
+    }
+  }
+  
+  /* About Section - Slide In */
+  #about .row {
     opacity: 0;
     transform: translateX(-50px);
     transition: all 0.7s ease-out;
-}
-
-#about.active .row {
+  }
+  
+  #about.active .row {
     opacity: 1;
     transform: translateX(0);
-}
-
-#features .nav-pills .nav-link {
+  }
+  
+  #features .nav-pills .nav-link {
     transition: all 0.3s ease;
-}
-
-#features .nav-pills .nav-link:hover {
+  }
+  
+  #features .nav-pills .nav-link:hover {
     transform: scale(1.05);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#features .tab-content .tab-pane {
+  }
+  
+  #features .tab-content .tab-pane {
     animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
+  }
+  
+  @keyframes fadeIn {
     from {
-        opacity: 0;
+      opacity: 0;
     }
+  
     to {
-        opacity: 1;
+      opacity: 1;
     }
-}
-
-#testimonials .card {
+  }
+  
+  #testimonials .card {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.5s ease-out;
-}
-
-#testimonials .card.active {
+  }
+  
+  #testimonials .card.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-#testimonials .card:hover {
+  }
+  
+  #testimonials .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-#services .service-box {
+  }
+  
+  #services .service-box {
     transition: all 0.3s ease;
-}
-
-#services .service-box:hover {
+  }
+  
+  #services .service-box:hover {
     transform: translateY(-8px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
-}
-
-#contact .form-control:focus {
-    border-color: #0d83fd;
+  }
+  
+  #contact .form-control:focus {
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 0.2rem rgba(13, 131, 253, 0.25);
     transform: scale(1.02);
     transition: all 0.2s ease;
-}
-
-/*Contact info in sidebar*/
-#contact .contact-info{
+  }
+  
+  /*Contact info in sidebar*/
+  #contact .contact-info {
     transform: translateX(-100px);
     opacity: 0;
     transition: all 0.6s ease-out;
-}
-
-#contact.active .contact-info{
+      background-color: var(--primary-color);
+      color: white;
+      border-radius:20px;
+      padding:40px;
+      transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #contact.active .contact-info {
     transform: translateX(0px);
     opacity: 1;
-}
-footer {
+  }
+  
+  footer {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
-}
-
-footer.active {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    transition: background-color 0.3s, color 0.3s;
+  
+  }
+  
+  footer.active {
     opacity: 1;
     transform: translateY(0);
-}
-
-.side-panel {
-    height: 50%;  /* Half-height */
-    width: 0; /* Start hidden */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    top: 50%; /* Position from the top */
+  }
+  
+  .side-panel {
+    height: 50%;
+    /* Half-height */
+    width: 0;
+    /* Start hidden */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    top: 50%;
+    /* Position from the top */
     left: 0;
-    transform: translateY(-50%); /* Vertically center the panel */
-    background-color: #111; /* Black background */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px; /* Space for content */
-    transition: 0.5s; /* Smooth transition */
-}
-
-.side-panel a {
+    transform: translateY(-50%);
+    /* Vertically center the panel */
+    background-color: #111;
+    /* Black background */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+    /* Space for content */
+    transition: 0.5s;
+    /* Smooth transition */
+  }
+  
+  .side-panel a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s;
-}
-
-.side-panel a:hover {
+  }
+  
+  .side-panel a:hover {
     color: #f1f1f1;
-}
-
-.side-panel .close-button {
+  }
+  
+  .side-panel .close-button {
     position: absolute;
     top: 5px;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-}
+  }
+  
+  /* Optional: Style for the button that opens the panel (if you want it distinct) */
+  #sidePanelToggleButton {
+    background-color: black;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1001;
+    /* Ensure it's above the side panel */
+    position: fixed;
+    /* Fixed position */
+    top: 50%;
+    /* Position from the top */
+    left: 20px;
+    /* Distance from the left */
+    transform: translateY(-50%);
+    /* Vertically center the button */
+  }
+  
+  /* Media query to adjust close button position for smaller screens */
+  @media screen and (max-height: 450px) {
+    .side-panel {
+      padding-top: 15px;
+    }
+  
+    .side-panel a {
+      font-size: 18px;
+    }
+  
+    .side-panel .close-button {
+      font-size: 25px;
+      top: 5px;
+      right: 10px;
+    }
+  }
+  
+  .color-options {
+    padding: 15px;
+    color: white;
+  }
+  
+  .color-options h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid transparent;
+    /* Add a transparent border for highlighting */
+    transition: border-color 0.2s ease;
+  }
+  
+  .color-circle:hover {
+    border-color: white;
+    /* Highlight on hover */
+  }
+  
+  .color-circle.selected {
+    border-color: yellow;
+    /* Example: Yellow border to indicate selection */
+  }
+  
+  .text-primary {
+    color: var(--primary-color) !important;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
 
-/* Optional: Style for the button that opens the panel (if you want it distinct) */
+  /* Side Panel Button */
 #sidePanelToggleButton {
     background-color: black; /* Green */
     border: none;
@@ -783,20 +1006,145 @@ footer.active {
     font-size: 20px;
     cursor: pointer;
     border-radius: 5px;
-    z-index: 1001; /* Ensure it's above the side panel */
-    position: fixed;      /* Fixed position */
-    top: 50%;             /* Position from the top */
-    left: 20px;           /* Distance from the left */
-    transform: translateY(-50%); /* Vertically center the button */
-}
-
-/* Media query to adjust close button position for smaller screens */
-@media screen and (max-height: 450px) {
-    .side-panel {padding-top: 15px;}
-    .side-panel a {font-size: 18px;}
-    .side-panel .close-button {
-        font-size: 25px;
-        top: 5px;
-        right: 10px;
-    }
-}
+    z-index: 1001;
+    /* Ensure it's above the side panel */
+    position: fixed;
+    /* Fixed position */
+    top: 20px;
+    /* Position from the top */
+    left: 20px;
+    /* Distance from the left */
+    transform: translateY(-50%);
+    /* Vertically center the button */
+  }
+  
+  .side-panel {
+    height: 50%;
+    /* Half-height */
+    width: 0;
+    /* Start hidden */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    top: 50%;
+    /* Position from the top */
+    left: 0;
+    transform: translateY(-50%);
+    /* Vertically center the panel */
+    background-color: #111;
+    /* Black background */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+    /* Space for content */
+    transition: 0.5s;
+    /* Smooth transition */
+  }
+  
+  /* Styling for heading in color options or theme toggle */
+  .color-options h3,
+  .theme-toggle h3 {
+    color: white;
+  }
+  
+  .color-options {
+    padding: 15px;
+    color: white;
+  }
+  
+  .color-options h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .color-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px;
+    display: inline-block;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    border: 2px solid transparent
+  }
+  
+  .color-circle:hover {
+    border-color: white;
+    /* Highlight on hover */
+  }
+  
+  .color-circle.selected {
+    border-color: yellow;
+    /* Example: Yellow border to indicate selection */
+  }
+  
+  /* Theme Toggle */
+  .theme-toggle {
+    padding: 15px;
+    color: white;
+  }
+  
+  .theme-toggle h3 {
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider - the moving part */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }

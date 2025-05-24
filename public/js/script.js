@@ -175,3 +175,108 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const colorCircles = document.querySelectorAll('.color-circle');
+    const root = document.documentElement; // Get the root element (<html>)
+
+    // Check if there is a saved color in local storage
+    const savedColor = localStorage.getItem('selectedColor');
+    if (savedColor) {
+        root.style.setProperty('--primary-color', savedColor);
+    }
+
+    colorCircles.forEach(circle => {
+        circle.addEventListener('click', function() {
+            // Remove 'selected' class from all circles
+            colorCircles.forEach(c => c.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked circle
+            this.classList.add('selected');
+
+            const selectedColor = this.dataset.color; // Get the color from the data attribute
+
+            // Set the CSS variable value
+            root.style.setProperty('--primary-color', selectedColor);
+
+            // Save the selected color to local storage
+            localStorage.setItem('selectedColor', selectedColor);
+
+            console.log("Color selected:", selectedColor);
+        });
+    });
+
+    // Add 'selected' class to the circle with the saved color on page load
+    if (savedColor) {
+        colorCircles.forEach(circle => {
+            if (circle.dataset.color === savedColor) {
+                circle.classList.add('selected');
+            }
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Existing code
+
+    const themeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+
+    // Check if there is a saved theme in local storage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        body.dataset.theme = savedTheme;
+        themeToggle.checked = (savedTheme === 'dark');
+    }
+
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            body.dataset.theme = 'dark';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            body.dataset.theme = 'light';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Add all of these vars if you didn't
+    const colorCircles = document.querySelectorAll('.color-circle');
+    const root = document.documentElement; // Get the root element (<html>)
+
+    // Check if there is a saved color in local storage
+    const savedColor = localStorage.getItem('selectedColor');
+    if (savedColor) {
+        root.style.setProperty('--primary-color', savedColor);
+    }
+
+    colorCircles.forEach(circle => {
+        circle.addEventListener('click', function() {
+            // Remove 'selected' class from all circles
+            colorCircles.forEach(c => c.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked circle
+            this.classList.add('selected');
+
+            const selectedColor = this.dataset.color; // Get the color from the data attribute
+
+            // Set the CSS variable value
+            root.style.setProperty('--primary-color', selectedColor);
+
+            // Save the selected color to local storage
+            localStorage.setItem('selectedColor', selectedColor);
+
+            console.log("Color selected:", selectedColor);
+        });
+    });
+
+    // Add 'selected' class to the circle with the saved color on page load
+    if (savedColor) {
+        colorCircles.forEach(circle => {
+            if (circle.dataset.color === savedColor) {
+                circle.classList.add('selected');
+            }
+        });
+    }
+});

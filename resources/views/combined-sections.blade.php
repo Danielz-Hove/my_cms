@@ -17,22 +17,29 @@
 
 <body>
     <!-- Side Panel Button -->
-    <button id="sidePanelToggleButton" style="position: fixed; top: 20px; left: 20px; z-index: 1001;">
-    <i class="fa fa-cog"></i> <!-- Gear icon -->
+    <button id="sidePanelToggleButton" class="side-panel-toggle-button">
+      <i class="fa fa-cog"></i> <!-- Gear icon -->
     </button>
 
-    <!-- The Side Panel -->
     <div id="sidePanel" class="side-panel">
-        <a href="javascript:void(0)" class="close-button" onclick="closeSidePanel()">×</a> <!-- Close Button -->
+      <a href="javascript:void(0)" class="close-button" onclick="closeSidePanel()">×</a> <!-- Close Button -->
 
-        <!-- Side Panel Content -->
-        <h2>About Us</h2>
-        <p>Some information about our company...</p>
-        <ul>
-            <li><a href="#">Our Mission</a></li>
-            <li><a href="#">Our Team</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+      <!-- Color Options -->
+      <div class="color-options">
+        <h3>Theme Colors</h3>
+        <div class="color-circle" data-color="#0d83fd"></div>
+        <div class="color-circle" data-color="#28a745"></div>
+        <div class="color-circle" data-color="#dc3545"></div>
+      </div>
+
+      <!-- Theme Toggle -->
+      <div class="theme-toggle">
+        <h3>Dark Mode</h3>
+        <label class="switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="slider round"></span>
+        </label>
+      </div>
     </div>
     <!--Hero Section-->
     <section id="hero" class="py-0">
@@ -109,11 +116,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 text-center text-md-left"> <!-- Added text alignment classes -->
                         @if($heroSection->hero_subtitle_icon)
-                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px; font-size:18px;">
+                        <small style="background-color: #e1eefe; color: var(--primary-color) !important; padding: 5px 10px; border-radius: 10px; font-size:18px;">
                             <i class="fa {{ $heroSection->hero_subtitle_icon }} fa-spin"></i> {{ $heroSection->hero_subtitle }}
                         </small>
                         @else
-                        <small style="background-color: #e1eefe; color: #007bff; padding: 5px 10px; border-radius: 10px;">
+                        <small style="background-color: #e1eefe; color: var(--primary-color) !important; padding: 5px 10px; border-radius: 10px;">
                             {{ $heroSection->hero_subtitle ?? 'Your Subtitle Here' }} <!-- Placeholder -->
                         </small>
                         @endif
@@ -259,7 +266,7 @@
             @if($featuresTabbedSections->isNotEmpty())
             <div class="text-center"> <!-- Added text-center here -->
                 <h2>{{ $featuresTabbedSections->first()->features_headline ?? 'Features' }}</h2>
-                <div style="width: 50px; height: 3px; margin: 0.5rem auto; background-color: #3498db;"></div>
+                <div style="width: 50px; height: 3px; margin: 0.5rem auto; background-color: var(--primary-color);"></div>
                 <!-- Added line -->
                 <p class="text-muted">{{ $featuresTabbedSections->first()->features_subheading ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
@@ -375,7 +382,7 @@
 
     @forelse($callToActionClientsSections as $section)
     <!-- Call to Action (Large Blue Section) -->
-    <section id="cta" class="py-5" style="background-color: #007bff; /* Example Blue Color */">
+    <section id="cta" class="py-5" style="background-color: var(--primary-color); /* Example Blue Color */">
         <div class="container" style="color: white;">
             <div class="text-center cta-content"> <!-- Added cta-content for styling -->
                 <h2 style="color: white;">{{ $section->cta_headline ?? 'Call to Action' }}</h2>
@@ -386,7 +393,7 @@
     </section>
     @empty
     <!-- CTA Placeholder -->
-    <section id="cta" class="py-5" style="background-color: #007bff; color: white;">
+    <section id="cta" class="py-5" style="background-color: var(--primary-color); color: white;">
         <div class="container">
             <div class="text-center">
                 <h2>Call To Action Placeholder</h2>
@@ -488,7 +495,7 @@
                 @foreach ($testimonialSection->statistics as $statistic)
                 <div class="col-md-3">
                     <span class="display-4" style="color: black;">{{ $statistic['statistic_number'] ?? '0' }}</span>
-                    <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                    <div style="width: 50px; height: 3px; background-color: var(--primary-color); margin: 0.5rem auto;"></div>
                     <p>{{ $statistic['statistic_text'] ?? 'Statistic' }}</p>
                 </div>
                 @endforeach
@@ -512,7 +519,7 @@
         <div class="container">
             <div class="text-center">
                 <h2>{{ $section->services_title ?? 'Services Title' }}</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <div style="width: 50px; height: 3px; background-color: var(--primary-color); margin: 0.5rem auto;"></div>
                 <p class="text-muted" style="padding-bottom: 20px;">{{ $section->services_subtext ?? 'Services Subtext' }}</p>
             </div>
 
@@ -558,7 +565,7 @@
         <div class="container">
             <div class="text-center">
                 <h2>{{ $pricingSections->first()->pricing_title ?? 'Pricing' }}</h2>
-                <div style="width: 50px; height: 3px; background-color: #3498db; margin: 0.5rem auto;"></div>
+                <div style="width: 50px; height: 3px; background-color: var(--primary-color); margin: 0.5rem auto;"></div>
                 <p class="text-muted" style="padding-bottom: 20px;">
                     {{ $pricingSections->first()->pricing_subtext ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}
                 </p>
@@ -568,7 +575,7 @@
                 @if(isset($pricingSections->first()->pricing_plans) && is_array($pricingSections->first()->pricing_plans))
                 @foreach($pricingSections->first()->pricing_plans ?? [] as $plan)
                 <div class="col-md-4">
-                    <div class="card" style="padding:20px; @if($loop->index === 1) background-color: #0d83fd; color: white; @endif">
+                    <div class="card" style="padding:20px; @if($loop->index === 1) background-color: var(--primary-color); color: white; @endif">
                         @if($loop->index === 1)
                         <span class="badge badge-light" style="position: absolute; top: -10px; right: 50%; transform: translateX(50%); padding:10px; border-radius:10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);">Most Popular</span>
                         @endif
@@ -580,7 +587,7 @@
                             <ul style="list-style: none;">
                                 @if(isset($plan['plan_features']) && is_array($plan['plan_features']))
                                 @foreach($plan['plan_features'] ?? [] as $feature)
-                                <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></i> {{ $feature['feature_text'] ?? 'Feature Text' }}</li>
+                                <li><i class="{{ $feature['feature_icon'] ?? 'fa fa-check-circle' }} @if($loop->parent->index === 1) text-light @else text-primary @endif"></style></i> {{ $feature['feature_text'] ?? 'Feature Text' }}</li>
                                 @endforeach
                                 @endif
                             </ul>
@@ -640,7 +647,7 @@
         </div>
     </section>
     <!-- Call to Action (Bottom) -->
-    <section id="cta-bottom" class="py-5" style="background-color:#0d83fd;color:white;">
+    <section id="cta-bottom" class="py-5" style="background-color:var(--primary-color);color:white;">
         <div class="container text-center" style="padding:60px;">
 
             @if(!isset($faq))
@@ -661,11 +668,11 @@
             @forelse($contactSections as $contactSection)
             <div class="text-center">
                 <h2>{{ $contactSection->contact_title ?? 'Contact' }}</h2>
-                <div style="width: 50px; height: 3px; background-color: #0d83fd; margin: 0.5rem auto;"></div>
+                <div id="page-section" style="width: 50px; height: 3px; margin: 0.5rem auto;"></div>
                 <p class="text-muted">{{ $contactSection->contact_subtitle ?? 'Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit.' }}</p>
             </div>
             <div class="row">
-                <div class="col-md-4 contact-info" style="background-color:#0d83fd;color:white; padding:40px; border-radius:20px;">
+                <div class="col-md-4 contact-info" style="background-color: var(--primary-color);color:white; padding:40px; border-radius:20px;">
                     <h3 style="color: white;">{{ $contactSection->contact_sidebar_title ?? 'Contact Info' }}</h3>
                     <p>{{ $contactSection->contact_paragraph ?? 'Prassent sacies massia cousulls o pellentesque ness, egestas non essi. Vestibulum ante ipsum perilis.' }}</p>
 
